@@ -42,7 +42,9 @@
 		<Unit filename="src/vilainApp.cpp" />
 		<Unit filename="src/vilainApp.h" />
 		<Extensions>
-			<code_completion />
+			<code_completion>
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks" />
+			</code_completion>
 			<envvars />
 			<debugger />
 			<DoxyBlocks>
