@@ -21,12 +21,16 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
 
+    vilainImage * addNewImageFromFile(string path_to_file);
+    vilainImage * addNewImageFromFiles(vector<string> paths_to_files);
+
 protected:
-    vilainImage * oneImage;
+    vilainImage * oneImage;     /**< Pointer to the last added vilainImage ? */
     vector<vilainImage *> imagesCollection;
 
-    vilainFlux * oneFlux;
+    vilainFlux * oneFlux;       /**< Pointer to the last added vilainFlux ? */
     vector<vilainFlux *> fluxCollection;
 
     bool bInfoText = True;
+    int lastMouseX=0, lastMouseY=0;
 };

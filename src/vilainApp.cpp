@@ -10,28 +10,18 @@ void vilainApp::setup()
     vector<int> devicesID;
     devicesID.push_back(0);
 
+    ofSetupScreen();
     ofSetFrameRate(30);
-    ofLog() << "vilain::Mapping";
+    ofLog() << "\tvilain::Mapping";
     ofDisableArbTex();
 
-    for(auto path : paths)
-    {
-        oneImage = new vilainImage(path);
-        oneImage->image.rotate90(45);
-        ofLog() << "Texture size : X:"
-                << oneImage->image.getTextureReference().getWidth()
-                << ", Y:" << oneImage->image.getTextureReference().getHeight();
-        oneImage->resizeToTexture(oneImage->image.getTextureReference());
-        imagesCollection.push_back(oneImage);
-        oneImage = NULL;
-    }
+    addNewImageFromFiles(paths);
 
     for(auto deviceID : devicesID)
     {
         oneFlux = new vilainFlux(deviceID);
         oneFlux->init(160,120);
         fluxCollection.push_back(oneFlux);
-        oneFlux = NULL;
     }
 }
 
@@ -43,7 +33,12 @@ void vilainApp::update()
     for(auto oneFlux : fluxCollection)
     {
         oneFlux->update();
-        oneFlux->setPosition(mouseX,mouseY,0);
+        if(lastMouseX!=mouseX || lastMouseY!=mouseY)
+        {
+            lastMouseX = mouseX;
+            lastMouseY = mouseY;
+            oneFlux->setPosition(mouseX,mouseY,0);
+        }
     }
 }
 
@@ -119,3 +114,28 @@ void vilainApp::dragEvent(ofDragInfo dragInfo)
 {
 
 }
+
+//--------------------------------------------------------------
+vilainImage * vilainApp::addNewImageFromFile(string path_to_file)
+{
+    oneImage = new vilainImage(path_to_file);
+    oneImage->resizeToTexture(oneImage->image.getTextureReference());
+    imagesCollection.push_back(oneImage);
+    ofLogVerbose("vilainApp::addNewImageFromFile")
+            << "Add file "
+            << path_to_file
+            << " as new vilainImage layer of size "
+            << oneImage->image.getTextureReference().getWidth()
+            << "x"
+            << oneImage->image.getTextureReference().getHeight();
+    return oneImage;
+}
+
+//--------------------------------------------------------------
+vilainImage * vilainApp::addNewImageFromFiles(vector<string> paths_to_files)
+{
+    for(string path : paths_to_files)
+        oneImage = addNewImageFromFile(path);
+    return oneImage;
+}
+
