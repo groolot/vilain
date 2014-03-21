@@ -2,6 +2,7 @@
 #define VILAINFLUX_H
 
 #include <ofMain.h>
+#include <ofxOsc.h>
 
 /** @brief Define a WebCam flow contained in a rectangle
 */
@@ -19,7 +20,15 @@ public:
     void update(void);
     void draw(void);
 
+    virtual void onPositionChanged(void);
+
     ofVideoGrabber flux;
+
+    ofxOscSender sender;
+    ofxOscMessage message;
+
+
+
 protected:
 private:
 };
