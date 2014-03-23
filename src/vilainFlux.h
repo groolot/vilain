@@ -24,8 +24,10 @@ public:
 
     ofVideoGrabber flux;
 
-    ofxOscSender sender;
-    ofxOscMessage message;
+    ofxOscSender oscSender;
+    ofxOscReceiver oscReceiver;
+    ofxOscMessage oscOutMessage;
+    string oscInputAddress;
 
 
 

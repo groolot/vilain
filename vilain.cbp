@@ -18,6 +18,7 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add directory="src/" />
+					<Add directory="src" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -30,20 +31,50 @@
 				<Option projectLinkerOptionsRelation="2" />
 				<Compiler>
 					<Add directory="src/" />
+					<Add directory="src" />
 				</Compiler>
 			</Target>
 		</Build>
+		<Unit filename="addons.make">
+			<Option virtualFolder="build config/" />
+		</Unit>
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
-		<Unit filename="src/VImage.cpp" />
-		<Unit filename="src/VImage.h" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/vilainApp.cpp" />
 		<Unit filename="src/vilainApp.h" />
+		<Unit filename="src/vilainFlux.cpp" />
+		<Unit filename="src/vilainFlux.h" />
+		<Unit filename="src/vilainImage.cpp" />
+		<Unit filename="src/vilainImage.h" />
 		<Extensions>
 			<code_completion>
 				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/3d" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/app" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/communication" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/events" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/gl" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/graphics" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/math" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/sound" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/types" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/utils" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/video" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxOsc/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofx3DModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxAssimpModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxControlPanel/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxDirList/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxGui/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxNetwork/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxKinect/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxOpenCv/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxSvg/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxThreadedImageLoader/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxVectorGraphics/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxXmlSettings/src" />
 			</code_completion>
 			<envvars />
 			<debugger />
@@ -56,6 +87,9 @@
 				<doxyfile_dot have_dot="1" />
 				<general />
 			</DoxyBlocks>
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="" main="" init_handlers="necessary" language="CPP" />
+			</wxsmith>
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

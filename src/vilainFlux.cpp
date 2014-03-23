@@ -18,7 +18,7 @@ vilainFlux::~vilainFlux()
 
 void vilainFlux::init(int w, int h)
 {
-    sender.setup("localhost", 12345);
+    oscSender.setup("localhost", 12345);
     flux.initGrabber(w,h);
     this->resizeToTexture(flux.getTextureReference());
 }
@@ -38,9 +38,9 @@ void vilainFlux::draw(void)
 
 void vilainFlux::onPositionChanged(void)
 {
-    message.setAddress("/path/to/the/remote/parameter/to/control");
-    message.addIntArg(getPosition().x);
-    message.addIntArg(getPosition().y);
-    sender.sendMessage(message);
-    message.clear();
+    oscOutMessage.setAddress("/path/to/the/remote/parameter/to/control");
+    oscOutMessage.addIntArg(getPosition().x);
+    oscOutMessage.addIntArg(getPosition().y);
+    oscSender.sendMessage(oscOutMessage);
+    oscOutMessage.clear();
 }

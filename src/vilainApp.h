@@ -1,6 +1,8 @@
 #pragma once
 
 #include <ofMain.h>
+//#include <ofxControlPanel.h>
+
 #include "vilainImage.h"
 #include "vilainFlux.h"
 

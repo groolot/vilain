@@ -57,7 +57,6 @@ void vilainApp::draw()
         ss << "(t): Info Text"<<endl;
         ofDrawBitmapString(ss.str().c_str(), 20, 20);
     }
-
 }
 
 //--------------------------------------------------------------
