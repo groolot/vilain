@@ -17,7 +17,7 @@ public:
     virtual ~vilainFlux();
 
     void init(int w, int h);
-    void update(void);
+    void update(ofEventArgs &e);
     void draw(void);
 
     virtual void onPositionChanged(void);
@@ -28,8 +28,6 @@ public:
     ofxOscReceiver oscReceiver;
     ofxOscMessage oscOutMessage;
     string oscInputAddress;
-
-
 
 protected:
 private:

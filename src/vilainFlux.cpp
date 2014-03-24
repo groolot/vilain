@@ -7,40 +7,39 @@ vilainFlux::vilainFlux()
 
 vilainFlux::vilainFlux(int deviceID)
 {
-    flux.setDeviceID(deviceID);
+    this->flux.setDeviceID(deviceID);
 }
 
 vilainFlux::~vilainFlux()
 {
-    //dtor
+    ofRemoveListener(ofEvents().update, this, &vilainFlux::update);
 }
-
 
 void vilainFlux::init(int w, int h)
 {
-    oscSender.setup("localhost", 12345);
-    flux.initGrabber(w,h);
-    this->resizeToTexture(flux.getTextureReference());
+    this->oscSender.setup("localhost", 12345);
+    this->flux.initGrabber(w,h);
+    this->resizeToTexture(this->flux.getTextureReference());
+    ofAddListener(ofEvents().update, this, &vilainFlux::update);
 }
 
-
-void vilainFlux::update(void)
+void vilainFlux::update(ofEventArgs &e)
 {
-    flux.update();
+    this->flux.ofVideoGrabber::update();
 }
 
 void vilainFlux::draw(void)
 {
-    flux.getTextureReference().bind();
+    this->flux.getTextureReference().bind();
     of3dPrimitive::draw();
-    flux.getTextureReference().unbind();
+    this->flux.getTextureReference().unbind();
 }
 
 void vilainFlux::onPositionChanged(void)
 {
-    oscOutMessage.setAddress("/path/to/the/remote/parameter/to/control");
-    oscOutMessage.addIntArg(getPosition().x);
-    oscOutMessage.addIntArg(getPosition().y);
-    oscSender.sendMessage(oscOutMessage);
-    oscOutMessage.clear();
+    this->oscOutMessage.setAddress("/path/to/the/remote/parameter/to/control");
+    this->oscOutMessage.addIntArg(getPosition().x);
+    this->oscOutMessage.addIntArg(getPosition().y);
+    this->oscSender.sendMessage(oscOutMessage);
+    this->oscOutMessage.clear();
 }

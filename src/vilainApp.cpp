@@ -32,7 +32,6 @@ void vilainApp::update()
         oneImage->setPosition(mouseX,mouseY,0);
     for(auto oneFlux : this->fluxCollection)
     {
-        oneFlux->update();
         if(lastMouseX!=mouseX || lastMouseY!=mouseY)
         {
             lastMouseX = mouseX;
@@ -54,7 +53,7 @@ void vilainApp::draw()
     {
         stringstream ss;
         ss << "Framerate: " << ofToString(ofGetFrameRate(),0) << "\n";
-        ss << "(t): Info Text"<<endl;
+        ss << "(t): Info Text" << endl;
         ofDrawBitmapString(ss.str().c_str(), 20, 20);
     }
 }

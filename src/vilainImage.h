@@ -20,13 +20,17 @@ public:
     void LoadImage(string path);
 
     void draw(void);
+    void update(ofEventArgs &e);
 
     /** Image container to be used as texture (via the ofImage_#tex)
         or pixels map (via the ofImage_#pixels)
     */
     ofImage image;
+
 protected:
+
 private:
+
 };
 
 #endif // VILAINIMAGE_H
