@@ -11,6 +11,7 @@ before_install:
  - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev gstreamer0.10-ffmpeg gstreamer0.10-pulseaudio gstreamer0.10-x gstreamer0.10-plugins-bad gstreamer0.10-alsa gstreamer0.10-plugins-base gstreamer0.10-plugins-good
  - sudo apt-get install libmpg123-dev gstreamer0.10-plugins-ugly
  - popd
+ - popd
 script: make
 branches:
   only:
