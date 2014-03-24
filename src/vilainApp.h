@@ -1,6 +1,7 @@
 #pragma once
 
 #include <ofMain.h>
+#include <ofFileUtils.h>
 //#include <ofxControlPanel.h>
 
 #include "vilainImage.h"
@@ -24,7 +25,8 @@ public:
     void gotMessage(ofMessage msg);
 
     vilainImage * addNewImageFromFile(string path_to_file);
-    vilainImage * addNewImageFromFiles(vector<string> paths_to_files);
+    vilainImage * addNewImageFromFile(ofFile file);
+    vilainImage * addNewImageFromFiles(vector<ofFile> list_of_files);
 
 protected:
     vilainImage * oneImage;     /**< Pointer to the last added vilainImage ? */

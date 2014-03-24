@@ -3,9 +3,9 @@
 //--------------------------------------------------------------
 void vilainApp::setup()
 {
-    vector<string> paths;
-    paths.push_back("groolot.jpg");
-    paths.push_back("groolot.png");
+    vector <ofFile> files;
+    files.push_back(ofFile("groolot.jpg"));
+    files.push_back(ofFile("groolot.png"));
 
     vector<int> devicesID;
     devicesID.push_back(0);
@@ -15,22 +15,22 @@ void vilainApp::setup()
     ofLog() << "\tvilain::Mapping";
     ofDisableArbTex();
 
-    addNewImageFromFiles(paths);
+    this->addNewImageFromFiles(files);
 
     for(auto deviceID : devicesID)
     {
         oneFlux = new vilainFlux(deviceID);
         oneFlux->init(160,120);
-        fluxCollection.push_back(oneFlux);
+        this->fluxCollection.push_back(oneFlux);
     }
 }
 
 //--------------------------------------------------------------
 void vilainApp::update()
 {
-    for(auto oneImage : imagesCollection)
+    for(auto oneImage : this->imagesCollection)
         oneImage->setPosition(mouseX,mouseY,0);
-    for(auto oneFlux : fluxCollection)
+    for(auto oneFlux : this->fluxCollection)
     {
         oneFlux->update();
         if(lastMouseX!=mouseX || lastMouseY!=mouseY)
@@ -45,9 +45,9 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-    for(auto uneImage : imagesCollection)
+    for(auto uneImage : this->imagesCollection)
         uneImage->draw();
-    for(auto oneFlux : fluxCollection)
+    for(auto oneFlux : this->fluxCollection)
         oneFlux->draw();
 
     if(bInfoText)
@@ -117,24 +117,30 @@ void vilainApp::dragEvent(ofDragInfo dragInfo)
 //--------------------------------------------------------------
 vilainImage * vilainApp::addNewImageFromFile(string path_to_file)
 {
-    oneImage = new vilainImage(path_to_file);
-    oneImage->resizeToTexture(oneImage->image.getTextureReference());
-    imagesCollection.push_back(oneImage);
+    this->oneImage = new vilainImage(path_to_file);
+    this->oneImage->resizeToTexture(oneImage->image.getTextureReference());
+    this->imagesCollection.push_back(oneImage);
     ofLogVerbose("vilainApp::addNewImageFromFile")
             << "Add file "
             << path_to_file
             << " as new vilainImage layer of size "
-            << oneImage->image.getTextureReference().getWidth()
+            << this->oneImage->image.getTextureReference().getWidth()
             << "x"
-            << oneImage->image.getTextureReference().getHeight();
-    return oneImage;
+            << this->oneImage->image.getTextureReference().getHeight();
+    return this->oneImage;
 }
 
 //--------------------------------------------------------------
-vilainImage * vilainApp::addNewImageFromFiles(vector<string> paths_to_files)
+vilainImage * vilainApp::addNewImageFromFile(ofFile file)
 {
-    for(string path : paths_to_files)
-        oneImage = addNewImageFromFile(path);
+    return this->addNewImageFromFile(file.path());
+}
+
+//--------------------------------------------------------------
+vilainImage * vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
+{
+    for(ofFile file : list_of_files)
+        this->oneImage = addNewImageFromFile(file);
     return oneImage;
 }
 
