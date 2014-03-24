@@ -1,0 +1,27 @@
+language: cpp
+compiler: gcc
+before_install:
+ - wget http://www.openframeworks.cc/versions/v0.8.0/of_v0.8.0_linux64_release.tar.gz -O /tmp/of_v0.8.0_linux64_release.tar.gz
+ - tar xvfz /tmp/of_v0.8.0_linux64_release.tar.gz
+ - pushd of_v0.8.0_linux64_release/scripts/linux
+ - sudo apt-get update
+ - sudo apt-get install freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++ libgl1-mesa-dev libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile-dev libfreeimage-dev libcairo2-dev libgtk2.0-dev python-lxml python-argparse libfreetype6-dev portaudio19-dev libssl-dev libpulse-dev
+ - sudo apt-get install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev gstreamer1.0-libav gstreamer1.0-pulseaudio gstreamer1.0-x gstreamer1.0-plugins-bad gstreamer1.0-alsa gstreamer1.0-plugins-base gstreamer1.0-plugins-good
+ - sudo apt-get install libmpg123-dev gstreamer1.0-plugins-ugly
+ - popd
+script: cd vilain && make
+branches:
+  only:
+    - master
+notifications:
+  email:
+    - dev@groolot.net
+  email:
+    on_success: change
+    on_failure: always
+  irc:
+    channels:
+      - "chat.freenode.net#vilain"
+      - "chat.freenode.net#ammd"
+      - "chat.freenode.net#bts-malraux"
+cache: apt
