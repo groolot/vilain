@@ -5,14 +5,37 @@ before_install:
  - wget http://www.openframeworks.cc/versions/v0.8.0/of_v0.8.0_linux64_release.tar.gz -O /tmp/of_v0.8.0_linux64_release.tar.gz
  - tar xvfz /tmp/of_v0.8.0_linux64_release.tar.gz
  - mv of_v0.8.0_linux64_release/ openframeworks
- - pushd openframeworks/scripts/linux
+ - pushd openframeworks/addons
+ - git clone git@github.com:memo/ofxMSAInteractiveObject.git
+ - git clone git@github.com:patriciogonzalezvivo/ofxFX.git
+ - git clone git@github.com:armadillu/ofxAnimatable.git
+ - git clone git@github.com:kylemcdonald/ofxCv.git
+ - git clone git@github.com:underdoeg/ofxFenster.git
+ - git clone git@github.com:patriciogonzalezvivo/ofxFluid.git
+ - git clone git@github.com:memo/ofxMSACore.git
+ - git clone git@github.com:memo/ofxMSAFluid.git
+ - git clone git@github.com:morethanlogic/ofxMtlMapping2D.git
+ - git clone git@github.com:anagma/ofxNamedVariables.git
+ - git clone git@github.com:bakercp/ofxOscRouter.git
+ - git clone git@github.com:neilmendoza/ofxPostProcessing.git
+ - git clone git@github.com:fishkingsin/ofxRenderManager.git
+ - git clone git@github.com:armadillu/ofxSceneManager.git
+ - git clone git@github.com:tgfrerer/ofxTextureServer.git
+ - git clone https://github.com/YCAMInterlab/ofxTimeline.git
+ - git clone git@github.com:trentbrooks/ofxTouchGUI.git
+ - git clone git@github.com:rezaali/ofxUI.git
+ - git clone git@github.com:patriciogonzalezvivo/ofxVoro.git
+ - git clone git@github.com:YCAMInterlab/ProCamToolkit.git
+ - git clone git://github.com/danomatika/ofxMidi.git
+ - git clone git@github.com:arturoc/ofxTween.git
+ - git clone git://github.com/vanderlin/ofxBox2d.git
+ - popd
+ - popd
  - sudo apt-get update
  - sudo apt-get install freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++ libgl1-mesa-dev libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile-dev libfreeimage-dev libcairo2-dev libgtk2.0-dev python-lxml python-argparse libfreetype6-dev portaudio19-dev libssl-dev libpulse-dev
  - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev gstreamer0.10-ffmpeg gstreamer0.10-pulseaudio gstreamer0.10-x gstreamer0.10-plugins-bad gstreamer0.10-alsa gstreamer0.10-plugins-base gstreamer0.10-plugins-good
  - sudo apt-get install libmpg123-dev gstreamer0.10-plugins-ugly
- - popd
- - popd
-script: make
+script: PROJECT_CFLAGS='-std=c++0x' make -e
 branches:
   only:
     - master

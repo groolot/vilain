@@ -5,3 +5,6 @@ ofxOsc
 #ofxFenster
 #ofxTextureServer
 #ofxPostProcessing
+#ofxMtlMapping2D
+#ofxMSAInteractiveObject
+#ofxUI

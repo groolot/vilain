@@ -8,7 +8,6 @@
 #   The location of your root openFrameworks installation
 #       (default) OF_ROOT = ../../..
 ################################################################################
-#OF_ROOT = /home/groolot/openframeworks/of_v0.8.0_linux_release
 OF_ROOT = $(HOME)/openframeworks
 
 ################################################################################
