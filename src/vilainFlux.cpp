@@ -1,5 +1,7 @@
 #include "vilainFlux.h"
 
+using namespace vilain;
+
 vilainFlux::vilainFlux()
 {
 

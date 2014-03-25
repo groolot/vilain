@@ -1,10 +1,14 @@
 #pragma once
+#ifndef VILAINAPP_H
+#define VILAINAPP_H
 
 #include <ofMain.h>
 
 #include "vilainImage.h"
 #include "vilainFlux.h"
 
+namespace vilain
+{
 class vilainApp : public ofBaseApp
 {
 public:
@@ -36,3 +40,5 @@ protected:
     bool bInfoText = True;
     int lastMouseX=0, lastMouseY=0;
 };
+}
+#endif // VILAINAPP_H

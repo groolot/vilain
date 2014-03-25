@@ -1,5 +1,7 @@
 #include "vilainApp.h"
 
+using namespace vilain;
+
 //--------------------------------------------------------------
 void vilainApp::setup()
 {
@@ -20,7 +22,7 @@ void vilainApp::setup()
     for(auto deviceID : devicesID)
     {
         oneFlux = new vilainFlux(deviceID);
-        oneFlux->init(160,120);
+        oneFlux->init(80,60);
         this->fluxCollection.push_back(oneFlux);
     }
 }
@@ -117,7 +119,7 @@ void vilainApp::dragEvent(ofDragInfo dragInfo)
 vilainImage * vilainApp::addNewImageFromFile(string path_to_file)
 {
     this->oneImage = new vilainImage(path_to_file);
-    this->oneImage->resizeToTexture(oneImage->image.getTextureReference());
+    //this->oneImage->resizeToTexture(oneImage->image.getTextureReference());
     this->imagesCollection.push_back(oneImage);
     ofLogVerbose("vilainApp::addNewImageFromFile")
             << "Add file "

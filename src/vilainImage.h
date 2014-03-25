@@ -1,8 +1,11 @@
+#pragma once
 #ifndef VILAINIMAGE_H
 #define VILAINIMAGE_H
 
 #include <ofMain.h>
 
+namespace vilain
+{
 /** @brief Define an image contained in a rectangle
 
 */
@@ -32,5 +35,5 @@ protected:
 private:
 
 };
-
+}
 #endif // VILAINIMAGE_H

@@ -1,9 +1,12 @@
+#pragma once
 #ifndef VILAINFLUX_H
 #define VILAINFLUX_H
 
 #include <ofMain.h>
 #include <ofxOsc.h>
 
+namespace vilain
+{
 /** @brief Define a WebCam flow contained in a rectangle
 */
 class vilainFlux : public ofPlanePrimitive
@@ -32,5 +35,5 @@ public:
 protected:
 private:
 };
-
+}
 #endif // VILAINFLUX_H

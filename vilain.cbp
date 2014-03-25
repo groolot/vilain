@@ -75,6 +75,7 @@
 				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxThreadedImageLoader/src" />
 				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxVectorGraphics/src" />
 				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxXmlSettings/src" />
+				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxNSWindower/src" />
 			</code_completion>
 			<envvars />
 			<debugger />
