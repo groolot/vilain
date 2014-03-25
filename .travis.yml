@@ -6,7 +6,7 @@ before_install:
  - tar xvfz /tmp/of_v0.8.0_linux64_release.tar.gz
  - mv of_v0.8.0_linux64_release/ openframeworks
  - pushd openframeworks/addons
- - git clone https://github.com/ofxMSAInteractiveObject.git
+ - git clone https://github.com/memo/ofxMSAInteractiveObject.git
  - git clone https://github.com/patriciogonzalezvivo/ofxFX.git
  - git clone https://github.com/armadillu/ofxAnimatable.git
  - git clone https://github.com/kylemcdonald/ofxCv.git
