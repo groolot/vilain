@@ -38,7 +38,7 @@ before_install:
  - sudo apt-get install freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++ libgl1-mesa-dev libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile-dev libfreeimage-dev libcairo2-dev libgtk2.0-dev python-lxml python-argparse libfreetype6-dev portaudio19-dev libssl-dev libpulse-dev
  - sudo apt-get install libgstreamer0.10-dev libgstreamer-plugins-base0.10-dev gstreamer0.10-ffmpeg gstreamer0.10-pulseaudio gstreamer0.10-x gstreamer0.10-plugins-bad gstreamer0.10-alsa gstreamer0.10-plugins-base gstreamer0.10-plugins-good
  - sudo apt-get install libmpg123-dev gstreamer0.10-plugins-ugly
-script: PROJECT_CXX='g++-4.8' make -e
+script: PROJECT_CXX='g++-4.8' PROJECT_CC='gcc-4.8' make -e
 branches:
   only:
     - master
