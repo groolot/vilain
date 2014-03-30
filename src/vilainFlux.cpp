@@ -14,6 +14,7 @@ vilainFlux::vilainFlux(int deviceID)
 
 vilainFlux::~vilainFlux()
 {
+    flux.close();
     ofRemoveListener(ofEvents().update, this, &vilainFlux::update);
 }
 
