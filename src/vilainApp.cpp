@@ -21,7 +21,7 @@ void vilainApp::setup()
 
     for(auto deviceID : devicesID)
     {
-        oneFlux = new vilainFlux(deviceID);
+        shared_ptr<vilainFlux> oneFlux( new vilainFlux(deviceID) );
         oneFlux->init(80,60);
         this->fluxCollection.push_back(oneFlux);
     }
@@ -116,32 +116,32 @@ void vilainApp::dragEvent(ofDragInfo dragInfo)
 }
 
 //--------------------------------------------------------------
-vilainImage * vilainApp::addNewImageFromFile(string path_to_file)
+shared_ptr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
 {
-    this->oneImage = new vilainImage(path_to_file);
-    //this->oneImage->resizeToTexture(oneImage->image.getTextureReference());
-    this->imagesCollection.push_back(oneImage);
+    shared_ptr<vilainImage> oneImage( new vilainImage(path_to_file) );
+    oneImage->resizeToTexture(oneImage->image.getTextureReference());
+    imagesCollection.push_back(oneImage);
     ofLogVerbose("vilainApp::addNewImageFromFile")
             << "Add file "
             << path_to_file
             << " as new vilainImage layer of size "
-            << this->oneImage->image.getTextureReference().getWidth()
+            << oneImage->image.getTextureReference().getWidth()
             << "x"
-            << this->oneImage->image.getTextureReference().getHeight();
-    return this->oneImage;
+            << oneImage->image.getTextureReference().getHeight();
+    return oneImage;
 }
 
 //--------------------------------------------------------------
-vilainImage * vilainApp::addNewImageFromFile(ofFile file)
+shared_ptr<vilainImage> vilainApp::addNewImageFromFile(ofFile file)
 {
-    return this->addNewImageFromFile(file.path());
+    return addNewImageFromFile(file.path());
 }
 
 //--------------------------------------------------------------
-vilainImage * vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
+shared_ptr<vilainImage> vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
 {
     for(ofFile file : list_of_files)
-        this->oneImage = addNewImageFromFile(file);
+        oneImage = addNewImageFromFile(file);
     return oneImage;
 }
 
