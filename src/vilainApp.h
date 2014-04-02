@@ -2,6 +2,10 @@
 #ifndef VILAINAPP_H
 #define VILAINAPP_H
 
+#include <libintl.h>
+#define _(String) gettext(String)
+#define _N(String) String
+
 #include <ofMain.h>
 #include <memory>
 
@@ -26,20 +30,28 @@ public:
     void windowResized(int w, int h) override;
     void dragEvent(ofDragInfo dragInfo) override;
     void gotMessage(ofMessage msg) override;
+    void exit() override;
 
-    shared_ptr<vilainImage> addNewImageFromFile(string path_to_file);
-    shared_ptr<vilainImage> addNewImageFromFile(ofFile file);
-    shared_ptr<vilainImage> addNewImageFromFiles(vector<ofFile> list_of_files);
+    ofPtr<vilainImage> addNewImageFromFile(string path_to_file);
+    ofPtr<vilainImage> addNewImageFromFile(ofFile file);
+    ofPtr<vilainImage> addNewImageFromFiles(vector<ofFile> list_of_files);
 
 protected:
-    shared_ptr<vilainImage> oneImage;     /**< Pointer to the last added vilainImage ? */
-    vector<shared_ptr<vilainImage>> imagesCollection;
+    ofPtr<vilainImage> oneImage;     /**< Pointer to the last added vilainImage ? */
+    vector<ofPtr<vilainImage>> imagesCollection;
 
-    shared_ptr<vilainFlux> oneFlux;       /**< Pointer to the last added vilainFlux ? */
-    vector<shared_ptr<vilainFlux>> fluxCollection;
+    ofPtr<vilainFlux> oneFlux;       /**< Pointer to the last added vilainFlux ? */
+    vector<ofPtr<vilainFlux>> fluxCollection;
 
     bool bInfoText = True;
     int lastMouseX=0, lastMouseY=0;
+
+    ofVideoGrabber grabber;
+
+    float nearestDistance = 0;
+    ofVec2f nearestVertex;
+    int nearestIndex = 0;
+
 };
 }
 #endif // VILAINAPP_H

@@ -41,4 +41,11 @@ void vilainImage::draw()
     image.getTextureReference().bind();
     of3dPrimitive::draw();
     image.getTextureReference().unbind();
+    if(b_drawExtra){
+        glPointSize(10.);
+        ofSetColor(255);
+        drawVertices();
+        drawAxes(1.);
+        drawWireframe();
+    }
 }

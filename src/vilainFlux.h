@@ -2,6 +2,10 @@
 #ifndef VILAINFLUX_H
 #define VILAINFLUX_H
 
+#include <libintl.h>
+#define _(String) gettext(String)
+#define _N(String) String
+
 #include <ofMain.h>
 #include <ofxOsc.h>
 
@@ -26,6 +30,7 @@ public:
     virtual void onPositionChanged(void);
 
     ofVideoGrabber flux;
+    int videoGrabberDeviceID;
 
     ofxOscSender oscSender;
     ofxOscReceiver oscReceiver;

@@ -1,61 +1,103 @@
 #include "vilainApp.h"
+#include <GLFW/glfw3.h>
 
 using namespace vilain;
 
 //--------------------------------------------------------------
 void vilainApp::setup()
 {
+    GLFWmonitor* primary = glfwGetPrimaryMonitor();
+    const char* name = glfwGetMonitorName(primary);
+    ofLogNotice("MONITOR") << name << endl;
     vector <ofFile> files;
     files.push_back(ofFile("groolot.jpg"));
     files.push_back(ofFile("groolot.png"));
 
-    vector<int> devicesID;
-    devicesID.push_back(0);
+    vector<ofVideoDevice> devicesID = grabber.listDevices();
 
     ofSetupScreen();
     ofSetFrameRate(30);
-    ofLog() << "\tvilain::Mapping";
+    ofLog() << "\tvilain::";
     ofDisableArbTex();
 
-    this->addNewImageFromFiles(files);
+    addNewImageFromFiles(files);
 
-    for(auto deviceID : devicesID)
+    for(ofVideoDevice deviceID : devicesID)
     {
-        shared_ptr<vilainFlux> oneFlux( new vilainFlux(deviceID) );
-        oneFlux->init(80,60);
-        this->fluxCollection.push_back(oneFlux);
+        shared_ptr<vilainFlux> oneFlux( new vilainFlux(deviceID.id) );
+        oneFlux->init(160,120);
+        fluxCollection.push_back(oneFlux);
     }
+
+    // Positionning
+    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+        oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 }
 
 //--------------------------------------------------------------
 void vilainApp::update()
 {
-    for(auto oneImage : this->imagesCollection)
-        oneImage->setPosition(mouseX,mouseY,0);
-    for(auto oneFlux : this->fluxCollection)
-    {
-        if(lastMouseX!=mouseX || lastMouseY!=mouseY)
-        {
-            lastMouseX = mouseX;
-            lastMouseY = mouseY;
-            oneFlux->setPosition(mouseX,mouseY,0);
-        }
-    }
+    ofSetWindowTitle(ofToString(ofGetFrameRate()));
+//    for(auto oneImage : this->imagesCollection)
+//        oneImage->setPosition(mouseX,mouseY,0);
+//    for(auto oneFlux : this->fluxCollection)
+//    {
+//        if(lastMouseX!=mouseX || lastMouseY!=mouseY)
+//        {
+//            lastMouseX = mouseX;
+//            lastMouseY = mouseY;
+//            oneFlux->setPosition(mouseX,mouseY,0);
+//        }
+//    }
 }
 
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-    for(auto uneImage : this->imagesCollection)
-        uneImage->draw();
-    for(auto oneFlux : this->fluxCollection)
+    ofSetColor(ofColor::white);
+    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+        oneImage->draw();
+    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->draw();
+
+    ofMesh mesh = fluxCollection[0]->getMesh();
+    int n = mesh.getNumVertices();
+
+    ofVec2f mouse(mouseX, mouseY);
+    glPointSize(10.);
+    mesh.drawVertices();
+    mesh.drawWireframe();
+
+	for(int i = 0; i < n; i++) {
+		ofVec3f cur = mesh.getVertex(i);
+		float distance = cur.distance(mouse);
+		if(i == 0 || distance < nearestDistance) {
+			nearestDistance = distance;
+			nearestVertex = cur;
+			nearestIndex = i;
+		}
+	}
+
+	ofSetColor(ofColor::gray);
+	ofLine(nearestVertex, mouse);
+
+	ofFill();
+	ofSetColor(ofColor::yellow);
+	ofSetLineWidth(2);
+	ofCircle(nearestVertex, 4);
+	ofSetLineWidth(1);
+
+	ofVec2f offset(10, -10);
+	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
+
 
     if(bInfoText)
     {
         stringstream ss;
-        ss << "Framerate: " << ofToString(ofGetFrameRate(),0) << "\n";
-        ss << "(t): Info Text" << endl;
+        ss << _("Framerate: ") << ofToString(ofGetFrameRate(),0) << "\n";
+        ss << _("(t): Info Text") << endl;
         ofDrawBitmapString(ss.str().c_str(), 20, 20);
     }
 }
@@ -82,7 +124,7 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-
+    fluxCollection[0]->getMeshPtr()->setVertex(nearestIndex, ofVec3f(mouseX, mouseY));
 }
 
 //--------------------------------------------------------------
@@ -100,7 +142,11 @@ void vilainApp::mouseReleased(int x, int y, int button)
 //--------------------------------------------------------------
 void vilainApp::windowResized(int w, int h)
 {
-
+    // Re-Positionning
+    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+        oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 }
 
 //--------------------------------------------------------------
@@ -116,15 +162,21 @@ void vilainApp::dragEvent(ofDragInfo dragInfo)
 }
 
 //--------------------------------------------------------------
-shared_ptr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
+void vilainApp::exit()
 {
-    shared_ptr<vilainImage> oneImage( new vilainImage(path_to_file) );
+
+}
+
+//--------------------------------------------------------------
+ofPtr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
+{
+    ofPtr<vilainImage> oneImage( new vilainImage(path_to_file) );
     oneImage->resizeToTexture(oneImage->image.getTextureReference());
     imagesCollection.push_back(oneImage);
     ofLogVerbose("vilainApp::addNewImageFromFile")
-            << "Add file "
+            << _("Add file ")
             << path_to_file
-            << " as new vilainImage layer of size "
+            << _(" as new vilainImage layer of size ")
             << oneImage->image.getTextureReference().getWidth()
             << "x"
             << oneImage->image.getTextureReference().getHeight();
@@ -132,13 +184,13 @@ shared_ptr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
 }
 
 //--------------------------------------------------------------
-shared_ptr<vilainImage> vilainApp::addNewImageFromFile(ofFile file)
+ofPtr<vilainImage> vilainApp::addNewImageFromFile(ofFile file)
 {
     return addNewImageFromFile(file.path());
 }
 
 //--------------------------------------------------------------
-shared_ptr<vilainImage> vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
+ofPtr<vilainImage> vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
 {
     for(ofFile file : list_of_files)
         oneImage = addNewImageFromFile(file);

@@ -5,7 +5,10 @@
 //========================================================================
 int main( )
 {
-    ofSetLogLevel(OF_LOG_VERBOSE);
+    setlocale(LC_ALL, "");
+    bindtextdomain("vilain", ".");
+    textdomain("vilain");
+    ofSetLogLevel("vilain",OF_LOG_NOTICE);
     ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
 
     // this kicks off the running of my app

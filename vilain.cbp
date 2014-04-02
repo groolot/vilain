@@ -6,7 +6,7 @@
 		<Option makefile_is_custom="1" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="addons/;build config/;" />
+		<Option virtualFolders="build config/;" />
 		<Build>
 			<Target title="Debug">
 				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
@@ -35,11 +35,17 @@
 				</Compiler>
 			</Target>
 		</Build>
+		<Unit filename="Makefile">
+			<Option virtualFolder="build config/" />
+		</Unit>
 		<Unit filename="addons.make">
 			<Option virtualFolder="build config/" />
 		</Unit>
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
+		</Unit>
+		<Unit filename="prebuild.make">
+			<Option virtualFolder="build config/" />
 		</Unit>
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/vilainApp.cpp" />
@@ -50,32 +56,59 @@
 		<Unit filename="src/vilainImage.h" />
 		<Extensions>
 			<code_completion>
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/3d" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/app" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/communication" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/events" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/gl" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/graphics" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/math" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/sound" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/types" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/utils" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/libs/openFrameworks/video" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxOsc/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofx3DModelLoader/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxAssimpModelLoader/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxControlPanel/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxDirList/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxGui/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxNetwork/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxKinect/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxOpenCv/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxSvg/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxThreadedImageLoader/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxVectorGraphics/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxXmlSettings/src" />
-				<search_path add="/home/groolot/openframeworks/of_v0.8.0_linux_release/addons/ofxNSWindower/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofx3DModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAnimatable/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAppUtils/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAssimpModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAutoControlPanel/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxBlur/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxControlPanel/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxCv/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxCvOpticalFlowLK/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDirList/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDmx/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDraggable/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFenster/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFTGL/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFX/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxGui/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxImageSequence/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxKinect/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMSAInteractiveObject/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMSATimer/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMtlMapping2D/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxNamedVariables/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxNetwork/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOpenCv/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOsc/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOscRouter/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxPlaylist/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxPostProcessing/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxProjectorBlend/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxRenderManager/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxSvg/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTextInputField/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTextureServer/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxThreadedImageLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTimeline/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTweakbar/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxUI/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxVectorGraphics/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxVideoMapping/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxWordPalette/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxXmlSettings/src" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/3d" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/app" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/communication" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/events" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/gl" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/graphics" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/math" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/sound" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/types" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/utils" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/video" />
 			</code_completion>
 			<envvars />
 			<debugger />

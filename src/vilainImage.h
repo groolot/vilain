@@ -2,6 +2,10 @@
 #ifndef VILAINIMAGE_H
 #define VILAINIMAGE_H
 
+#include <libintl.h>
+#define _(String) gettext(String)
+#define _N(String) String
+
 #include <ofMain.h>
 
 namespace vilain
@@ -29,6 +33,7 @@ public:
         or pixels map (via the ofImage_#pixels)
     */
     ofImage image;
+    bool b_drawExtra = false;
 
 protected:
 

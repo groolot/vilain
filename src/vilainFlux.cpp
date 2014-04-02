@@ -4,16 +4,18 @@ using namespace vilain;
 
 vilainFlux::vilainFlux()
 {
-
+    flux.setDeviceID(videoGrabberDeviceID);
 }
 
-vilainFlux::vilainFlux(int deviceID)
+vilainFlux::vilainFlux(int deviceID) :
+    videoGrabberDeviceID(deviceID)
 {
-    flux.setDeviceID(deviceID);
+
 }
 
 vilainFlux::~vilainFlux()
 {
+    ofLogNotice(__PRETTY_FUNCTION__) << _("destructs vilainFlux deviceID: ") << videoGrabberDeviceID;
     flux.close();
     ofRemoveListener(ofEvents().update, this, &vilainFlux::update);
 }

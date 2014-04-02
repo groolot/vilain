@@ -1,10 +1,3 @@
 ofxOsc
-#ofxControlPanel
-#ofxDirList
 #ofxXmlSettings
-#ofxFenster
-#ofxTextureServer
-#ofxPostProcessing
-#ofxMtlMapping2D
-#ofxMSAInteractiveObject
-#ofxUI
+#ofxOpenCv
