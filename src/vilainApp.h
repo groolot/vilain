@@ -9,6 +9,10 @@
 #include <ofMain.h>
 #include <memory>
 
+#include "ofxFensterManager.h"
+
+#include "vilainConstants.h"
+#include "vilainControlUI.h"
 #include "vilainImage.h"
 #include "vilainFlux.h"
 
@@ -52,6 +56,9 @@ protected:
     ofVec2f nearestVertex;
     int nearestIndex = 0;
 
+    vilainControlUI ControlWindow;
+
 };
 }
 #endif // VILAINAPP_H
+

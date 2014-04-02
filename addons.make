@@ -1,3 +1,9 @@
 ofxOsc
+ofxFenster
+ofxTimeline
+ofxTween
+ofxMSATimer
+ofxTextInputField
+ofxRange
 #ofxXmlSettings
 #ofxOpenCv

@@ -17,7 +17,7 @@ void vilainApp::setup()
 
     ofSetupScreen();
     ofSetFrameRate(30);
-    ofLog() << "\tvilain::";
+    ofLog() << "\t" PROG_NAME ;
     ofDisableArbTex();
 
     addNewImageFromFiles(files);
@@ -34,6 +34,8 @@ void vilainApp::setup()
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+
+	ofxFensterManager::get()->setupWindow(&ControlWindow);
 }
 
 //--------------------------------------------------------------
