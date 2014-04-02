@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: vilain:: 0.0.1\n"
 "Report-Msgid-Bugs-To: translate@groolot.net\n"
-"POT-Creation-Date: 2014-04-02 02:35+0200\n"
+"POT-Creation-Date: 2014-04-02 04:04+0200\n"
 "PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,19 +17,19 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/vilainApp.cpp:99
+#: src/vilainApp.cpp:101
 msgid "Framerate: "
 msgstr ""
 
-#: src/vilainApp.cpp:100
+#: src/vilainApp.cpp:102
 msgid "(t): Info Text"
 msgstr ""
 
-#: src/vilainApp.cpp:177
+#: src/vilainApp.cpp:179
 msgid "Add file "
 msgstr ""
 
-#: src/vilainApp.cpp:179
+#: src/vilainApp.cpp:181
 msgid " as new vilainImage layer of size "
 msgstr ""
 
