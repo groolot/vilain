@@ -6,33 +6,44 @@ before_install:
  - sudo apt-get install -qq libboost1.48-dev libyajl-dev libxml2-dev libxqilla-dev
  - if [ "$CXX" = "g++" ]; then sudo apt-get install -qq g++-4.8; fi
  - pushd ${HOME}
- - wget http://www.openframeworks.cc/versions/v0.8.0/of_v0.8.0_linux64_release.tar.gz -O /tmp/of_v0.8.0_linux64_release.tar.gz
- - tar xvfz /tmp/of_v0.8.0_linux64_release.tar.gz
- - mv of_v0.8.0_linux64_release/ openframeworks
+ - wget http://www.openframeworks.cc/versions/v0.8.1/of_v0.8.1_linux64_release.tar.gz -O /tmp/of_v0.8.1_linux64_release.tar.gz
+ - tar xvfz /tmp/of_v0.8.1_linux64_release.tar.gz
+ - mv of_v0.8.1_linux64_release/ openframeworks
  - pushd openframeworks/addons
- - git clone https://github.com/memo/ofxMSAInteractiveObject.git
- - git clone https://github.com/patriciogonzalezvivo/ofxFX.git
- - git clone https://github.com/armadillu/ofxAnimatable.git
- - git clone https://github.com/kylemcdonald/ofxCv.git
- - git clone https://github.com/underdoeg/ofxFenster.git
- - git clone https://github.com/patriciogonzalezvivo/ofxFluid.git
- - git clone https://github.com/memo/ofxMSACore.git
- - git clone https://github.com/memo/ofxMSAFluid.git
- - git clone https://github.com/morethanlogic/ofxMtlMapping2D.git
- - git clone https://github.com/anagma/ofxNamedVariables.git
- - git clone https://github.com/bakercp/ofxOscRouter.git
- - git clone https://github.com/neilmendoza/ofxPostProcessing.git
- - git clone https://github.com/fishkingsin/ofxRenderManager.git
- - git clone https://github.com/armadillu/ofxSceneManager.git
- - git clone https://github.com/tgfrerer/ofxTextureServer.git
- - git clone https://github.com/YCAMInterlab/ofxTimeline.git
- - git clone https://github.com/trentbrooks/ofxTouchGUI.git
- - git clone https://github.com/rezaali/ofxUI.git
- - git clone https://github.com/patriciogonzalezvivo/ofxVoro.git
- - git clone https://github.com/YCAMInterlab/ProCamToolkit.git
- - git clone https://github.com/danomatika/ofxMidi.git
- - git clone https://github.com/arturoc/ofxTween.git
- - git clone https://github.com/vanderlin/ofxBox2d.git
+ - git clone https://github.com/groolot/ofxAnimatable.git
+ - git clone https://github.com/groolot/ofxAppUtils.git
+ - git clone https://github.com/groolot/ofxAssimpModelLoader.git
+ - git clone https://github.com/groolot/ofxAutoControlPanel.git
+ - git clone https://github.com/groolot/ofxBlur.git
+ - git clone https://github.com/groolot/ofxControlPanel.git
+ - git clone https://github.com/groolot/ofxCv.git
+ - git clone https://github.com/groolot/ofxCvOpticalFlowLK.git
+ - git clone https://github.com/groolot/ofxDirList.git
+ - git clone https://github.com/groolot/ofxDmx.git
+ - git clone https://github.com/groolot/ofxDraggable.git
+ - git clone https://github.com/groolot/ofxFenster.git
+ - git clone https://github.com/groolot/ofxFTGL.git
+ - git clone https://github.com/groolot/ofxFX.git
+ - git clone https://github.com/groolot/ofxImageSequence.git
+ - git clone https://github.com/groolot/ofxMSAInteractiveObject.git
+ - git clone https://github.com/groolot/ofxMSATimer.git
+ - git clone https://github.com/groolot/ofxMtlMapping2D.git
+ - git clone https://github.com/groolot/ofxNamedVariables.git
+ - git clone https://github.com/groolot/ofxOscRouter.git
+ - git clone https://github.com/groolot/ofxPlaylist.git
+ - git clone https://github.com/groolot/ofxPostProcessing.git
+ - git clone https://github.com/groolot/ofxProjectorBlend.git
+ - git clone https://github.com/groolot/ofxRange.git
+ - git clone https://github.com/groolot/ofxRenderManager.git
+ - git clone https://github.com/groolot/ofxTextInputField.git
+ - git clone https://github.com/groolot/ofxTextureServer.git
+ - git clone https://github.com/groolot/ofxTimecode.git
+ - git clone https://github.com/groolot/ofxTimeline.git
+ - git clone https://github.com/groolot/ofxTweakbar.git
+ - git clone https://github.com/groolot/ofxTween.git
+ - git clone https://github.com/groolot/ofxUI.git
+ - git clone https://github.com/groolot/ofxVideoMapping.git
+ - git clone https://github.com/groolot/ofxWordPalette.git
  - popd
  - popd
  - sudo apt-get install freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++ libgl1-mesa-dev libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile-dev libfreeimage-dev libcairo2-dev libgtk2.0-dev python-lxml python-argparse libfreetype6-dev portaudio19-dev libssl-dev libpulse-dev

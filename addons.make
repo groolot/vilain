@@ -5,5 +5,4 @@ ofxTween
 ofxMSATimer
 ofxTextInputField
 ofxRange
-#ofxXmlSettings
-#ofxOpenCv
+ofxXmlSettings
