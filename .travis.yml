@@ -12,7 +12,6 @@ before_install:
  - pushd openframeworks/addons
  - git clone https://github.com/groolot/ofxAnimatable.git
  - git clone https://github.com/groolot/ofxAppUtils.git
- - git clone https://github.com/groolot/ofxAssimpModelLoader.git
  - git clone https://github.com/groolot/ofxAutoControlPanel.git
  - git clone https://github.com/groolot/ofxBlur.git
  - git clone https://github.com/groolot/ofxControlPanel.git
