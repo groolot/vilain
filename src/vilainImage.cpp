@@ -10,9 +10,6 @@ vilainImage::vilainImage()
 vilainImage::vilainImage(string path)
 {
     LoadImage(path);
-    //this->getMesh() = ofMesh::plane(100,100);
-    //this->mapTexCoords(0,0,.5,.5);
-    //this->mapTexCoordsFromTexture(this->image.getTextureReference());
     ofAddListener(ofEvents().update, this, &vilainImage::update);
 }
 
@@ -41,11 +38,7 @@ void vilainImage::draw()
     image.getTextureReference().bind();
     of3dPrimitive::draw();
     image.getTextureReference().unbind();
-    if(b_drawExtra){
-        glPointSize(10.);
-        ofSetColor(255);
-        drawVertices();
-        drawAxes(1.);
-        drawWireframe();
-    }
+    drawEditing();
 }
+
+

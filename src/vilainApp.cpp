@@ -33,9 +33,9 @@ void vilainApp::setup()
     for(shared_ptr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
-        oneFlux->myPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 
-	ofxFensterManager::get()->setupWindow(&ControlWindow);
+    ofxFensterManager::get()->setupWindow(&ControlWindow);
 }
 
 //--------------------------------------------------------------
@@ -67,8 +67,13 @@ void vilainApp::keyPressed(int key)
 {
     if(key=='t')
         bInfoText = !bInfoText;
-	else if(key==9) // TAB
-        fluxCollection[0]->bEditMode = !fluxCollection[0]->bEditMode;
+    else if(key==9) // TAB
+    {
+        for(shared_ptr<vilainImage> oneImage : imagesCollection)
+            oneImage->setEditMode(!oneImage->isEditing());
+        for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+            oneFlux->setEditMode(!oneFlux->isEditing());
+    }
 }
 
 //--------------------------------------------------------------
@@ -108,7 +113,7 @@ void vilainApp::windowResized(int w, int h)
     for(shared_ptr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
-        oneFlux->myPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 }
 
 //--------------------------------------------------------------

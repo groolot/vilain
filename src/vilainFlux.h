@@ -7,13 +7,14 @@
 #define _N(String) String
 
 #include <ofMain.h>
-#include <ofxOsc.h>
+
+#include "vilainObject.h"
 
 namespace vilain
 {
 /** @brief Define a WebCam flow contained in a rectangle
 */
-class vilainFlux : public ofPlanePrimitive
+class vilainFlux : public vilainObject
 {
 public:
     /** Default constructor */
@@ -26,29 +27,14 @@ public:
     void init(int w, int h);
     void update(ofEventArgs &e);
     void draw(void);
-    void mouseDragged(int x, int y, int button);
-
-	ofVec3f myPosition(){return position;};
-    void myPosition(float px, float py, float pz=0);
 
     virtual void onPositionChanged(void);
 
     ofVideoGrabber flux;
     int videoGrabberDeviceID;
 
-    ofxOscSender oscSender;
-    ofxOscReceiver oscReceiver;
-    ofxOscMessage oscOutMessage;
-    string oscInputAddress;
-
-    bool bEditMode = true;
-    float nearestDistance = 0;
-    ofVec2f nearestVertex;
-    int nearestIndex = 0;
-
 protected:
 private:
-	ofVec3f position;
 };
 }
 #endif // VILAINFLUX_H

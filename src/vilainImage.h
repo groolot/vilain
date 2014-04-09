@@ -8,12 +8,14 @@
 
 #include <ofMain.h>
 
+#include "vilainObject.h"
+
 namespace vilain
 {
 /** @brief Define an image contained in a rectangle
 
 */
-class vilainImage : public ofPlanePrimitive
+class vilainImage : public vilainObject
 {
 public:
     /** Default constructor */
@@ -33,12 +35,9 @@ public:
         or pixels map (via the ofImage_#pixels)
     */
     ofImage image;
-    bool b_drawExtra = false;
 
 protected:
-
 private:
-
 };
 }
 #endif // VILAINIMAGE_H
