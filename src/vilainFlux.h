@@ -26,6 +26,10 @@ public:
     void init(int w, int h);
     void update(ofEventArgs &e);
     void draw(void);
+    void mouseDragged(int x, int y, int button);
+
+	ofVec3f myPosition(){return position;};
+    void myPosition(float px, float py, float pz=0);
 
     virtual void onPositionChanged(void);
 
@@ -37,8 +41,14 @@ public:
     ofxOscMessage oscOutMessage;
     string oscInputAddress;
 
+    bool bEditMode = true;
+    float nearestDistance = 0;
+    ofVec2f nearestVertex;
+    int nearestIndex = 0;
+
 protected:
 private:
+	ofVec3f position;
 };
 }
 #endif // VILAINFLUX_H

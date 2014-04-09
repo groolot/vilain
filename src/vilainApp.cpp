@@ -33,7 +33,7 @@ void vilainApp::setup()
     for(shared_ptr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
-        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+        oneFlux->myPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 
 	ofxFensterManager::get()->setupWindow(&ControlWindow);
 }
@@ -42,17 +42,6 @@ void vilainApp::setup()
 void vilainApp::update()
 {
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
-//    for(auto oneImage : this->imagesCollection)
-//        oneImage->setPosition(mouseX,mouseY,0);
-//    for(auto oneFlux : this->fluxCollection)
-//    {
-//        if(lastMouseX!=mouseX || lastMouseY!=mouseY)
-//        {
-//            lastMouseX = mouseX;
-//            lastMouseY = mouseY;
-//            oneFlux->setPosition(mouseX,mouseY,0);
-//        }
-//    }
 }
 
 //--------------------------------------------------------------
@@ -63,37 +52,6 @@ void vilainApp::draw()
         oneImage->draw();
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->draw();
-
-    ofMesh mesh = fluxCollection[0]->getMesh();
-    int n = mesh.getNumVertices();
-
-    ofVec2f mouse(mouseX, mouseY);
-    glPointSize(10.);
-    mesh.drawVertices();
-    mesh.drawWireframe();
-
-	for(int i = 0; i < n; i++) {
-		ofVec3f cur = mesh.getVertex(i);
-		float distance = cur.distance(mouse);
-		if(i == 0 || distance < nearestDistance) {
-			nearestDistance = distance;
-			nearestVertex = cur;
-			nearestIndex = i;
-		}
-	}
-
-	ofSetColor(ofColor::gray);
-	ofLine(nearestVertex, mouse);
-
-	ofFill();
-	ofSetColor(ofColor::yellow);
-	ofSetLineWidth(2);
-	ofCircle(nearestVertex, 4);
-	ofSetLineWidth(1);
-
-	ofVec2f offset(10, -10);
-	ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + offset);
-
 
     if(bInfoText)
     {
@@ -109,6 +67,8 @@ void vilainApp::keyPressed(int key)
 {
     if(key=='t')
         bInfoText = !bInfoText;
+	else if(key==9) // TAB
+        fluxCollection[0]->bEditMode = !fluxCollection[0]->bEditMode;
 }
 
 //--------------------------------------------------------------
@@ -126,7 +86,7 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-    fluxCollection[0]->getMeshPtr()->setVertex(nearestIndex, ofVec3f(mouseX, mouseY));
+    fluxCollection[0]->mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
@@ -148,7 +108,7 @@ void vilainApp::windowResized(int w, int h)
     for(shared_ptr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
-        oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+        oneFlux->myPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 }
 
 //--------------------------------------------------------------
