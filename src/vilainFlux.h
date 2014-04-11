@@ -18,59 +18,25 @@
 #ifndef VILAINFLUX_H
 #define VILAINFLUX_H
 
-#include <libintl.h>
-#define _(String) gettext(String)
-#define _N(String) String
-
 #include <ofMain.h>
 
+#include "vilain.h"
 #include "vilainObject.h"
 
 namespace vilain
 {
-/** @brief Define a WebCam flow contained in a rectangle
+/** \brief Define a WebCam flow contained in a rectangle polygon
 */
 class vilainFlux : public vilainObject
 {
 public:
     vilainFlux();
-    /** \brief Constructor with a device to be attached to
-     *
-     * \param deviceID int The device number
-     * \see ofVideograbber
-     */
     vilainFlux(int deviceID);
     virtual ~vilainFlux();
 
-    /** \brief Act like a constructor, but callable
-     *
-     * \param w int Video grabber capture width
-     * \param h int Video grabber capture height
-     * \return void
-     *
-     */
     void init(int w, int h);
-
-    /** \brief Update callback
-     *
-     * This is called by the main program
-     *
-     * \param e ofEventArgs& The events are transmitted to help catching them here
-     * \return void
-     *
-     */
     void update(ofEventArgs &e);
-
-    /** \brief Callback to perform the drawing
-     *
-     * This is called by the main program
-     *
-     * \param void
-     * \return void
-     *
-     */
     void draw(void);
-
     virtual void onPositionChanged(void);
 
     ofVideoGrabber flux;

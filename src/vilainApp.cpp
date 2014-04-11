@@ -16,7 +16,6 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "vilainApp.h"
-#include <GLFW/glfw3.h>
 
 using namespace vilain;
 
@@ -41,15 +40,15 @@ void vilainApp::setup()
 
     for(ofVideoDevice deviceID : devicesID)
     {
-        shared_ptr<vilainFlux> oneFlux( new vilainFlux(deviceID.id) );
+        ofPtr<vilainFlux> oneFlux( new vilainFlux(deviceID.id) );
         oneFlux->init(160,120);
         fluxCollection.push_back(oneFlux);
     }
 
-    // Positionning
-    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+    // Positionning / Sizing
+    for(ofPtr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
-    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+    for(ofPtr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 
     ofxFensterManager::get()->setupWindow(&ControlWindow);
@@ -65,9 +64,9 @@ void vilainApp::update()
 void vilainApp::draw()
 {
     ofSetColor(ofColor::white);
-    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+    for(ofPtr<vilainImage> oneImage : imagesCollection)
         oneImage->draw();
-    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+    for(ofPtr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->draw();
 
     if(bInfoText)
@@ -86,9 +85,9 @@ void vilainApp::keyPressed(int key)
         bInfoText = !bInfoText;
     else if(key==9) // TAB
     {
-        for(shared_ptr<vilainImage> oneImage : imagesCollection)
+        for(ofPtr<vilainImage> oneImage : imagesCollection)
             oneImage->setEditMode(!oneImage->isEditing());
-        for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+        for(ofPtr<vilainFlux> oneFlux : fluxCollection)
             oneFlux->setEditMode(!oneFlux->isEditing());
     }
 }
@@ -127,9 +126,9 @@ void vilainApp::mouseReleased(int x, int y, int button)
 void vilainApp::windowResized(int w, int h)
 {
     // Re-Positionning
-    for(shared_ptr<vilainImage> oneImage : imagesCollection)
+    for(ofPtr<vilainImage> oneImage : imagesCollection)
         oneImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
-    for(shared_ptr<vilainFlux> oneFlux : fluxCollection)
+    for(ofPtr<vilainFlux> oneFlux : fluxCollection)
         oneFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 }
 

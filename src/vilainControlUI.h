@@ -1,6 +1,7 @@
 #ifndef VILAINCONTROLUI_H_INCLUDED
 #define VILAINCONTROLUI_H_INCLUDED
 
+#include <ofMain.h>
 #include "ofxFensterManager.h"
 #include "ofxTimeline.h"
 
@@ -44,14 +45,14 @@ public:
         ofCircle(getWidth()*.5, getHeight()*.5, radius);
 
         if(b_VisibleTimeline)
-			timeline.draw();
+            timeline.draw();
     }
 
     void keyPressed(int key)
     {
         cout << "KEY PRESSED " << key << endl;
         if(key == 't')
-			b_VisibleTimeline = !b_VisibleTimeline;
+            b_VisibleTimeline = !b_VisibleTimeline;
     }
 
     void keyReleased(int key)

@@ -18,23 +18,22 @@
 #ifndef VILAINOBJECT_H
 #define VILAINOBJECT_H
 
-#include <libintl.h>
-#define _(String) gettext(String)
-#define _N(String) String
-
 #include <ofMain.h>
 #include <ofxOsc.h>
+
+#include "vilain.h"
 
 namespace vilain
 {
 /** \brief Pseudo object with mesh modifier
- *
- * A vilainObject agregate all the needs for sub-objects like vilainImage, vilainFlux, etc.
+ * \details A vilainObject agregate all the needs for sub-objects like vilainImage, vilainFlux, etc.
+ * \author Gregory DAVID
+ * \date 2014
  */
 class vilainObject : public ofPlanePrimitive
 {
 public:
-    vilainObject() {};
+    vilainObject() {resolution = ofVec2f(3,2);};
     virtual ~vilainObject() {};
 
     /** \brief Give the editing mode status
@@ -58,35 +57,20 @@ public:
         bEditMode = mode;
         return bEditMode;
     };
-
-    /** \brief Perform the drawing of all things inside the editing mode
-     *
-     * \return void
-     *
-     */
     void drawEditing();
-
-    /** \brief Control what to do when the mouse is dragged
-     *
-     * \param x int
-     * \param y int
-     * \param button int
-     * \return void
-     *
-     */
     void mouseDragged(int x, int y, int button);
 
 protected:
-    ofxOscSender oscSender;/**< Variable used to intitiate OSC  message sending */
-    ofxOscReceiver oscReceiver;
-    ofxOscMessage oscOutMessage;
-    string oscInputAddress;
+    ofxOscSender oscSender;/**< \brief Used to intitiate an OSC client for UDP message sending */
+    ofxOscMessage oscOutMessage;/**< \brief The OSC output message container */
+    ofxOscReceiver oscReceiver;/**< \brief Used to create an OSC server listening for UDP messages */
+    string oscInputAddress;/**< \brief Specify the OSC address to listen to */
 
-    float nearestDistance = 0;
-    ofVec2f nearestVertex;
-    int nearestIndex = 0;
+    float nearestMouseDistanceToMeshVertex = 0;/**< \brief Keep the distance from mouse to nearest object mesh vertex */
+    ofVec2f nearestMeshVertex;/**< \brief Keep coordinates of the mouse nearest object mesh vertex */
+    int nearestMeshVertexIndex = 0;/**< \brief Keep index of the mouse nearest object mesh vertex */
 private:
-    bool bEditMode = false;
+    bool bEditMode = false;/**< \brief Toggle variable for editing mode \li \c true for editing, \li \c false for performance mode */
 };
 }
 

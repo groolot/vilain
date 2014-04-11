@@ -18,22 +18,19 @@
 #ifndef VILAINAPP_H
 #define VILAINAPP_H
 
-#include <libintl.h>
-#define _(String) gettext(String)
-#define _N(String) String
-
 #include <ofMain.h>
-#include <memory>
+#include <ofxFensterManager.h>
 
-#include "ofxFensterManager.h"
-
-#include "vilainConstants.h"
+#include "vilain.h"
 #include "vilainControlUI.h"
+#include "vilainObject.h"
 #include "vilainImage.h"
 #include "vilainFlux.h"
 
 namespace vilain
 {
+/** \brief Main program
+ */
 class vilainApp : public ofBaseApp
 {
 public:
@@ -57,23 +54,17 @@ public:
     ofPtr<vilainImage> addNewImageFromFiles(vector<ofFile> list_of_files);
 
 protected:
-    ofPtr<vilainImage> oneImage;     /**< Pointer to the last added vilainImage ? */
-    vector<ofPtr<vilainImage>> imagesCollection;
+    ofPtr<vilainImage> oneImage;     /**< Pointer to the last added vilainImage ;  */
+    vector<ofPtr<vilainImage>> imagesCollection;/**< Pointer to vilainImage collection */
 
     ofPtr<vilainFlux> oneFlux;       /**< Pointer to the last added vilainFlux ? */
-    vector<ofPtr<vilainFlux>> fluxCollection;
+    vector<ofPtr<vilainFlux>> fluxCollection;/**< Pointer to vilainFlux collection */
 
     bool bInfoText = True;
-    int lastMouseX=0, lastMouseY=0;
-
-    ofVideoGrabber grabber;
-
-    float nearestDistance = 0;
-    ofVec2f nearestVertex;
-    int nearestIndex = 0;
 
     vilainControlUI ControlWindow;
-
+private:
+    ofVideoGrabber grabber;
 };
 }
 #endif // VILAINAPP_H

@@ -21,9 +21,15 @@ using namespace vilain;
 
 vilainImage::vilainImage()
 {
-    vilainImage("groolot.jpg");
+
 }
 
+/** \brief Constructor with a path to an image file
+ * \author Gregory DAVID
+ * \date 2014
+ * \param path string Path to an existing image file
+ *
+ */
 vilainImage::vilainImage(string path)
 {
     LoadImage(path);
@@ -35,9 +41,13 @@ vilainImage::~vilainImage()
     ofRemoveListener(ofEvents().update, this, &vilainImage::update);
 }
 
-/** \brief Update method registered to the listeners manager ofAddListener
+/** \brief Update callback
+ * \details This is called by the main program
+ * \author Gregory DAVID
+ * \date 2014
  *
- * \param e The ofEventArgs
+ * \param e ofEventArgs& The events are transmitted to help catching them here
+ * \return void
  *
  */
 void vilainImage::update(ofEventArgs &e)
@@ -45,11 +55,25 @@ void vilainImage::update(ofEventArgs &e)
 
 }
 
+/** \brief Load an image file into VImage#image attribute
+ * \author Gregory DAVID
+ * \date 2014
+ *
+ * \param path string Path to an existing image file
+ * \return void
+ *
+ */
 void vilainImage::LoadImage(string path)
 {
     image.loadImage(path);
 }
 
+/** \brief Callback to perform the drawing
+ *
+ * This is called by the main program
+ * \author Gregory DAVID
+ * \date 2014
+ */
 void vilainImage::draw()
 {
     image.getTextureReference().bind();

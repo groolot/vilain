@@ -18,57 +18,26 @@
 #ifndef VILAINIMAGE_H
 #define VILAINIMAGE_H
 
-#include <libintl.h>
-#define _(String) gettext(String)
-#define _N(String) String
-
 #include <ofMain.h>
 
+#include "vilain.h"
 #include "vilainObject.h"
 
 namespace vilain
 {
-
 /** \brief Image container with mesh modifier
+ * \author Gregory DAVID
+ * \date 2014
  */
 class vilainImage : public vilainObject
 {
 public:
     vilainImage();
-    /** \brief Constructor with a path to an image file
-     *
-     * \param path string Path to an existing image file
-     *
-     */
     vilainImage(string path);
     virtual ~vilainImage();
 
-    /** \brief Load an image file into VImage#image attribute
-     *
-     * \param path string Path to an existing image file
-     * \return void
-     *
-     */
     void LoadImage(string path);
-
-    /** \brief Callback to perform the drawing
-     *
-     * This is called by the main program
-     *
-     * \param void
-     * \return void
-     *
-     */
     void draw(void);
-
-    /** \brief Update callback
-     *
-     * This is called by the main program
-     *
-     * \param e ofEventArgs& The events are transmitted to help catching them here
-     * \return void
-     *
-     */
     void update(ofEventArgs &e);
 
     /** Image container to be used as texture (via the ofImage_#tex)

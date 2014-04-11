@@ -19,6 +19,11 @@
 
 using namespace vilain;
 
+/** \brief Perform the drawing of all things inside the editing mode
+ *
+ * \return void
+ *
+ */
 void vilainObject::drawEditing()
 {
     if(isEditing())
@@ -32,30 +37,37 @@ void vilainObject::drawEditing()
         {
             ofVec3f cur = getMesh().getVertex(i);
             float distance = cur.distance(mouse);
-            if(i == 0 || distance < nearestDistance)
+            if(i == 0 || distance < nearestMouseDistanceToMeshVertex)
             {
-                nearestDistance = distance;
-                nearestVertex = cur;
-                nearestIndex = i;
+                nearestMouseDistanceToMeshVertex = distance;
+                nearestMeshVertex = cur;
+                nearestMeshVertexIndex = i;
             }
         }
         getMesh().drawWireframe();
         ofSetColor(ofColor::red);
-        ofLine(nearestVertex, mouse);
+        ofLine(nearestMeshVertex, mouse);
         ofFill();
         ofSetColor(ofColor::yellow);
         ofSetLineWidth(2.);
-        ofCircle(nearestVertex, 4.);
+        ofCircle(nearestMeshVertex, 4.);
         ofSetLineWidth(1.);
-        ofDrawBitmapStringHighlight(ofToString(nearestIndex), mouse + ofVec2f(10., -10.));
+        ofDrawBitmapStringHighlight(ofToString(nearestMeshVertexIndex), mouse + ofVec2f(10., -10.));
         ofDrawAxis(30.);
         ofPopMatrix();
         ofPopStyle();
     }
 }
 
+/** \brief Control what to do when the mouse is dragged
+ *
+ * \param[in] x,y int Mouse 2D position in screen coordinates
+ * \param button int Pushed button value
+ * \return void
+ *
+ */
 void vilainObject::mouseDragged(int x, int y, int button)
 {
     if(isEditing())
-        getMeshPtr()->setVertex(nearestIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
+        getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
 }

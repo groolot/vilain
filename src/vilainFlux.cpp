@@ -21,9 +21,14 @@ using namespace vilain;
 
 vilainFlux::vilainFlux()
 {
-    flux.setDeviceID(videoGrabberDeviceID);
+
 }
 
+/** \brief Constructor with a device to be attached to
+ *
+ * \param deviceID int The device number
+ * \see ofVideograbber
+ */
 vilainFlux::vilainFlux(int deviceID) :
     videoGrabberDeviceID(deviceID)
 {
@@ -37,6 +42,13 @@ vilainFlux::~vilainFlux()
     ofRemoveListener(ofEvents().update, this, &vilainFlux::update);
 }
 
+/** \brief Act like a constructor, but callable
+ *
+ * \param w int Video grabber capture width
+ * \param h int Video grabber capture height
+ * \return void
+ *
+ */
 void vilainFlux::init(int w, int h)
 {
     oscSender.setup("localhost", 12345);
@@ -45,19 +57,41 @@ void vilainFlux::init(int w, int h)
     ofAddListener(ofEvents().update, this, &vilainFlux::update);
 }
 
+/** \brief Update callback
+ *
+ * This is called by the main program
+ *
+ * \param e ofEventArgs& The events are transmitted to help catching them here
+ * \return void
+ *
+ */
 void vilainFlux::update(ofEventArgs &e)
 {
     flux.ofVideoGrabber::update();
 }
 
+/** \brief Callback to perform the drawing
+ *
+ * This is called by the main program
+ *
+ * \param void
+ * \return void
+ *
+ */
 void vilainFlux::draw(void)
 {
     flux.getTextureReference().bind();
     of3dPrimitive::draw();
     flux.getTextureReference().unbind();
-	drawEditing();
+    drawEditing();
 }
 
+/** \brief Object position changing CallBack
+ *
+ * \param void
+ * \return virtual void
+ *
+ */
 void vilainFlux::onPositionChanged(void)
 {
     oscOutMessage.setAddress("/path/to/the/remote/parameter/to/control");
