@@ -1,5 +1,5 @@
 OF_ROOT = $(HOME)/openframeworks
-PROJECT_NAME = vilain::
+PROJECT_NAME = vilain
 # Version number comply with the Semantic Versioning http://semver.org
 PROJECT_VERSION = 0.0.1
 # PROJECT_ROOT = .
@@ -19,5 +19,7 @@ PROJECT_CFLAGS = -std=c++11
 PROJECT_CXX =g++-4.8
 PROJECT_CC =gcc-4.8
 
-GETTEXT_MAINTAINER_EMAIL=translate@groolot.net
+GETTEXT_MAINTAINER_EMAIL=dev@groolot.net
 GETTEXT_COPYRIGHT_HOLDER=Grégory DAVID
+
+#MAKEFILE_DEBUG=true
