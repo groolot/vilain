@@ -52,13 +52,19 @@ public:
     ofPtr<vilainImage> addNewImageFromFile(string path_to_file);
     ofPtr<vilainImage> addNewImageFromFile(ofFile file);
     ofPtr<vilainImage> addNewImageFromFiles(vector<ofFile> list_of_files);
+    ofPtr<vilainFlux> addNewFlux(int deviceID, int w, int h);
 
 protected:
-    ofPtr<vilainImage> oneImage;     /**< Pointer to the last added vilainImage ;  */
-    vector<ofPtr<vilainImage>> imagesCollection;/**< Pointer to vilainImage collection */
+    ofPtr<vilainImage> lastImage;/**< Pointer to the last added vilainImage */
+    vector<ofPtr<vilainImage>> imagesCollection;/**< Pointer to vilainImage container */
 
-    ofPtr<vilainFlux> oneFlux;       /**< Pointer to the last added vilainFlux ? */
-    vector<ofPtr<vilainFlux>> fluxCollection;/**< Pointer to vilainFlux collection */
+    ofPtr<vilainFlux> lastFlux;/**< Pointer to the last added vilainFlux */
+    vector<ofPtr<vilainFlux>> fluxCollection;/**< Pointer to vilainFlux container */
+
+    ofPtr<vilainObject> selectedObject;/**< Pointer to the selected object */
+
+    vector<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
+    vector<ofPtr<vilainObject>>::iterator allObjectsIterator;/**< Iterator on allObjects container */
 
     bool bInfoText = True;
 

@@ -69,5 +69,8 @@ void vilainObject::drawEditing()
 void vilainObject::mouseDragged(int x, int y, int button)
 {
     if(isEditing())
-        getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
+	{
+		getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
+		ofLogVerbose(PROG_NAME) << "mouseDragged: " << x << "," << y;
+	}
 }

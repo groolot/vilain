@@ -32,6 +32,7 @@ vilainImage::vilainImage()
  */
 vilainImage::vilainImage(string path)
 {
+	ofLogVerbose() << _("Construct a vilainImage object with this file: ") << path << endl;
     LoadImage(path);
     ofAddListener(ofEvents().update, this, &vilainImage::update);
 }
@@ -65,6 +66,7 @@ void vilainImage::update(ofEventArgs &e)
  */
 void vilainImage::LoadImage(string path)
 {
+	ofLogVerbose(PROG_NAME) << _("Load image from file: ") << path << endl;
     image.loadImage(path);
 }
 

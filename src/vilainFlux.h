@@ -31,10 +31,9 @@ class vilainFlux : public vilainObject
 {
 public:
     vilainFlux();
-    vilainFlux(int deviceID);
-    virtual ~vilainFlux();
+    vilainFlux(int deviceID, int w, int h);
+    ~vilainFlux();
 
-    void init(int w, int h);
     void update(ofEventArgs &e);
     void draw(void);
     virtual void onPositionChanged(void);

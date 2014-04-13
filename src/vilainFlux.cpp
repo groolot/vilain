@@ -21,7 +21,6 @@ using namespace vilain;
 
 vilainFlux::vilainFlux()
 {
-
 }
 
 /** \brief Constructor with a device to be attached to
@@ -29,32 +28,22 @@ vilainFlux::vilainFlux()
  * \param deviceID int The device number
  * \see ofVideograbber
  */
-vilainFlux::vilainFlux(int deviceID) :
+vilainFlux::vilainFlux(int deviceID, int w, int h) :
     videoGrabberDeviceID(deviceID)
 {
+	/**< TODO: implement it correctly and globally, if needed */
+    oscSender.setup("localhost", 12345);
 
+    flux.initGrabber(w,h);
+    resizeToTexture(flux.getTextureReference());
+    ofAddListener(ofEvents().update, this, &vilainFlux::update);
 }
 
 vilainFlux::~vilainFlux()
 {
-    ofLogNotice(__PRETTY_FUNCTION__) << _("destructs vilainFlux deviceID: ") << videoGrabberDeviceID;
+    ofLogVerbose(PROG_NAME) << _("Destructs vilainFlux deviceID: ") << videoGrabberDeviceID;
     flux.close();
     ofRemoveListener(ofEvents().update, this, &vilainFlux::update);
-}
-
-/** \brief Act like a constructor, but callable
- *
- * \param w int Video grabber capture width
- * \param h int Video grabber capture height
- * \return void
- *
- */
-void vilainFlux::init(int w, int h)
-{
-    oscSender.setup("localhost", 12345);
-    flux.initGrabber(w,h);
-    resizeToTexture(flux.getTextureReference());
-    ofAddListener(ofEvents().update, this, &vilainFlux::update);
 }
 
 /** \brief Update callback
