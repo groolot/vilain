@@ -22,9 +22,9 @@ using namespace vilain;
 //--------------------------------------------------------------
 void vilainApp::setup()
 {
-    GLFWmonitor* primary = glfwGetPrimaryMonitor();
-    const char* name = glfwGetMonitorName(primary);
-    ofLogNotice(PROG_NAME) << _("Current monitor: ") << name << endl;
+    xmlFileSerialize.loadFile("vilain-save.xml");
+    const char* name = glfwGetMonitorName(glfwGetPrimaryMonitor());
+    ofLogNotice(PROG_NAME) << _("Primary monitor: ") << name << endl;
     vector <ofFile> files;
     files.push_back(ofFile("groolot.jpg"));
     files.push_back(ofFile("groolot.png"));
@@ -33,6 +33,7 @@ void vilainApp::setup()
 
     ofSetupScreen();
     ofSetFrameRate(30);
+    ofSetRectMode(OF_RECTMODE_CORNER);
     ofLog() << "\t" PROG_NAME ;
     ofDisableArbTex();
 
@@ -40,17 +41,14 @@ void vilainApp::setup()
 
     for(ofVideoDevice deviceID : devicesID)
         addNewFlux(deviceID.id, 160, 120);
-        // TODO: implement with a pointer to vilainFlux
-        // example: addNewFlux(new vilainFlux(ID, w, h))
+    // TODO: implement with a pointer to vilainFlux
+    // example: addNewFlux(new vilainFlux(ID, w, h))
 
-    // Positionning / Sizing
+    // Positioning / Sizing
     for(ofPtr<vilainImage> curImage : imagesCollection)
         curImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
     for(ofPtr<vilainFlux> curFlux : fluxCollection)
         curFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
-
-    // TODO: implement this!
-    selectedObject = lastImage;
 
     ofxFensterManager::get()->setupWindow(&ControlWindow);
 }
@@ -59,6 +57,7 @@ void vilainApp::setup()
 void vilainApp::update()
 {
     ofSetWindowTitle(ofToString(ofGetFrameRate()));
+    ControlWindow.imagesCollection = &imagesCollection;
 }
 
 //--------------------------------------------------------------
@@ -78,29 +77,34 @@ void vilainApp::draw()
         stringstream ss;
         ss << "Framerate: " << ofToString(ofGetFrameRate(),0) << "\n";
         ss << "(t): Info Text" << endl;
-        ofDrawBitmapString(ss.str().c_str(), 20, 20);
+        ofDrawBitmapString(ss.str(), 20, 20);
     }
 }
 
 //--------------------------------------------------------------
 void vilainApp::keyPressed(int key)
 {
-    ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key << endl;
-    if(key=='t')
+    ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
+    if(key=='t') // Show the textual information box
         bInfoText = !bInfoText;
     else if(key=='1')
-        selectedObject->setResolution(2., 2.);
+        (* selectedObject)->setResolution(2., 2.);
     else if(key=='2')
-        selectedObject->setResolution(3., 3.);
+        (* selectedObject)->setResolution(3., 3.);
     else if(key=='3')
-        selectedObject->setResolution(4., 4.);
-	else if(key==358) // Right Arrow
-		selectedObject = lastFlux;
-	else if(key==359) // Bottom Arrow
-		selectedObject = lastImage;
+        (* selectedObject)->setResolution(4., 4.);
+    else if(key==358) // Right Arrow
+    {
+        SelectNextObject();
+    }
+    else if(key==356) // Left Arrow
+    {
+        SelectPreviousObject();
+    }
     else if(key==9) // TAB
     {
-        selectedObject->setEditMode(!selectedObject->isEditing());
+        bEditMode = !bEditMode;
+        (* selectedObject)->catchMe(bEditMode);
     }
 }
 
@@ -119,7 +123,8 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-    selectedObject->mouseDragged(x, y, button);
+    (* selectedObject)->mouseDragged(x, y, button);
+	ofLogVerbose(PROG_NAME) << _("mouseDragged: ") << x << "," << y;
 }
 
 //--------------------------------------------------------------
@@ -137,12 +142,7 @@ void vilainApp::mouseReleased(int x, int y, int button)
 //--------------------------------------------------------------
 void vilainApp::windowResized(int w, int h)
 {
-    ofLogVerbose(PROG_NAME) << _("Resize main window to: ") << w << "x" << h << endl;
-    // Re-Positionning
-    for(ofPtr<vilainImage> curImage : imagesCollection)
-        curImage->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
-    for(ofPtr<vilainFlux> curFlux : fluxCollection)
-        curFlux->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
+    ofLogVerbose(PROG_NAME) << _("Resize main window to: ") << w << "x" << h;
 }
 
 //--------------------------------------------------------------
@@ -163,13 +163,40 @@ void vilainApp::exit()
 
 }
 
+/** \brief Cycle to the next object in the allObjects vector
+ *
+ */
+void vilainApp::SelectNextObject()
+{
+    (* selectedObject)->leaveMe();
+    if(selectedObject + 1 == allObjects.end())
+        selectedObject = allObjects.begin();
+    else
+        selectedObject++;
+    (* selectedObject)->catchMe(bEditMode);
+}
+
+/** \brief Cycle to the previous object in the allObjects vector
+ *
+ */
+void vilainApp::SelectPreviousObject()
+{
+    (* selectedObject)->leaveMe();
+    if(selectedObject == allObjects.begin())
+        selectedObject = allObjects.end() - 1;
+    else
+        selectedObject--;
+    (* selectedObject)->catchMe(bEditMode);
+}
+
 //--------------------------------------------------------------
-ofPtr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
+void vilainApp::addNewImageFromFile(string path_to_file)
 {
     ofPtr<vilainImage> curImage( new vilainImage(path_to_file) );
     curImage->resizeToTexture(curImage->image.getTextureReference());
     imagesCollection.push_back(curImage);
     allObjects.push_back(curImage);
+    selectedObject = allObjects.begin();
     char logMessage[256];
     /*TRANSLATORS: The %s is replaced at runtime by the file path.
     	Please keep it in your translation, wherever you want.
@@ -180,28 +207,25 @@ ofPtr<vilainImage> vilainApp::addNewImageFromFile(string path_to_file)
                             << curImage->image.getTextureReference().getWidth()
                             << "x"
                             << curImage->image.getTextureReference().getHeight();
-    return curImage;
 }
 
 //--------------------------------------------------------------
-ofPtr<vilainImage> vilainApp::addNewImageFromFile(ofFile file)
+void vilainApp::addNewImageFromFile(ofFile file)
 {
-    return addNewImageFromFile(file.path());
+    addNewImageFromFile(file.path());
 }
 
 //--------------------------------------------------------------
-ofPtr<vilainImage> vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
+void vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
 {
     for(ofFile file : list_of_files)
-        lastImage = addNewImageFromFile(file);
-    return lastImage;
+        addNewImageFromFile(file);
 }
 
-ofPtr<vilainFlux> vilainApp::addNewFlux(int deviceID, int w, int h)
+void vilainApp::addNewFlux(int deviceID, int w, int h)
 {
-	ofPtr<vilainFlux> curFlux( new vilainFlux(deviceID, w, h));
+    ofPtr<vilainFlux> curFlux( new vilainFlux(deviceID, w, h));
     fluxCollection.push_back(curFlux);
     allObjects.push_back(curFlux);
-    lastFlux = curFlux;
-    return curFlux;
+    selectedObject = allObjects.begin();
 }

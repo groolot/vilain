@@ -19,14 +19,39 @@
 
 using namespace vilain;
 
+/** \brief Set correctly the object state as it is selected and edited or not
+ *
+ * \param _bEditmode The application editing mode state (hopefully)
+ * \return void
+ *
+ */
+void vilainObject::catchMe(bool _bEditMode)
+{
+    setSelected(true);
+    setEditMode(_bEditMode);
+}
+
+/** \brief Set the object state as it is not selected nor in edit mode
+ *
+ * \post The object isn't selected nor editable anymore
+ * \return void
+ *
+ */
+void vilainObject::leaveMe()
+{
+    setSelected(false);
+    setEditMode(false);
+}
+
 /** \brief Perform the drawing of all things inside the editing mode
  *
+ * \pre To be drawn in editing mode, the object needs to be selected and set to edit mode
  * \return void
  *
  */
 void vilainObject::drawEditing()
 {
-    if(isEditing())
+    if(isEditing() and isSelected())
     {
         ofPushStyle();
         ofPushMatrix();
@@ -69,8 +94,14 @@ void vilainObject::drawEditing()
 void vilainObject::mouseDragged(int x, int y, int button)
 {
     if(isEditing())
-	{
-		getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
-		ofLogVerbose(PROG_NAME) << "mouseDragged: " << x << "," << y;
-	}
+    {
+        if(button == OF_MOUSE_BUTTON_1) // Left button mouse
+        {
+            getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
+        }
+        else if(button == OF_MOUSE_BUTTON_2) // Middle button mouse
+        {
+            setPosition(x, y, 0);
+        }
+    }
 }

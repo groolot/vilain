@@ -5,6 +5,8 @@
 #include "ofxFensterManager.h"
 #include "ofxTimeline.h"
 
+#include "vilainImage.h"
+
 namespace vilain
 {
 class vilainControlUI : public ofxFenster
@@ -46,23 +48,26 @@ public:
 
         if(b_VisibleTimeline)
             timeline.draw();
+
+        for(ofPtr<vilainImage> curImage : *imagesCollection)
+            curImage->draw();
     }
 
     void keyPressed(int key)
     {
-        cout << "KEY PRESSED " << key << endl;
         if(key == 't')
             b_VisibleTimeline = !b_VisibleTimeline;
     }
 
     void keyReleased(int key)
     {
-        cout << "KEY RELEASED " << key << endl;
+
     }
 
     float radius;
     ofxTimeline timeline;
-    bool b_VisibleTimeline = true;
+    bool b_VisibleTimeline = false;
+    vector<ofPtr<vilainImage>> * imagesCollection;
 };
 }
 

@@ -20,6 +20,7 @@
 
 #include <ofMain.h>
 #include <ofxFensterManager.h>
+#include <ofxXmlSettings.h>
 
 #include "vilain.h"
 #include "vilainControlUI.h"
@@ -49,22 +50,24 @@ public:
     void gotMessage(ofMessage msg) override;
     void exit() override;
 
-    ofPtr<vilainImage> addNewImageFromFile(string path_to_file);
-    ofPtr<vilainImage> addNewImageFromFile(ofFile file);
-    ofPtr<vilainImage> addNewImageFromFiles(vector<ofFile> list_of_files);
-    ofPtr<vilainFlux> addNewFlux(int deviceID, int w, int h);
+    void SelectNextObject();
+    void SelectPreviousObject();
+
+    void addNewImageFromFile(string path_to_file);
+    void addNewImageFromFile(ofFile file);
+    void addNewImageFromFiles(vector<ofFile> list_of_files);
+    void addNewFlux(int deviceID, int w, int h);
+
+    ofxXmlSettings xmlFileSerialize;
+
+    bool bEditMode = False; /**< Application edit mode flag \li \c true for editing, \li \c false (default) for performing */
 
 protected:
-    ofPtr<vilainImage> lastImage;/**< Pointer to the last added vilainImage */
     vector<ofPtr<vilainImage>> imagesCollection;/**< Pointer to vilainImage container */
-
-    ofPtr<vilainFlux> lastFlux;/**< Pointer to the last added vilainFlux */
     vector<ofPtr<vilainFlux>> fluxCollection;/**< Pointer to vilainFlux container */
 
-    ofPtr<vilainObject> selectedObject;/**< Pointer to the selected object */
-
     vector<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
-    vector<ofPtr<vilainObject>>::iterator allObjectsIterator;/**< Iterator on allObjects container */
+    vector<ofPtr<vilainObject>>::iterator selectedObject;/**< Iterator on allObjects container, point to the selected object pointer */
 
     bool bInfoText = True;
 
