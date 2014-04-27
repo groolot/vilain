@@ -28,7 +28,7 @@ vilainFlux::vilainFlux()
  * \param deviceID int The device number
  * \see ofVideograbber
  */
-vilainFlux::vilainFlux(int deviceID, int w, int h) :
+vilainFlux::vilainFlux(int deviceID, int w, int h) : vilainObject(w, h, 2, 2),
     videoGrabberDeviceID(deviceID)
 {
 	/**< TODO: implement it correctly and globally, if needed */

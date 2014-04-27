@@ -49,8 +49,8 @@ public:
         if(b_VisibleTimeline)
             timeline.draw();
 
-        for(ofPtr<vilainImage> curImage : *imagesCollection)
-            curImage->draw();
+        for(ofPtr<vilainObject> obj : *allObjects)
+            obj->draw();
     }
 
     void keyPressed(int key)
@@ -67,7 +67,7 @@ public:
     float radius;
     ofxTimeline timeline;
     bool b_VisibleTimeline = false;
-    vector<ofPtr<vilainImage>> * imagesCollection;
+    vector<ofPtr<vilainObject>> * allObjects;
 };
 }
 

@@ -33,10 +33,8 @@ namespace vilain
 class vilainObject : public ofPlanePrimitive
 {
 public:
-    vilainObject()
-    {
-        resolution = ofVec2f(3,2);
-    };
+    vilainObject() : ofPlanePrimitive(1, 1, 2, 2) {};
+    vilainObject(float w, float h, int columns, int rows) : ofPlanePrimitive(w,h,columns,rows) {};
     virtual ~vilainObject() {};
 
     /** \brief Give the editing mode status
@@ -85,11 +83,12 @@ public:
 
     void catchMe(bool _bEditMode);
     void leaveMe();
+    virtual void draw() {};
     void drawEditing();
     void mouseDragged(int x, int y, int button);
 
 protected:
-    ofxOscSender oscSender;/**< \brief Used to intitiate an OSC client for UDP message sending */
+    ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
     ofxOscMessage oscOutMessage;/**< \brief The OSC output message container */
     ofxOscReceiver oscReceiver;/**< \brief Used to create an OSC server listening for UDP messages */
     string oscInputAddress;/**< \brief Specify the OSC address to listen to */
@@ -97,6 +96,7 @@ protected:
     float nearestMouseDistanceToMeshVertex = 0;/**< \brief Keep the distance from mouse to nearest object mesh vertex */
     ofVec2f nearestMeshVertex;/**< \brief Keep coordinates of the mouse nearest object mesh vertex */
     int nearestMeshVertexIndex = 0;/**< \brief Keep index of the mouse nearest object mesh vertex */
+
 private:
     bool bEditMode = false;/**< \brief Per object edit mode flag \li \c true for editing, \li \c false (default) for performance mode */
     bool bSelected = false; /**< \brief Is selected or not? */

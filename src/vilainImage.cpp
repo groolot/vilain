@@ -19,11 +19,6 @@
 
 using namespace vilain;
 
-vilainImage::vilainImage()
-{
-
-}
-
 /** \brief Constructor with a path to an image file
  * \author Gregory DAVID
  * \date 2014
