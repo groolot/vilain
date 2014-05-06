@@ -139,7 +139,16 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-    (* selectedObject)->mouseDragged(x, y, button);
+    if(button == OF_MOUSE_BUTTON_1)
+    {
+        (* selectedObject)->mouseDragged(x, y, button);
+    }
+    else if(button == OF_MOUSE_BUTTON_2)
+    {
+        mouseDistance = ofVec2f(x, y) - mousePressedPosition;
+        ofVec2f futurPosition = objectPressedPosition + mouseDistance;
+        (* selectedObject)->mouseDragged(futurPosition.x, futurPosition.y, button);
+    }
     ofLogVerbose(PROG_NAME) << _("mouseDragged: ") << x << "," << y;
 }
 
@@ -147,6 +156,8 @@ void vilainApp::mouseDragged(int x, int y, int button)
 void vilainApp::mousePressed(int x, int y, int button)
 {
     mousePressedPosition = ofVec2f(x,y);
+    objectPressedPosition.x = (* selectedObject)->getX();
+    objectPressedPosition.y = (* selectedObject)->getY();
 }
 
 //--------------------------------------------------------------
