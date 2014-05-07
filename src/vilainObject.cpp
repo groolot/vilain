@@ -56,7 +56,7 @@ void vilainObject::drawEditing()
         ofPushStyle();
         ofPushMatrix();
         ofTranslate(getPosition());
-        ofVec2f mouse(ofGetMouseX()-getPosition().x, ofGetMouseY()-getPosition().y);
+        ofVec2f mouse(ofGetMouseX()-getX(), ofGetMouseY()-getY());
         unsigned int n = getMesh().getNumVertices();
         for(unsigned int i = 0; i < n; i++)
         {
@@ -95,13 +95,43 @@ void vilainObject::mouseDragged(int x, int y, int button)
 {
     if(isEditing())
     {
-        if(button == OF_MOUSE_BUTTON_1) // Left button mouse
+        if(button == OF_MOUSE_BUTTON_LEFT)
         {
-            getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getPosition().x, y-getPosition().y));
+            getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getX(), y-getY()));
         }
-        else if(button == OF_MOUSE_BUTTON_2) // Middle button mouse
+        else if(button == OF_MOUSE_BUTTON_MIDDLE)
         {
-            setPosition(x, y, 0);
+            mouseDistance = ofVec2f(x, y) - mousePressedPosition;
+            ofVec2f futurPosition = objectPressedPosition + mouseDistance;
+            setPosition(futurPosition.x, futurPosition.y, getZ());
         }
     }
+    mouseButton = button;
+}
+
+/** \brief Control what to do when the mouse is pressed
+ *
+ * \param[in] x,y int Mouse 2D position in screen coordinates
+ * \param button int Pushed button value
+ * \return void
+ *
+ */
+void vilainObject::mousePressed(int x, int y, int button)
+{
+    mousePressedPosition = ofVec2f(x,y);
+    objectPressedPosition = ofVec2f(getX(), getY());
+    mouseButton = button;
+}
+
+/** \brief Control what to do when the mouse is released
+ *
+ * \param[in] x,y int Mouse 2D position in screen coordinates
+ * \param button int Pushed button value
+ * \return void
+ *
+ */
+void vilainObject::mouseReleased(int x, int y, int button)
+{
+    mouseReleasedPosition = ofVec2f(x,y);
+    mouseButton = button;
 }

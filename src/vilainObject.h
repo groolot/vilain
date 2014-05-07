@@ -86,6 +86,8 @@ public:
     virtual void draw() {};
     void drawEditing();
     void mouseDragged(int x, int y, int button);
+    void mousePressed(int x, int y, int button);
+    void mouseReleased(int x, int y, int button);
 
 protected:
     ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
@@ -101,6 +103,10 @@ private:
     bool bEditMode = false;/**< \brief Per object edit mode flag \li \c true for editing, \li \c false (default) for performance mode */
     bool bSelected = false; /**< \brief Is selected or not? */
     int mouseButton;
+    ofVec2f mousePressedPosition;
+    ofVec2f objectPressedPosition;
+    ofVec2f mouseReleasedPosition;
+    ofVec2f mouseDistance;
 };
 }
 

@@ -74,10 +74,6 @@ protected:
     vilainControlUI ControlWindow;
 private:
     ofVideoGrabber grabber;
-    ofVec2f mousePressedPosition;
-    ofVec2f mouseReleasedPosition;
-    ofVec2f mouseDistance;
-    ofVec2f objectPressedPosition;
 };
 }
 #endif // VILAINAPP_H

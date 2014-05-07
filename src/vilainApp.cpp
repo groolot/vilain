@@ -19,7 +19,11 @@
 
 using namespace vilain;
 
-//--------------------------------------------------------------
+/** \brief Setup the application. Similar to constructor.
+ *
+ * \return void
+ *
+ */
 void vilainApp::setup()
 {
     xmlFileSerialize.loadFile("vilain-save.xml");
@@ -49,7 +53,7 @@ void vilainApp::setup()
         obj->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
 
     ofxFensterManager::get()->setupWindow(&ControlWindow);
-    ControlWindow.allObjects = &allObjects;
+    //ControlWindow.allObjects = &allObjects;
 }
 
 //--------------------------------------------------------------
@@ -139,31 +143,19 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-    if(button == OF_MOUSE_BUTTON_1)
-    {
-        (* selectedObject)->mouseDragged(x, y, button);
-    }
-    else if(button == OF_MOUSE_BUTTON_2)
-    {
-        mouseDistance = ofVec2f(x, y) - mousePressedPosition;
-        ofVec2f futurPosition = objectPressedPosition + mouseDistance;
-        (* selectedObject)->mouseDragged(futurPosition.x, futurPosition.y, button);
-    }
-    ofLogVerbose(PROG_NAME) << _("mouseDragged: ") << x << "," << y;
+	(* selectedObject)->mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
 void vilainApp::mousePressed(int x, int y, int button)
 {
-    mousePressedPosition = ofVec2f(x,y);
-    objectPressedPosition.x = (* selectedObject)->getX();
-    objectPressedPosition.y = (* selectedObject)->getY();
+	(* selectedObject)->mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
 void vilainApp::mouseReleased(int x, int y, int button)
 {
-    mouseReleasedPosition = ofVec2f(x,y);
+
 }
 
 //--------------------------------------------------------------
