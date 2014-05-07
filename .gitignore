@@ -15,3 +15,10 @@
 # Binaries and Objects
 bin/
 obj/
+
+# Locales
+po/**
+
+# Untracked docs
+docs/conception/**
+docs/doxygen/**
