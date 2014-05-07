@@ -35,7 +35,6 @@ void vilainApp::setup()
 
     vector<ofVideoDevice> devicesID = grabber.listDevices();
 
-    ofSetupScreenOrtho();
     ofSetFrameRate(30);
     ofSetRectMode(OF_RECTMODE_CORNER);
     ofLog() << "\t" PROG_NAME ;
@@ -65,7 +64,7 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-	ofSetupScreenOrtho();
+    ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
     ofSetColor(ofColor::white);
     for(ofPtr<vilainObject> obj : allObjects)
         obj->draw();
@@ -81,6 +80,7 @@ void vilainApp::draw()
         if(bEditMode)
         {
             ss << "Selected object: " << (* selectedObject) << endl;
+            ss << "z-Index: " << (* selectedObject)->getZ();
         }
         ofDrawBitmapString(ss.str(), 20, 20);
     }
@@ -89,40 +89,40 @@ void vilainApp::draw()
 //--------------------------------------------------------------
 void vilainApp::keyPressed(int key)
 {
+    // Edit/Design Mode
+    if(bEditMode)
+    {
+        (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
+        if(key==OF_KEY_DEL)
+        {
+            if(selectedObject != allObjects.end())
+            {
+                (* selectedObject)->leaveMe();
+                selectedObject = allObjects.erase(selectedObject);
+                if(selectedObject == allObjects.end()) selectedObject = allObjects.begin();
+                (* selectedObject)->catchMe(bEditMode);
+            }
+        }
+        else if(key==OF_KEY_RIGHT)
+        {
+            SelectNextObject();
+        }
+        else if(key==OF_KEY_LEFT)
+        {
+            SelectPreviousObject();
+        }
+    }
+    // Performance mode
+    else
+    {
+
+    }
+    // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
     if(key=='t') // Show the textual information box
         bInfoText = !bInfoText;
-    else if(key=='1')
-    {
-        (* selectedObject)->setResolution(2., 2.);
-    }
-    else if(key=='2')
-    {
-        (* selectedObject)->setResolution(3., 3.);
-    }
-    else if(key=='3')
-    {
-        (* selectedObject)->setResolution(4., 4.);
-    }
-    else if(key==127) // Suppr
-    {
-        if(bEditMode and selectedObject != allObjects.end())
-        {
-            (* selectedObject)->leaveMe();
-            selectedObject = allObjects.erase(selectedObject);
-            if(selectedObject == allObjects.end()) selectedObject = allObjects.begin();
-            (* selectedObject)->catchMe(bEditMode);
-        }
-    }
-    else if(key==358) // Right Arrow
-    {
-        SelectNextObject();
-    }
-    else if(key==356) // Left Arrow
-    {
-        SelectPreviousObject();
-    }
-    else if(key==9) // TAB
+
+    else if(key==OF_KEY_TAB)
     {
         bEditMode = !bEditMode;
         (* selectedObject)->catchMe(bEditMode);
@@ -144,13 +144,13 @@ void vilainApp::mouseMoved(int x, int y)
 //--------------------------------------------------------------
 void vilainApp::mouseDragged(int x, int y, int button)
 {
-	(* selectedObject)->mouseDragged(x, y, button);
+    (* selectedObject)->mouseDragged(x, y, button);
 }
 
 //--------------------------------------------------------------
 void vilainApp::mousePressed(int x, int y, int button)
 {
-	(* selectedObject)->mousePressed(x, y, button);
+    (* selectedObject)->mousePressed(x, y, button);
 }
 
 //--------------------------------------------------------------
