@@ -2,7 +2,6 @@
 #include "ofxFensterManager.h"
 
 #include "vilainApp.h"
-
 //========================================================================
 int main( )
 {
@@ -11,10 +10,8 @@ int main( )
     textdomain(PROG_NAME);
     ofSetLogLevel(PROG_NAME,OF_LOG_VERBOSE);
     ofSetLogLevel(OF_LOG_WARNING);
-    //ofSetupOpenGL(1024,768, OF_WINDOW);			// <-------- setup the GL context
 
-	ofxFensterManager::setup(1024,768,OF_WINDOW);
-
+    ofxFensterManager::setup(1024,768,OF_WINDOW);
     ofRunApp( new vilain::vilainApp());
-
+    return 0;
 }

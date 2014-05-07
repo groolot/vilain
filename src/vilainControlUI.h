@@ -3,7 +3,6 @@
 
 #include <ofMain.h>
 #include "ofxFensterManager.h"
-#include "ofxTimeline.h"
 
 #include "vilainImage.h"
 
@@ -16,16 +15,9 @@ public:
     {
         setWindowShape(1280, 720);
         setWindowPosition(0, 0);
-        setWindowTitle("Control Window");
+        setWindowTitle("Control");
         ofEnableSmoothing();
         ofEnableAlphaBlending();
-
-        timeline.setup();
-        timeline.setLoopType(OF_LOOP_NORMAL);
-        timeline.setDurationInSeconds(30);
-
-        //this is the simplest example and is really flexible
-        timeline.addLFO("LFO");
     }
 
     void update()
@@ -45,18 +37,11 @@ public:
 
         ofSetColor(255);
         ofCircle(getWidth()*.5, getHeight()*.5, radius);
-
-        if(b_VisibleTimeline)
-            timeline.draw();
-
-        for(ofPtr<vilainObject> obj : *allObjects)
-            obj->draw();
     }
 
     void keyPressed(int key)
     {
-        if(key == 't')
-            b_VisibleTimeline = !b_VisibleTimeline;
+
     }
 
     void keyReleased(int key)
@@ -65,9 +50,6 @@ public:
     }
 
     float radius;
-    ofxTimeline timeline;
-    bool b_VisibleTimeline = false;
-    vector<ofPtr<vilainObject>> * allObjects;
 };
 }
 
