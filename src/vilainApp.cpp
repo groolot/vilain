@@ -35,7 +35,7 @@ void vilainApp::setup()
 
     vector<ofVideoDevice> devicesID = grabber.listDevices();
 
-    ofSetupScreen();
+    ofSetupScreenOrtho();
     ofSetFrameRate(30);
     ofSetRectMode(OF_RECTMODE_CORNER);
     ofLog() << "\t" PROG_NAME ;
@@ -65,6 +65,7 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
+	ofSetupScreenOrtho();
     ofSetColor(ofColor::white);
     for(ofPtr<vilainObject> obj : allObjects)
         obj->draw();
