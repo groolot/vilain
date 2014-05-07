@@ -135,3 +135,36 @@ void vilainObject::mouseReleased(int x, int y, int button)
     mouseReleasedPosition = ofVec2f(x,y);
     mouseButton = button;
 }
+
+void vilainObject::keyPressed(int key)
+{
+    if(isEditing())
+    {
+        if(key=='1')
+        {
+            setResolution(2., 2.);
+        }
+        else if(key=='2')
+        {
+            setResolution(3., 3.);
+        }
+        else if(key=='3')
+        {
+            setResolution(4., 4.);
+        }
+        else if(key==OF_KEY_UP)
+        {
+            if(getZ()<std::numeric_limits<int>::max()-1)
+                move(0,0,1);
+        }
+        else if(key==OF_KEY_DOWN)
+        {
+            if(getZ()>=1)
+                move(0,0,-1);
+        }
+    }
+    else
+    {
+
+    }
+}

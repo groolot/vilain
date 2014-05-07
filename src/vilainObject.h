@@ -88,6 +88,7 @@ public:
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
     void mouseReleased(int x, int y, int button);
+    void keyPressed(int key);
 
 protected:
     ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
