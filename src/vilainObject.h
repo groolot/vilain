@@ -33,53 +33,14 @@ namespace vilain
 class vilainObject : public ofPlanePrimitive
 {
 public:
-    vilainObject() : ofPlanePrimitive(1, 1, 2, 2) {};
-    vilainObject(float w, float h, int columns, int rows) : ofPlanePrimitive(w,h,columns,rows) {};
+    vilainObject();
+    vilainObject(float w, float h, int columns, int rows);
     virtual ~vilainObject() {};
 
-    /** \brief Give the editing mode status
-     *
-     * \return bool The editing mode : true or false
-     *
-     */
-    bool isEditing()
-    {
-        return bEditMode;
-    };
-
-    /** \brief Change the editing mode
-     *
-     * \param mode bool The editing mode to be set
-     * \return bool The new editing mode
-     *
-     */
-    bool setEditMode(bool mode)
-    {
-        bEditMode = mode;
-        return bEditMode;
-    };
-
-    /** \brief Does it selected?
-     *
-     * \return bool \c true if selected, \c false if not
-     *
-     */
-    bool isSelected()
-    {
-        return bSelected;
-    }
-
-    /** \brief Change the selected state
-     *
-     * \param state bool The selected state to be set
-     * \return bool \c true if selected, \c false if not
-     *
-     */
-    bool setSelected(bool state)
-    {
-        bSelected = state;
-        return bSelected;
-    }
+    bool isEditing();
+    bool setEditMode(bool mode);
+    bool isSelected();
+    bool setSelected(bool state);
 
     void catchMe(bool _bEditMode);
     void leaveMe();

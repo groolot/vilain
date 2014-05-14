@@ -38,21 +38,18 @@ void vilainApp::setup()
     ofSetFrameRate(30);
     ofSetRectMode(OF_RECTMODE_CORNER);
     ofLog() << "\t" PROG_NAME ;
-    ofDisableArbTex();
-
-    addNewImageFromFiles(files);
 
     for(ofVideoDevice deviceID : devicesID)
         addNewFlux(deviceID.id, 160, 120);
+
+    addNewImageFromFiles(files);
+
     // TODO: implement with a pointer to vilainFlux
     // example: addNewFlux(new vilainFlux(ID, w, h))
 
-    // Positioning / Sizing
+    // Positioning
     for(ofPtr<vilainObject> obj : allObjects)
-        obj->setPosition(ofGetWindowWidth()/2. , ofGetWindowHeight()/2. , 0);
-
-    ofxFensterManager::get()->setupWindow(&ControlWindow);
-    //ControlWindow.allObjects = &allObjects;
+        obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
 }
 
 //--------------------------------------------------------------
@@ -65,7 +62,9 @@ void vilainApp::update()
 void vilainApp::draw()
 {
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
+    ofEnableDepthTest();
     ofSetColor(ofColor::white);
+
     for(ofPtr<vilainObject> obj : allObjects)
         obj->draw();
 
@@ -75,14 +74,17 @@ void vilainApp::draw()
     if(bInfoText)
     {
         stringstream ss;
-        ss << "Framerate: " << ofToString(ofGetFrameRate(),0) << endl;
+        ss << "Framerate: " << ofToString(ofGetFrameRate(), 0) << endl;
         ss << "(t): Info Text" << endl;
+
         if(bEditMode)
         {
             ss << "Selected object: " << (* selectedObject) << endl;
             ss << "z-Index: " << (* selectedObject)->getZ();
         }
+		glDepthFunc(GL_ALWAYS);
         ofDrawBitmapString(ss.str(), 20, 20);
+        glDepthFunc(GL_LESS);
     }
 }
 
@@ -93,21 +95,24 @@ void vilainApp::keyPressed(int key)
     if(bEditMode)
     {
         (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
-        if(key==OF_KEY_DEL)
+
+        if(key == OF_KEY_DEL)
         {
             if(selectedObject != allObjects.end())
             {
                 (* selectedObject)->leaveMe();
                 selectedObject = allObjects.erase(selectedObject);
+
                 if(selectedObject == allObjects.end()) selectedObject = allObjects.begin();
+
                 (* selectedObject)->catchMe(bEditMode);
             }
         }
-        else if(key==OF_KEY_RIGHT)
+        else if(key == OF_KEY_RIGHT)
         {
             SelectNextObject();
         }
-        else if(key==OF_KEY_LEFT)
+        else if(key == OF_KEY_LEFT)
         {
             SelectPreviousObject();
         }
@@ -117,12 +122,14 @@ void vilainApp::keyPressed(int key)
     {
 
     }
+
     // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
-    if(key=='t') // Show the textual information box
+
+    if(key == 't') // Show the textual information box
         bInfoText = !bInfoText;
 
-    else if(key==OF_KEY_TAB)
+    else if(key == OF_KEY_TAB)
     {
         bEditMode = !bEditMode;
         (* selectedObject)->catchMe(bEditMode);
@@ -192,10 +199,12 @@ void vilainApp::SelectNextObject()
     if(selectedObject != allObjects.end())
     {
         (* selectedObject)->leaveMe();
+
         if(selectedObject + 1 == allObjects.end())
             selectedObject = allObjects.begin();
         else
             selectedObject++;
+
         (* selectedObject)->catchMe(bEditMode);
     }
 }
@@ -209,10 +218,12 @@ void vilainApp::SelectPreviousObject()
     if(selectedObject != allObjects.end())
     {
         (* selectedObject)->leaveMe();
+
         if(selectedObject == allObjects.begin())
             selectedObject = allObjects.end() - 1;
         else
             selectedObject--;
+
         (* selectedObject)->catchMe(bEditMode);
     }
 }
@@ -220,7 +231,7 @@ void vilainApp::SelectPreviousObject()
 //--------------------------------------------------------------
 void vilainApp::addNewImageFromFile(string path_to_file)
 {
-    ofPtr<vilainImage> curImage( new vilainImage(path_to_file) );
+    ofPtr<vilainImage> curImage(new vilainImage(path_to_file));
     curImage->resizeToTexture(curImage->image.getTextureReference());
     allObjects.push_back(curImage);
     selectedObject = allObjects.begin();
@@ -251,7 +262,7 @@ void vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
 
 void vilainApp::addNewFlux(int deviceID, int w, int h)
 {
-    ofPtr<vilainFlux> curFlux( new vilainFlux(deviceID, w, h));
+    ofPtr<vilainFlux> curFlux(new vilainFlux(deviceID, w, h));
     allObjects.push_back(curFlux);
     selectedObject = allObjects.begin();
 }

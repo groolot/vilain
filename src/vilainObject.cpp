@@ -19,6 +19,70 @@
 
 using namespace vilain;
 
+/** \brief Constructor creating a 2x2 rectangle plane primitive mesh
+ */
+vilainObject::vilainObject() :
+    ofPlanePrimitive(1, 1, 2, 2)
+{
+}
+
+/** \brief Parametric constructor
+ *
+ * \param w float Width of plane
+ * \param h float Height of plane
+ * \param columns int X mesh resolution
+ * \param rows int Y mesh resolution
+ *
+ */
+vilainObject::vilainObject(float w, float h, int columns, int rows) :
+	ofPlanePrimitive(w, h, columns, rows)
+{
+}
+
+/** \brief Give the editing mode status
+ *
+ * \return bool The editing mode : true or false
+ *
+ */
+bool vilainObject::isEditing()
+{
+    return bEditMode;
+}
+
+/** \brief Change the editing mode
+ *
+ * \param mode bool The editing mode to be set
+ * \return bool The new editing mode
+ *
+ */
+bool vilainObject::setEditMode(bool mode)
+{
+    bEditMode = mode;
+    return bEditMode;
+}
+
+/** \brief Does it selected?
+ *
+ * \return bool \c true if selected, \c false if not
+ *
+ */
+bool vilainObject::isSelected()
+{
+    return bSelected;
+}
+
+/** \brief Change the selected state
+ *
+ * \param state bool The selected state to be set
+ * \return bool \c true if selected, \c false if not
+ *
+ */
+bool vilainObject::setSelected(bool state)
+{
+    bSelected = state;
+    return bSelected;
+}
+
 /** \brief Set correctly the object state as it is selected and edited or not
  *
  * \param _bEditmode The application editing mode state (hopefully)
@@ -56,12 +120,14 @@ void vilainObject::drawEditing()
         ofPushStyle();
         ofPushMatrix();
         ofTranslate(getPosition());
-        ofVec2f mouse(ofGetMouseX()-getX(), ofGetMouseY()-getY());
+        ofVec2f mouse(ofGetMouseX() - getX(), ofGetMouseY() - getY());
         unsigned int n = getMesh().getNumVertices();
+
         for(unsigned int i = 0; i < n; i++)
         {
             ofVec3f cur = getMesh().getVertex(i);
             float distance = cur.distance(mouse);
+
             if(i == 0 || distance < nearestMouseDistanceToMeshVertex)
             {
                 nearestMouseDistanceToMeshVertex = distance;
@@ -69,6 +135,7 @@ void vilainObject::drawEditing()
                 nearestMeshVertexIndex = i;
             }
         }
+		glDepthFunc(GL_ALWAYS);
         getMesh().drawWireframe();
         ofSetColor(ofColor::red);
         ofLine(nearestMeshVertex, mouse);
@@ -79,6 +146,7 @@ void vilainObject::drawEditing()
         ofSetLineWidth(1.);
         ofDrawBitmapStringHighlight(ofToString(nearestMeshVertexIndex), mouse + ofVec2f(10., -10.));
         ofDrawAxis(30.);
+        glDepthFunc(GL_LESS);
         ofPopMatrix();
         ofPopStyle();
     }
@@ -97,7 +165,7 @@ void vilainObject::mouseDragged(int x, int y, int button)
     {
         if(button == OF_MOUSE_BUTTON_LEFT)
         {
-            getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x-getX(), y-getY()));
+            getMeshPtr()->setVertex(nearestMeshVertexIndex, ofVec3f(x - getX(), y - getY()));
         }
         else if(button == OF_MOUSE_BUTTON_MIDDLE)
         {
@@ -106,6 +174,7 @@ void vilainObject::mouseDragged(int x, int y, int button)
             setPosition(futurPosition.x, futurPosition.y, getZ());
         }
     }
+
     mouseButton = button;
 }
 
@@ -118,7 +187,7 @@ void vilainObject::mouseDragged(int x, int y, int button)
  */
 void vilainObject::mousePressed(int x, int y, int button)
 {
-    mousePressedPosition = ofVec2f(x,y);
+    mousePressedPosition = ofVec2f(x, y);
     objectPressedPosition = ofVec2f(getX(), getY());
     mouseButton = button;
 }
@@ -132,7 +201,7 @@ void vilainObject::mousePressed(int x, int y, int button)
  */
 void vilainObject::mouseReleased(int x, int y, int button)
 {
-    mouseReleasedPosition = ofVec2f(x,y);
+    mouseReleasedPosition = ofVec2f(x, y);
     mouseButton = button;
 }
 
@@ -140,27 +209,27 @@ void vilainObject::keyPressed(int key)
 {
     if(isEditing())
     {
-        if(key=='1')
+        if(key == '1')
         {
             setResolution(2., 2.);
         }
-        else if(key=='2')
+        else if(key == '2')
         {
             setResolution(3., 3.);
         }
-        else if(key=='3')
+        else if(key == '3')
         {
             setResolution(4., 4.);
         }
-        else if(key==OF_KEY_UP)
+        else if(key == OF_KEY_UP)
         {
-            if(getZ()<std::numeric_limits<int>::max()-1)
-                move(0,0,1);
+            if(getZ() < std::numeric_limits<int>::max() - 1)
+                move(0, 0, 1);
         }
-        else if(key==OF_KEY_DOWN)
+        else if(key == OF_KEY_DOWN)
         {
-            if(getZ()>=1)
-                move(0,0,-1);
+            if(getZ() >= 1)
+                move(0, 0, -1);
         }
     }
     else
