@@ -1,0 +1,4 @@
+#/bin/bash
+
+cd $HOME/openframeworks/addons
+for addon in $(cat $HOME/Documents/Developpement/vilain/addons.make); do git clone https://github.com/groolot/$addon; done
