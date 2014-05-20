@@ -63,6 +63,7 @@ void vilainImage::LoadImage(string path)
 {
     ofLogVerbose(PROG_NAME) << _("Load image from file: ") << path << endl;
     image.loadImage(path);
+    sName = path;
 }
 
 /** \brief Callback to perform the drawing

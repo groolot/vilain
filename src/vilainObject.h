@@ -37,10 +37,20 @@ public:
     vilainObject(float w, float h, int columns, int rows);
     virtual ~vilainObject() {};
 
+    bool operator()(ofPtr<vilainObject> left, ofPtr<vilainObject> right);
+
     bool isEditing();
     bool setEditMode(bool mode);
     bool isSelected();
     bool setSelected(bool state);
+    string getName()
+    {
+        return sName;
+    };
+    void setName(string _name)
+    {
+        sName = _name;
+    };
 
     void catchMe(bool _bEditMode);
     void leaveMe();
@@ -51,7 +61,11 @@ public:
     void mouseReleased(int x, int y, int button);
     void keyPressed(int key);
 
+    void sendOneStepToBackground();
+    void sendOneStepToForeground();
+
 protected:
+    string sName;
     ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
     ofxOscMessage oscOutMessage;/**< \brief The OSC output message container */
     ofxOscReceiver oscReceiver;/**< \brief Used to create an OSC server listening for UDP messages */

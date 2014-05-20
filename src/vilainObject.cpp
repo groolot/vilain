@@ -39,6 +39,17 @@ vilainObject::vilainObject(float w, float h, int columns, int rows) :
 {
 }
 
+/** \brief Compare operator while sorting with std::sort algorithm
+ *
+ * \param otherObject vilainObject The right hand operand
+ * \return bool
+ *
+ */
+bool vilainObject::operator()(ofPtr<vilainObject> left, ofPtr<vilainObject> right)
+{
+    return left->getZ() > right->getZ();
+}
+
 /** \brief Give the editing mode status
  *
  * \return bool The editing mode : true or false
@@ -190,6 +201,18 @@ void vilainObject::mousePressed(int x, int y, int button)
     mousePressedPosition = ofVec2f(x, y);
     objectPressedPosition = ofVec2f(getX(), getY());
     mouseButton = button;
+
+    if(isEditing())
+    {
+        if(mouseButton == OF_MOUSE_BUTTON_5)
+        {
+            sendOneStepToBackground();
+        }
+        else if(mouseButton == OF_MOUSE_BUTTON_6)
+        {
+            sendOneStepToForeground();
+        }
+    }
 }
 
 /** \brief Control what to do when the mouse is released
@@ -227,23 +250,43 @@ void vilainObject::keyPressed(int key)
         {
             setResolution(4., 4.);
         }
-        else if(key == OF_KEY_UP)
-        {
-            if(getZ() < std::numeric_limits<int>::max() - 1)
-            {
-                move(0, 0, 1);
-            }
-        }
         else if(key == OF_KEY_DOWN)
         {
-            if(getZ() >= 1)
-            {
-                move(0, 0, -1);
-            }
+            sendOneStepToBackground();
+        }
+        else if(key == OF_KEY_UP)
+        {
+            sendOneStepToForeground();
         }
     }
     else
     {
 
+    }
+}
+
+/** \brief Send object one step under
+ *
+ * \return void
+ *
+ */
+void vilainObject::sendOneStepToBackground()
+{
+    if(getZ() >= 1)
+    {
+        move(0, 0, -1);
+    }
+}
+
+/** \brief Send object one step upper
+ *
+ * \return void
+ *
+ */
+void vilainObject::sendOneStepToForeground()
+{
+    if(getZ() < std::numeric_limits<int>::max() - 1)
+    {
+        move(0, 0, 1);
     }
 }

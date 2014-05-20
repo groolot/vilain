@@ -30,13 +30,14 @@ void vilainApp::setup()
     const char* name = glfwGetMonitorName(glfwGetPrimaryMonitor());
     ofLogNotice(PROG_NAME) << _("Primary monitor: ") << name << endl;
     vector <ofFile> files;
-    files.push_back(ofFile("groolot.jpg"));
     files.push_back(ofFile("groolot.png"));
+    files.push_back(ofFile("groolot.jpg"));
 
     vector<ofVideoDevice> devicesID = grabber.listDevices();
 
     ofSetFrameRate(30);
     ofSetRectMode(OF_RECTMODE_CORNER);
+    ofEnableAlphaBlending();
     ofLog() << "\t" PROG_NAME ;
 
     for(ofVideoDevice deviceID : devicesID)
@@ -68,6 +69,7 @@ void vilainApp::draw()
     ofBackground(0);
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
     ofEnableDepthTest();
+
     ofSetColor(ofColor::white);
 
     for(ofPtr<vilainObject> obj : allObjects)
@@ -102,6 +104,7 @@ void vilainApp::keyPressed(int key)
     if(bEditMode)
     {
         (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
+        std::sort(allObjects.begin(), allObjects.end(), vilainObject());
         if(key == OF_KEY_DEL)
         {
             if(selectedObject != allObjects.end())
@@ -137,6 +140,7 @@ void vilainApp::keyPressed(int key)
 
     // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
+    ofLogVerbose(PROG_NAME) << (* selectedObject)->getZ();
     if(key == 't') // Show the textual information box
     {
         bInfoText = !bInfoText;
