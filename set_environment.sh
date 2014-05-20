@@ -27,4 +27,4 @@ sudo ${HOME}/openframeworks/scripts/linux/debian/install_codecs.sh || exit 1
 
 # Install required AddOns
 tput setaf 2; echo Install required ofxAddons; tput sgr0
-./download_addons || exit 1
+./download_addons.sh || exit 1
