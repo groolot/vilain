@@ -12,6 +12,10 @@ then
 	git clone https://github.com/groolot/${VILAIN_DEPENDENCIES[i]}.git
     done
     popd
+    exit 0
 else
-    echo "No AddOns have been installed due to absence of ${INSTALL_DIR}, required directory"
+    echo "No AddOns have been installed due to absence of ${INSTALL_DIR}, required directory" >&2
+    exit 1
 fi
+
+exit 1
