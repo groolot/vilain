@@ -61,6 +61,7 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
+	ofBackground(0);
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
     ofEnableDepthTest();
     ofSetColor(ofColor::white);
