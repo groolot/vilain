@@ -34,7 +34,7 @@ class vilainObject : public ofPlanePrimitive
 {
 public:
     vilainObject() : ofPlanePrimitive(1, 1, 2, 2) {};
-    vilainObject(float w, float h, int columns, int rows) : ofPlanePrimitive(w,h,columns,rows) {};
+    vilainObject(float w, float h, int columns, int rows) : ofPlanePrimitive(w, h, columns, rows) {};
     virtual ~vilainObject() {};
 
     /** \brief Give the editing mode status

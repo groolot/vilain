@@ -69,6 +69,7 @@ void vilainObject::drawEditing()
                 nearestMeshVertexIndex = i;
             }
         }
+        glDepthFunc(GL_ALWAYS);
         getMesh().drawWireframe();
         ofSetColor(ofColor::red);
         ofLine(nearestMeshVertex, mouse);
@@ -79,6 +80,7 @@ void vilainObject::drawEditing()
         ofSetLineWidth(1.);
         ofDrawBitmapStringHighlight(ofToString(nearestMeshVertexIndex), mouse + ofVec2f(10., -10.));
         ofDrawAxis(30.);
+        glDepthFunc(GL_LESS);
         ofPopMatrix();
         ofPopStyle();
     }
