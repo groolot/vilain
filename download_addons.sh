@@ -5,7 +5,7 @@ INSTALL_DIR=${HOME}/openframeworks/addons
 # Get dependencies addons
 if [ -d ${INSTALL_DIR} ]
 then
-    VILAIN_DEPENDENCIES=('ofxAnimatable' 'ofxAppUtils' 'ofxAutoControlPanel' 'ofxBlur' 'ofxControlPanel' 'ofxCv' 'ofxCvOpticalFlowLK' 'ofxDirList' 'ofxDmx' 'ofxDraggable' 'ofxFenster' 'ofxFTGL' 'ofxImageSequence' 'ofxMSAInteractiveObject' 'ofxMSATimer' 'ofxMtlMapping2D' 'ofxNamedVariables' 'ofxOscRouter' 'ofxPlaylist' 'ofxPostProcessing' 'ofxProjectorBlend' 'ofxRange' 'ofxRenderManager' 'ofxTextInputField' 'ofxTextureServer' 'ofxTimecode' 'ofxTimeline' 'ofxTweakbar' 'ofxTween' 'ofxUI' 'ofxVideoMapping' 'ofxWordPalette' )
+    VILAIN_DEPENDENCIES=('ofxAnimatable' 'ofxAppUtils' 'ofxBlur' 'ofxCv' 'ofxCvOpticalFlowLK' 'ofxDirList' 'ofxDmx' 'ofxDraggable' 'ofxFenster' 'ofxFTGL' 'ofxImageSequence' 'ofxMSAInteractiveObject' 'ofxMSATimer' 'ofxMtlMapping2D' 'ofxNamedVariables' 'ofxOscRouter' 'ofxPlaylist' 'ofxPostProcessing' 'ofxProjectorBlend' 'ofxRange' 'ofxRenderManager' 'ofxTextInputField' 'ofxTextureServer' 'ofxTimecode' 'ofxTimeline' 'ofxTween' 'ofxUI' 'ofxVideoMapping' 'ofxWordPalette' )
     pushd ${INSTALL_DIR}
     for i in $(seq 0 $((${#VILAIN_DEPENDENCIES[@]} - 1)) )
     do
