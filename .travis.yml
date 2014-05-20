@@ -11,8 +11,8 @@ before_install:
  - mv of_v0.8.1_linux64_release/ openframeworks
  - popd
  - ./download_addons.sh
- - sudo ${HOME}/openframeworks/script/linux/ubuntu/install_dependencies.sh
- - sudo ${HOME}/openframeworks/script/linux/ubuntu/install_codecs.sh
+ - sudo ${HOME}/openframeworks/scripts/linux/ubuntu/install_dependencies.sh
+ - sudo ${HOME}/openframeworks/scripts/linux/ubuntu/install_codecs.sh
 script: make Release
 branches:
   only:
