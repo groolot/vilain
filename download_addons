@@ -1,5 +1,10 @@
 #!/bin/bash
 
-cd $HOME/openframeworks/addons
-for addon in $(cat $HOME/Documents/Developpement/vilain/addons.make); do git clone https://github.com/groolot/$addon; done
-
+# Get dependencies addons
+VILAIN_DEPENDENCIES=('ofxAnimatable' 'ofxAppUtils' 'ofxAutoControlPanel' 'ofxBlur' 'ofxControlPanel' 'ofxCv' 'ofxCvOpticalFlowLK' 'ofxDirList' 'ofxDmx' 'ofxDraggable' 'ofxFenster' 'ofxFTGL' 'ofxImageSequence' 'ofxMSAInteractiveObject' 'ofxMSATimer' 'ofxMtlMapping2D' 'ofxNamedVariables' 'ofxOscRouter' 'ofxPlaylist' 'ofxPostProcessing' 'ofxProjectorBlend' 'ofxRange' 'ofxRenderManager' 'ofxTextInputField' 'ofxTextureServer' 'ofxTimecode' 'ofxTimeline' 'ofxTweakbar' 'ofxTween' 'ofxUI' 'ofxVideoMapping' 'ofxWordPalette' )
+pushd ${HOME}/openframeworks/addons
+for i in $(seq 0 $((${#VILAIN_DEPENDENCIES[@]} - 1)) )
+do
+    git clone https://github.com/groolot/${VILAIN_DEPENDENCIES[i]}
+done
+popd
