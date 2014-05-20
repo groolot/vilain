@@ -31,10 +31,10 @@ vilainFlux::vilainFlux()
 vilainFlux::vilainFlux(int deviceID, int w, int h) : vilainObject(w, h, 2, 2),
     videoGrabberDeviceID(deviceID)
 {
-	/**< TODO: implement it correctly and globally, if needed */
+    /**< TODO: implement it correctly and globally, if needed */
     oscSender.setup("localhost", 12345);
 
-    flux.initGrabber(w,h);
+    flux.initGrabber(w, h);
     resizeToTexture(flux.getTextureReference());
     ofAddListener(ofEvents().update, this, &vilainFlux::update);
 }

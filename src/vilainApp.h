@@ -63,11 +63,8 @@ public:
     bool bEditMode = False; /**< Application edit mode flag \li \c true for editing, \li \c false (default) for performing */
 
 protected:
-    //vector<ofPtr<vilainImage>> imagesCollection;/**< Pointer to vilainImage container */
-    //vector<ofPtr<vilainFlux>> fluxCollection;/**< Pointer to vilainFlux container */
-
-    vector<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
-    vector<ofPtr<vilainObject>>::iterator selectedObject;/**< Iterator on allObjects container, point to the selected object pointer */
+    deque<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
+    deque<ofPtr<vilainObject>>::iterator selectedObject;/**< Iterator on allObjects container, point to the selected object pointer */
 
     bool bInfoText = True;
 

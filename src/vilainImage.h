@@ -32,7 +32,7 @@ namespace vilain
 class vilainImage : public vilainObject
 {
 public:
-    vilainImage() : vilainObject(1,1,2,2) {};
+    vilainImage() : vilainObject(1, 1, 2, 2) {};
     vilainImage(string path);
     virtual ~vilainImage();
 

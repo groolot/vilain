@@ -22,7 +22,7 @@ public:
 
     void update()
     {
-        radius = sin(ofGetFrameNum()*.06)*100;
+        radius = sin(ofGetFrameNum() * .06) * 100;
     }
 
     void draw()

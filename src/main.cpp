@@ -3,7 +3,7 @@
 
 #include "vilainApp.h"
 //========================================================================
-int main( )
+int main()
 {
     setlocale(LC_ALL, "");
     bindtextdomain(PROG_NAME, ".");
@@ -12,6 +12,6 @@ int main( )
     ofSetLogLevel(OF_LOG_WARNING);
 
     ofxFensterManager::setup(1024, 768, OF_WINDOW);
-    ofRunApp( new vilain::vilainApp());
+    ofRunApp(new vilain::vilainApp());
     return 0;
 }

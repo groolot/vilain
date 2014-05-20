@@ -38,18 +38,22 @@ void vilainApp::setup()
     ofSetFrameRate(30);
     ofSetRectMode(OF_RECTMODE_CORNER);
     ofLog() << "\t" PROG_NAME ;
-    ofDisableArbTex();
+
+    for(ofVideoDevice deviceID : devicesID)
+    {
+        addNewFlux(deviceID.id, 160, 120);
+    }
 
     addNewImageFromFiles(files);
 
-    for(ofVideoDevice deviceID : devicesID)
-        addNewFlux(deviceID.id, 160, 120);
     // TODO: implement with a pointer to vilainFlux
     // example: addNewFlux(new vilainFlux(ID, w, h))
 
     // Positioning
     for(ofPtr<vilainObject> obj : allObjects)
+    {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
+    }
 }
 
 //--------------------------------------------------------------
@@ -62,11 +66,14 @@ void vilainApp::update()
 void vilainApp::draw()
 {
     ofBackground(0);
+    ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
     ofEnableDepthTest();
-    ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), 1., std::numeric_limits<float>::max());
     ofSetColor(ofColor::white);
+
     for(ofPtr<vilainObject> obj : allObjects)
+    {
         obj->draw();
+    }
 
     // OnScreenDraw text information
     // TODO: will be deprecated sooner and replaced with
@@ -76,6 +83,7 @@ void vilainApp::draw()
         stringstream ss;
         ss << "Framerate: " << ofToString(ofGetFrameRate(), 0) << endl;
         ss << "(t): Info Text" << endl;
+
         if(bEditMode)
         {
             ss << "Selected object: " << (* selectedObject) << endl;
@@ -100,7 +108,12 @@ void vilainApp::keyPressed(int key)
             {
                 (* selectedObject)->leaveMe();
                 selectedObject = allObjects.erase(selectedObject);
-                if(selectedObject == allObjects.end()) selectedObject = allObjects.begin();
+
+                if(selectedObject == allObjects.end())
+                {
+                    selectedObject = allObjects.begin();
+                }
+
                 (* selectedObject)->catchMe(bEditMode);
             }
         }
@@ -121,10 +134,13 @@ void vilainApp::keyPressed(int key)
             addNewImageFromFile("groolot.jpg");
         }
     }
+
     // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
     if(key == 't') // Show the textual information box
+    {
         bInfoText = !bInfoText;
+    }
 
     else if(key == OF_KEY_TAB)
     {
@@ -196,10 +212,16 @@ void vilainApp::SelectNextObject()
     if(selectedObject != allObjects.end())
     {
         (* selectedObject)->leaveMe();
+
         if(selectedObject + 1 == allObjects.end())
+        {
             selectedObject = allObjects.begin();
+        }
         else
+        {
             selectedObject++;
+        }
+
         (* selectedObject)->catchMe(bEditMode);
     }
 }
@@ -213,10 +235,16 @@ void vilainApp::SelectPreviousObject()
     if(selectedObject != allObjects.end())
     {
         (* selectedObject)->leaveMe();
+
         if(selectedObject == allObjects.begin())
+        {
             selectedObject = allObjects.end() - 1;
+        }
         else
+        {
             selectedObject--;
+        }
+
         (* selectedObject)->catchMe(bEditMode);
     }
 }
@@ -224,7 +252,7 @@ void vilainApp::SelectPreviousObject()
 //--------------------------------------------------------------
 void vilainApp::addNewImageFromFile(string path_to_file)
 {
-    ofPtr<vilainImage> curImage( new vilainImage(path_to_file) );
+    ofPtr<vilainImage> curImage(new vilainImage(path_to_file));
     curImage->resizeToTexture(curImage->image.getTextureReference());
     allObjects.push_back(curImage);
     selectedObject = allObjects.begin();
@@ -250,7 +278,9 @@ void vilainApp::addNewImageFromFile(ofFile file)
 void vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
 {
     for(ofFile file : list_of_files)
+    {
         addNewImageFromFile(file);
+    }
 }
 
 /** \brief Add a new video grabber (webcam, video device, etc.) to the global objects list
@@ -263,7 +293,7 @@ void vilainApp::addNewImageFromFiles(vector<ofFile> list_of_files)
  */
 void vilainApp::addNewFlux(int deviceID, int w, int h)
 {
-    ofPtr<vilainFlux> curFlux( new vilainFlux(deviceID, w, h));
+    ofPtr<vilainFlux> curFlux(new vilainFlux(deviceID, w, h));
     allObjects.push_back(curFlux);
     selectedObject = allObjects.begin();
 }
