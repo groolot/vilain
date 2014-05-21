@@ -25,5 +25,4 @@ obj/
 po/**
 
 # Untracked docs
-docs/conception/**
 docs/doxygen/**
