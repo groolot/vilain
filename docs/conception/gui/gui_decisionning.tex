@@ -1,46 +1,143 @@
 \documentclass[a4paper,titlepage,oneside]{article}
-\author{Ronan Legardinier}
-\title{Graphics library selection}
-\date{\today{}}
-\usepackage[french]{babel}
+
+\usepackage[french,english]{babel}
 \usepackage[utf8]{inputenc}
-\usepackage{graphicx}
+\usepackage[T1]{fontenc}
+\usepackage[pdftex]{graphicx}
+\usepackage[usenames]{color}
+\usepackage[backend=bibtex8,backref=true]{biblatex}
+    \addbibresource{vilain.bib}
+\usepackage{varioref} % References croisees qui vont bien
+\usepackage[%
+	pdftex,%
+	bookmarks=false,%
+	bookmarksopen=false,%
+	bookmarksnumbered=false,%
+	pdfborder=0,%
+	pdfmenubar=true,%
+	pdftoolbar=true,%
+	pdfpagelabels=true,%
+	pdftitle={GUI decisioning},%
+	pdfauthor={Ronan LEGARDINIER, Gr\'egory DAVID},%
+	pdfsubject={vilain, gui},%
+	pdfpagelayout={OneColumn},%
+	plainpages=true,%
+	pdfstartview=FitH%
+]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define macro to easily include image w/wo box around
+% usage:
+%     \image{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%     \imageBoxed{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%
+% after what you can reference the image by:
+%     \ref{fig:ThiIsTheReferenceLabel}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\image}[5][\textwidth]{%
+% #1 = minipage width
+% #2 = file path
+% #3 = includegraphics options
+% #4 = caption text
+% #5 = reference label
+    \begin{figure}[h]
+        \centering
+            \begin{minipage}[c]{#1}
+                \centering
+                \includegraphics[#3]{#2}
+                \caption{#4}
+                \label{#5}
+            \end{minipage}
+    \end{figure}
+}
+\newcommand{\imageBoxed}[5][\textwidth]{%
+% #1 = minipage width
+% #2 = file path
+% #3 = includegraphics options
+% #4 = caption text
+% #5 = reference label
+    \begin{figure}[h]
+        \centering
+        \fbox{
+            \begin{minipage}[c]{#1}
+                \centering
+                \includegraphics[#3]{#2}
+                \caption{#4}
+                \label{#5}
+            \end{minipage}
+        }
+    \end{figure}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Define macro to easily include numbered tabular
+% usage:
+%     \tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+%     \hline
+%     A & B & C \\ \hline
+%     etc.
+%     }
+%
+% after what you can reference the tabular by:
+%     \ref{tab:Label}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\tableau}[4]{%
+% #1 = structure string
+% #2 = caption
+% #3 = label
+% #4 = content
+    \begin{table}[h]
+        \centering
+        \begin{tabular}{#1}
+            #4
+        \end{tabular}
+        \caption{#2}
+        \label{#3}
+    \end{table}
+}
+
+\newcommand{\vilain}{\textbf{vilain::}}
+
+\author{Ronan \bsc{Legardinier}, Grégory \bsc{David}}
+\title{\vilain{} -- Graphical User Interface library selection}
+\date{\today{}}
 
 \begin{document}
-	\maketitle{}
-	\newpage
+\maketitle{}
+\tableofcontents{}
+\newpage
 	
-	\tableofcontents{}
-	\newpage
-	
-	\section{Context}
-		Vilain:: project. Choice of graphic library to GUI development.
-	\section{Needs}
-	
-		Vilain:: GUI require graphics elements like value selectors, tabs, selectable lists, checkboxes, undraggable panels and a monitoring space.
-	\section{Constraints}
-		Vilain:: GUI needs 
-	\section{Possible solutions}
-		We have two solution of library:
-			\paragraph{ofxGui}
-				\begin{center}
-					\includegraphics[width=400pt]{../Images/ofxGui.jpg}
-					Screenshot 1 - Gui example with ofxGUI
-				\end{center}
-				
-			\newpage
+\section{Context}
+\vilain{} project. Choice of graphic library to GUI development.
+\section{Needs}
+\vilain{} GUI require graphics elements like value selectors, tabs,
+selectable lists, checkboxes, undraggable panels and a monitoring
+space.
+\section{Constraints}
+\vilain{} GUI needs
+\section{Possible solutions}
+We have two solution of library:
+\subsection{ofxGui}
+\image{data/ofxGui.jpg}{width=13cm}{Gui example with
+  ofxGUI}{fig:ofxGuiexample}
 			
-			\paragraph{ofxUi}
-				\begin{center}
-					\includegraphics[width=400pt]{../Images/ofxUI.jpg}
-					Screenshot 2 - Gui example with ofxUI
-				\end{center}
+\subsection{ofxUi}
+The \figurename \vref{fig:ofxUIexample} has been token from the
+\texttt{ofxUI/example-AllWidgets}.
+\image{data/ofxUI.jpg}{width=13cm}{Gui example with
+  ofxUI}{fig:ofxUIexample}
 								
-	\section{Comparison / Selection}
-		\begin{tabular}{ l || c | r }
-			Critères & ofxGUI & ofxUI \\
-		\end{tabular}\\
-		ofxUI seems to be better than ofxUI due to the number of graphics elements it offers, particularly those needed for the project.
-	\section{Implementation example}
+\section{Comparison / Selection}
+\tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+  \hline
+  Critères & ofxGUI & ofxUI \\ \hline
+  Criteria 1 & - & X \\ \hline 
+}
+
+ofxUI seems to be better than ofxUI due to the number of graphics
+elements it offers, particularly those needed for the project.
+\section{Implementation example}
 	
 \end{document}

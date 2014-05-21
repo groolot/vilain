@@ -26,3 +26,12 @@ po/**
 
 # Untracked docs
 docs/doxygen/**
+
+# LaTeX temporary files
+*.aux
+*.bbl
+*.log
+*.toc
+*.run.xml
+*-blx.bib
+*.blg
