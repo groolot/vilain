@@ -1,4 +1,4 @@
-i\documentclass[a4paper,titlepage,oneside]{article}
+\documentclass[a4paper,titlepage,oneside]{article}
 
 \usepackage[french,english]{babel}
 \usepackage[utf8]{inputenc}
@@ -88,7 +88,7 @@ i\documentclass[a4paper,titlepage,oneside]{article}
 % #2 = caption
 % #3 = label
 % #4 = content
-    \begin{table}[h]
+	\begin{table}[h]
         \centering
         \begin{tabular}{#1}
             #4
@@ -108,17 +108,18 @@ i\documentclass[a4paper,titlepage,oneside]{article}
 \maketitle{}
 \tableofcontents{}
 \newpage
-	
+
 \section{Context}
 \vilain{} project. Graphic library selection to GUI development.
 
 \section{Needs}
-\vilain{} GUI require graphics elements like value selectors, tabs,
-selectable lists, checkboxes, undraggable panels and a monitoring
-space.
+\vilain{} GUI require graphics elements like value selectors, toggles, tabs, lists, sortable lists, 2D pads, text input area, radios button, checkboxes, undraggable panels and a monitoring space like \figurename \vref{fig:GuiDesign}
 
+\image{data/GUIDesign.jpg}{width=13cm}{\vilain{} Gui design}{fig:GuiDesign}
+
+\newpage
 \section{Constraints}
-\vilain{} GUI require elements offer by several libraries.\\
+\vilain{} GUI require elements offer by several libraries like :\\
 - Tabs\\
 - Sliders\\
 - Color sliders\\
@@ -130,49 +131,51 @@ space.
 - Vertical radio buttons\\
 - Sortable lists\\
 - Tables
+- Radio buttons\\
+- Checkboxes\\
 
 \section{Possible solutions}
 We have two solution of library:
 \subsection{ofxGui}
-The \figurename \vref{fig:ofxGuiexample} has been token from the
-\texttt{openframeworks/examples/gui/guiExample}.
-\image{data/ofxGui.jpg}{width=13cm}{Gui example with
-  ofxGUI}{fig:ofxGuiexample}
-			
+The \figurename \vref{fig:ofxGuiexample} has been token from the \texttt{openframeworks/examples/gui/guiExample}.
+\image{data/ofxGui.jpg}{width=13cm}{Gui example with ofxGUI}{fig:ofxGuiexample}
+
+\newpage
 \subsection{ofxUi}
-The \figurename \vref{fig:ofxUIexample} has been token from the
-\texttt{ofxUI/example-AllWidgets}.
-\image{data/ofxUI.jpg}{width=13cm}{Gui example with
-  ofxUI}{fig:ofxUIexample}
-								
+The \figurename \vref{fig:ofxUIexample} has been token from the \texttt{ofxUI/example-AllWidgets}.
+\image{data/ofxUI.jpg}{width=12cm}{Gui example with ofxUI}{fig:ofxUIexample}
+
+\newpage
 \section{Comparison / Selection}
-The \tablename \vref{tab:Comparison} is a comparison of the two libraries within the constraints listed above.\\
-\tableau{|p{4cm}|c|c|}{Comparison between ofxGUI and ofxUI}{tab:Comparison}{
-  \hline
-  Requirements & ofxGUI & ofxUI\\
-  \hline
-  Tabs & - & + \\
-  Sliders & + & + \\
-  Color sliders & + & - \\
-  Toggles & + & + \\
-  Text inputs & - & + \\
-  Buttons & + & + \\
-  Undraggable panels & - & + \\
-  Lists & - & - \\
-  Vertical radio buttons & - & + \\
-  Sortable lists & - & + \\
-  \hline
+The \tablename \vref{tab:Comparison} is a comparison of two libraries within the constraints listed above.\\
+\tableau{|p{4cm}|c|c|}{Comparison between ofxGUI and ofxUI}{tab:Comparison}
+{
+	\hline
+	Requirements & ofxGUI & ofxUI\\
+	\hline
+	Tabs & - & + \\
+	Sliders & + & + \\
+	Color sliders & + & - \\
+	Toggles & + & + \\
+	Text inputs & - & + \\
+	Buttons & + & + \\
+	Undraggable panels & - & + \\
+	Lists & - & - \\
+	Vertical radio buttons & - & + \\
+	Sortable lists & - & + \\
+	Radio buttons & - & + \\
+	Checkboxes & - & + \\
+	\hline
 }
 
 ofxUI seems to be better than ofxUI due to the number of graphics
 elements it offers, particularly those needed for the project.
 
+\newpage
 \section{Implementation example}
-The \figurename \vref{fig:TabBarExample} has been token from the
-\texttt{ofxUI/example-TabBar}.
-\image{data/TabBar.jpg}{width=5cm}{Tabs bar example with
-  ofxUI}{fig:TabBarExample}
+The \figurename \vref{fig:TabBarExample} has been token from the \texttt{ofxUI/example-TabBar}.
+\image{data/TabBar.jpg}{width=5cm}{Tabs bar example with ofxUI}{fig:TabBarExample}
+
 The \figurename \vref{fig:GUIVilainExample} has been token from \vilain{} project.
-\image{data/GUIVilain.jpg}{width=13cm}{\vilain{} Gui example with
-  ofxUI}{fig:GUIVilainExample}
+\image{data/GUIVilain.jpg}{width=13cm}{\vilain{} Gui example with ofxUI}{fig:GUIVilainExample}
 \end{document}
