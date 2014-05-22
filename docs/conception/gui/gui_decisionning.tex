@@ -83,7 +83,7 @@
 %     \ref{tab:Label}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\tableau}[4]{%
+\newcommand{\tableau}[4]{
 % #1 = structure string
 % #2 = caption
 % #3 = label
@@ -110,16 +110,32 @@
 \newpage
 	
 \section{Context}
-\vilain{} project. Choice of graphic library to GUI development.
+\vilain{} project. Graphic library selection to GUI development.
+
 \section{Needs}
 \vilain{} GUI require graphics elements like value selectors, tabs,
 selectable lists, checkboxes, undraggable panels and a monitoring
 space.
+
 \section{Constraints}
-\vilain{} GUI needs
+\vilain{} GUI require elements offer by several libraries.\\
+- Tabs\\
+- Sliders\\
+- Color sliders\\
+- Toggles\\
+- Text inputs\\
+- Buttons\\
+- Undraggable panels\\
+- Lists\\
+- Vertical radio buttons\\
+- Sortable lists\\
+- Tables
+
 \section{Possible solutions}
 We have two solution of library:
 \subsection{ofxGui}
+The \figurename \vref{fig:ofxGuiexample} has been token from the
+\texttt{openframeworks/examples/gui/guiExample}.
 \image{data/ofxGui.jpg}{width=13cm}{Gui example with
   ofxGUI}{fig:ofxGuiexample}
 			
@@ -130,14 +146,33 @@ The \figurename \vref{fig:ofxUIexample} has been token from the
   ofxUI}{fig:ofxUIexample}
 								
 \section{Comparison / Selection}
-\tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+The \tablename \vref{tab:Comparison} is a comparison of the two libraries within the constraints listed above.\\
+\tableau{|p{4cm}|c|c|}{Comparison between ofxGUI and ofxUI}{tab:Comparison}{
   \hline
-  Critères & ofxGUI & ofxUI \\ \hline
-  Criteria 1 & - & X \\ \hline 
+  Requirements & ofxGUI & ofxUI\\
+  \hline
+  Tabs & - & + \\
+  Sliders & + & + \\
+  Color sliders & + & - \\
+  Toggles & + & + \\
+  Text inputs & - & + \\
+  Buttons & + & + \\
+  Undraggable panels & - & + \\
+  Lists & - & + \\
+  Vertical radio buttons & - & + \\
+  Sortable lists & - & + \\
+  \hline
 }
 
 ofxUI seems to be better than ofxUI due to the number of graphics
 elements it offers, particularly those needed for the project.
+
 \section{Implementation example}
-	
+The \figurename \vref{fig:TabBarExample} has been token from the
+\texttt{ofxUI/example-TabBar}.
+\image{data/TabBar.jpg}{width=5cm}{Tabs bar example with
+  ofxUI}{fig:TabBarExample}
+The \figurename \vref{fig:GUIVilainExample} has been token from \vilain{} project.
+\image{data/GUIVilain.jpg}{width=13cm}{\vilain{} Gui example with
+  ofxUI}{fig:GUIVilainExample}
 \end{document}
