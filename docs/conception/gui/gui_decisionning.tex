@@ -6,8 +6,10 @@
 \usepackage[pdftex]{graphicx}
 \usepackage[usenames]{color}
 \usepackage[backend=bibtex8,backref=true]{biblatex}
-    \addbibresource{vilain.bib}
-\usepackage{varioref} % References croisees qui vont bien
+    \addbibresource{../../vilain.bib}
+    \defbibcheck{online}{\iffieldundef{url}{\skipentry}{}}
+    \defbibcheck{notonline}{\iffieldundef{url}{}{\skipentry}}
+\usepackage{varioref} % Marvelous crossrefs
 \usepackage[%
 	pdftex,%
 	bookmarks=false,%
@@ -99,6 +101,7 @@
 }
 
 \newcommand{\vilain}{\textbf{vilain::}}
+\newcommand{\OF}{openFrameworks}
 
 \author{Ronan \bsc{Legardinier}, Grégory \bsc{David}}
 \title{\vilain{} -- Graphical User Interface library selection}
@@ -112,70 +115,108 @@
 \section{Context}
 \vilain{} project. Graphic library selection to GUI development.
 
-\section{Needs}
-\vilain{} GUI require graphics elements like value selectors, toggles, tabs, lists, sortable lists, 2D pads, text input area, radios button, checkboxes, undraggable panels and a monitoring space like \figurename \vref{fig:GuiDesign}
+\section{Needs, goal}
+\vilain{} GUI require graphics elements like grouping, value selectors, toggles,
+tabs, lists, sortable lists, 2D pads, text input area, radios button,
+checkboxes, undraggable panels and a monitoring space like \figurename
+\vref{fig:GuiDesign}.
 
-\image{data/GUIDesign.jpg}{width=13cm}{\vilain{} Gui design}{fig:GuiDesign}
+\image{data/GUIDesign.jpg}{width=13cm}{\vilain{} Gui
+  design}{fig:GuiDesign}
 
 \newpage
 \section{Constraints}
-\vilain{} GUI require elements offer by several libraries like :\\
-- Tabs\\
-- Sliders\\
-- Color sliders\\
-- Toggles\\
-- Text inputs\\
-- Buttons\\
-- Undraggable panels\\
-- Lists\\
-- Vertical radio buttons\\
-- Sortable lists\\
-- Tables
-- Radio buttons\\
-- Checkboxes\\
+\vilain{} GUI require graphical elements like:
+\begin{itemize}
+    \item Grouping,
+    \item Tabs,
+    \item Sliders,
+    \item Toggles,
+    \item Text inputs,
+    \item Buttons,
+    \item Undraggable panels,
+    \item Lists,
+    \item Sortable lists,
+    \item Tables,
+    \item Radio buttons,
+    \item Checkboxes.
+\end{itemize}
 
 \section{Possible solutions}
-We have two solution of library:
-\subsection{ofxGui}
-The \figurename \vref{fig:ofxGuiexample} has been token from the \texttt{openframeworks/examples/gui/guiExample}.
-\image{data/ofxGui.jpg}{width=13cm}{Gui example with ofxGUI}{fig:ofxGuiexample}
+After several tests with some \OF{} Graphical User Interface addons
+libraries: \texttt{ofxControlPanel}, \texttt{ofxTweakBar},
+\texttt{ofxUI} (Cf. \figurename \vref{fig:ofxUIexample}) and
+\texttt{ofxGui} (shipped with \OF{}, Cf. \figurename
+\ref{fig:ofxGuiexample}), we have made a multi criterions comparison.
 
-\newpage
-\subsection{ofxUi}
-The \figurename \vref{fig:ofxUIexample} has been token from the \texttt{ofxUI/example-AllWidgets}.
-\image{data/ofxUI.jpg}{width=12cm}{Gui example with ofxUI}{fig:ofxUIexample}
+\image{data/ofxGui.jpg}{width=13cm}{\texttt{ofxGUI} basic example,
+  from the \OF{} shipped addons
+  (\texttt{openframeworks/examples/gui/guiExample})}{fig:ofxGuiexample}
 
-\newpage
-\section{Comparison / Selection}
-The \tablename \vref{tab:Comparison} is a comparison of two libraries within the constraints listed above.\\
-\tableau{|p{4cm}|c|c|}{Comparison between ofxGUI and ofxUI}{tab:Comparison}
-{
-	\hline
-	Requirements & ofxGUI & ofxUI\\
-	\hline
-	Tabs & - & + \\
-	Sliders & + & + \\
-	Color sliders & + & - \\
-	Toggles & + & + \\
-	Text inputs & - & + \\
-	Buttons & + & + \\
-	Undraggable panels & - & + \\
-	Lists & - & - \\
-	Vertical radio buttons & - & + \\
-	Sortable lists & - & + \\
-	Radio buttons & - & + \\
-	Checkboxes & - & + \\
-	\hline
-}
+\image{data/ofxUI.jpg}{width=12cm}{\texttt{ofxUI} example, from the
+  \texttt{ofxUI/example-AllWidgets}}{fig:ofxUIexample}
 
-ofxUI seems to be better than ofxUI due to the number of graphics
-elements it offers, particularly those needed for the project.
+\section{Comparison \& Selection}
+The \tablename \vref{tab:Comparison} is a comparison of two libraries
+within the constraints listed above.
 
-\newpage
+\tableau{|p{3.5cm}|c|c|c|c|c|}{\OF{} GUI addons libraries comparison}{tab:Comparison} { \hline
+  \textbf{Requirements} & Coefficient & \texttt{ofxGui} & \texttt{ofxUI} & \texttt{ofxControlPanel} & \texttt{ofxTweakBar} \\
+  \hline
+  \multicolumn{6}{|c|}{Source code} \\
+  \hline
+  GNU/Linux friendly & 5 & + & + & + & - \\
+  Reliable & 5 & + & + & - & + \\
+  Documented & 2 & - & - & - & - \\
+  Low memory foot print & 1 & + & + & + & + \\
+  Responsive & 3 & + & + & - & + \\
+  \hline
+  Total(1) & 16 & 14 & 14 & 6 & 9 \\
+  \hline
+  \multicolumn{6}{|c|}{Required components} \\
+  \hline
+  Grouping & 3 & - & +(Matrix) & - & - \\
+  Tabs & 3 & - & + & + & - \\
+  Sliders & 3 & + & + & + & + \\
+  Toggles & 3 & + & + & + & + \\
+  Text inputs & 3 & - & + & - & + \\
+  Buttons & 3 & + & + & + & + \\
+  Undraggable panels & 3 & - & + & + & - \\
+  Lists & 3 & - & - & + & + \\
+  Radio buttons & 3 & - & + & - & - \\
+  Checkboxes & 3 & + & + & + & + \\
+  Tables & 3 & - & - & - & - \\
+  \hline
+  Total(2) & 33 & 12 & 27 & 21 & 18 \\
+  \hline
+  \multicolumn{6}{|c|}{Optional components} \\
+  \hline
+  Vertical radio buttons & 2 & - & + & - & - \\
+  Sortable lists & 2 & - & + & - & - \\
+  Color sliders & 1 & + & - & - & - \\
+  \hline
+  Total(3) & 5 & 1 & 4 & 0 & 0 \\
+  \hline \hline
+  \textbf{Total} (1)+(2)+(3) & 54 & 27 & \textbf{45} & 27 & 27 \\
+  \hline }
+
+\texttt{ofxUI} seems to be better than \texttt{ofxGui} due to the
+number of graphics elements it offers, particularly those needed for
+the project.
+
 \section{Implementation example}
-The \figurename \vref{fig:TabBarExample} has been token from the \texttt{ofxUI/example-TabBar}.
-\image{data/TabBar.jpg}{width=5cm}{Tabs bar example with ofxUI}{fig:TabBarExample}
+The \figurename \vref{fig:TabBarExample} has been token from the
+\texttt{ofxUI/example-TabBar}.
+\image{data/TabBar.jpg}{width=5cm}{\texttt{ofxUI} tabs bar example}{fig:TabBarExample}
 
-The \figurename \vref{fig:GUIVilainExample} has been token from \vilain{} project.
-\image{data/GUIVilain.jpg}{width=13cm}{\vilain{} Gui example with ofxUI}{fig:GUIVilainExample}
+The \figurename \vref{fig:GUIVilainExample} has been token from
+\vilain{} project.  \image{data/GUIVilain.jpg}{width=13cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}
+
+% References
+%\newpage
+\printbibheading
+\printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
+\printbibliography[check=online,heading=subbibliography,title={Webography}]
+\nocite{*}
+
 \end{document}
