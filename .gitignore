@@ -37,3 +37,4 @@ docs/doxygen/**
 *.blg
 *.synctex.gz
 *.pdf
+*~
