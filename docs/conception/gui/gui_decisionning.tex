@@ -1,15 +1,8 @@
 \documentclass[a4paper,titlepage,oneside]{article}
 
-\usepackage[french,english]{babel}
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage[pdftex]{graphicx}
-\usepackage[usenames]{color}
-\usepackage[backend=bibtex8,backref=true]{biblatex}
-    \addbibresource{../../vilain.bib}
-    \defbibcheck{online}{\iffieldundef{url}{\skipentry}{}}
-    \defbibcheck{notonline}{\iffieldundef{url}{}{\skipentry}}
-\usepackage{varioref} % Marvelous crossrefs
+\usepackage{../../vilain}
+
+\addbibresource{../../vilain.bib}
 \usepackage[%
 	pdftex,%
 	bookmarks=false,%
@@ -28,7 +21,7 @@
 ]{hyperref}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Define macro to easily include image w/wo box around
+% Easily include image w/wo box around
 % usage:
 %     \image{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
 %     \imageBoxed{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
@@ -37,43 +30,9 @@
 %     \ref{fig:ThiIsTheReferenceLabel}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\image}[5][\textwidth]{%
-% #1 = minipage width
-% #2 = file path
-% #3 = includegraphics options
-% #4 = caption text
-% #5 = reference label
-    \begin{figure}[h]
-        \centering
-            \begin{minipage}[c]{#1}
-                \centering
-                \includegraphics[#3]{#2}
-                \caption{#4}
-                \label{#5}
-            \end{minipage}
-    \end{figure}
-}
-\newcommand{\imageBoxed}[5][\textwidth]{%
-% #1 = minipage width
-% #2 = file path
-% #3 = includegraphics options
-% #4 = caption text
-% #5 = reference label
-    \begin{figure}[h]
-        \centering
-        \fbox{
-            \begin{minipage}[c]{#1}
-                \centering
-                \includegraphics[#3]{#2}
-                \caption{#4}
-                \label{#5}
-            \end{minipage}
-        }
-    \end{figure}
-}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Define macro to easily include numbered tabular
+% Easily include numbered tabular
 % usage:
 %     \tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
 %     \hline
@@ -85,23 +44,6 @@
 %     \ref{tab:Label}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\tableau}[4]{
-% #1 = structure string
-% #2 = caption
-% #3 = label
-% #4 = content
-	\begin{table}[h]
-        \centering
-        \begin{tabular}{#1}
-            #4
-        \end{tabular}
-        \caption{#2}
-        \label{#3}
-    \end{table}
-}
-
-\newcommand{\vilain}{\textbf{vilain::}}
-\newcommand{\OF}{openFrameworks}
 
 \author{Ronan \bsc{Legardinier}, Grégory \bsc{David}}
 \title{\vilain{} -- Graphical User Interface library selection}
@@ -204,6 +146,6 @@ The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project
 \printbibheading
 \printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
 \printbibliography[check=online,heading=subbibliography,title={Webography}]
-\nocite{*}
+\nocite{openframeworks,ofxUI,REZAALI,OF_TUTORIALS_ofauckland}
 
 \end{document}
