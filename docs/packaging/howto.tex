@@ -1,0 +1,66 @@
+\documentclass[a4paper,oneside,titlepage]{article}
+
+\usepackage{../vilain}
+
+\addbibresource{../vilain.bib}
+\usepackage[%
+	pdftex,%
+	bookmarks=false,%
+	bookmarksopen=false,%
+	bookmarksnumbered=false,%
+	pdfborder=0,%
+	pdfmenubar=true,%
+	pdftoolbar=true,%
+	pdfpagelabels=true,%
+	pdftitle={Packaging - HowTo},%
+	pdfauthor={Florian THIERRY, Gr\'egory DAVID},%
+	pdfsubject={vilain, package},%
+	pdfpagelayout={OneColumn},%
+	plainpages=true,%
+	pdfstartview=FitH%
+]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include image w/wo box around
+% usage:
+%     \image{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%     \imageBoxed{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%
+% after what you can reference the image by:
+%     \ref{fig:ThiIsTheReferenceLabel}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include numbered tabular
+% usage:
+%     \tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+%     \hline
+%     A & B & C \\ \hline
+%     etc.
+%     }
+%
+% after what you can reference the tabular by:
+%     \ref{tab:Label}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Florian \bsc{Thierry}, Grégory \bsc{David}}
+\title{\vilain{} -- Packaging HowTo}
+\date{\today{}}
+
+\begin{document}
+\maketitle
+\tableofcontents{}
+
+\newpage
+
+
+% References
+%\newpage
+\printbibheading
+\printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
+\printbibliography[check=online,heading=subbibliography,title={Webography}]
+\nocite{PACKAGE_MAINTAINER_GUIDE}
+
+\end{document}

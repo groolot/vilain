@@ -18,11 +18,11 @@ mv of_v${OF_VERSION}_${OF_FLAVOUR} openframeworks || exit 1
 popd
 
 # Install library dependencies
-tput setaf 2; echo Install needed libraries (OF); tput sgr0
+tput setaf 2; echo "Install needed libraries (OF)"; tput sgr0
 sudo ${HOME}/openframeworks/scripts/linux/debian/install_dependencies.sh || exit 1
 
 # Install codecs
-tput setaf 2; echo Install several codecs (OF); tput sgr0
+tput setaf 2; echo "Install several codecs (OF)"; tput sgr0
 sudo ${HOME}/openframeworks/scripts/linux/debian/install_codecs.sh || exit 1
 
 # Install required AddOns
