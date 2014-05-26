@@ -163,6 +163,11 @@ void vilainObject::drawEditing()
     }
 }
 
+void vilainObject::drawUI()
+{
+
+}
+
 /** \brief Control what to do when the mouse is dragged
  *
  * \param[in] x,y int Mouse 2D position in screen coordinates

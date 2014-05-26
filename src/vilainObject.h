@@ -55,6 +55,7 @@ public:
     void catchMe(bool _bEditMode);
     void leaveMe();
     virtual void draw() {};
+    void drawUI();
     void drawEditing();
     void mouseDragged(int x, int y, int button);
     void mousePressed(int x, int y, int button);
