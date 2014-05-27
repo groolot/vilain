@@ -1,8 +1,4 @@
 ofxOsc
-ofxFenster
-ofxTimeline
-ofxTween
-ofxMSATimer
-ofxTextInputField
-ofxRange
 ofxXmlSettings
+ofxFenster
+ofxUI
