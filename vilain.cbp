@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="vilain" />
+		<Option makefile_is_custom="1" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="build config/;" />
+		<MakeCommands>
+			<Build command="$make -f $makefile $target" />
+			<CompileFile command="$make -f $makefile $file" />
+			<Clean command="$make -f $makefile Clean$target" />
+			<DistClean command="$make -f $makefile distclean$target" />
+			<AskRebuildNeeded command="$make -q -f $makefile $target" />
+			<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+		</MakeCommands>
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/$(PROJECT_NAME)_debug" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Debug/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux/libopenFrameworksDebug.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add directory="src/" />
+					<Add directory="src" />
+				</Compiler>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile Clean$target" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/$(PROJECT_NAME)" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin" />
+				<Option object_output="obj/Release/" />
+				<Option external_deps="../../../libs/openFrameworksCompiled/lib/linux/libopenFrameworks.a;" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectLinkerOptionsRelation="2" />
+				<Compiler>
+					<Add directory="src/" />
+					<Add directory="src" />
+				</Compiler>
+				<MakeCommands>
+					<Build command="$make -f $makefile $target" />
+					<CompileFile command="$make -f $makefile $file" />
+					<Clean command="$make -f $makefile Clean$target" />
+					<DistClean command="$make -f $makefile distclean$target" />
+					<AskRebuildNeeded command="$make -q -f $makefile $target" />
+					<SilentBuild command="$make -f $makefile $target &gt; $(CMD_NULL)" />
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename=".travis.yml">
+			<Option virtualFolder="build config/" />
+		</Unit>
+		<Unit filename="Makefile">
+			<Option virtualFolder="build config/" />
+		</Unit>
+		<Unit filename="addons.make">
+			<Option virtualFolder="build config/" />
+		</Unit>
+		<Unit filename="config.make">
+			<Option virtualFolder="build config" />
+		</Unit>
+		<Unit filename="prebuild.make">
+			<Option virtualFolder="build config/" />
+		</Unit>
+		<Unit filename="src/main.cpp" />
+		<Unit filename="src/vilain.h" />
+		<Unit filename="src/vilainApp.cpp" />
+		<Unit filename="src/vilainApp.h" />
+		<Unit filename="src/vilainConstants.h" />
+		<Unit filename="src/vilainControlUI.h" />
+		<Unit filename="src/vilainFlux.cpp" />
+		<Unit filename="src/vilainFlux.h" />
+		<Unit filename="src/vilainImage.cpp" />
+		<Unit filename="src/vilainImage.h" />
+		<Unit filename="src/vilainObject.cpp" />
+		<Unit filename="src/vilainObject.h" />
+		<Extensions>
+			<code_completion>
+				<search_path add="/home/groolot/openframeworks/addons/ofx3DModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAnimatable/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAppUtils/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAssimpModelLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxAutoControlPanel/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxBlur/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxControlPanel/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxCv/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxCvOpticalFlowLK/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDirList/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDmx/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxDraggable/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFenster/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFTGL/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxFX/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxGui/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxImageSequence/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxKinect/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMSAInteractiveObject/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMSATimer/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxMtlMapping2D/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxNamedVariables/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxNetwork/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOpenCv/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOsc/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxOscRouter/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxPlaylist/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxPostProcessing/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxProjectorBlend/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxRenderManager/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxSvg/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTextInputField/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTextureServer/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxThreadedImageLoader/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTimeline/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxTweakbar/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxUI/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxVectorGraphics/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxVideoMapping/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxWordPalette/src" />
+				<search_path add="/home/groolot/openframeworks/addons/ofxXmlSettings/src" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/3d" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/app" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/communication" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/events" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/gl" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/graphics" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/math" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/sound" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/types" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/utils" />
+				<search_path add="/home/groolot/openframeworks/libs/openFrameworks/video" />
+			</code_completion>
+			<envvars />
+			<debugger />
+			<DoxyBlocks>
+				<comment_style block="0" line="0" />
+				<doxyfile_project output_directory="docs/doxygen" />
+				<doxyfile_build extract_all="1" />
+				<doxyfile_warnings />
+				<doxyfile_output />
+				<doxyfile_dot have_dot="1" />
+				<general />
+			</DoxyBlocks>
+			<wxsmith version="1">
+				<gui name="wxWidgets" src="myapp.cpp" main="NewDialog" init_handlers="necessary" language="CPP" />
+				<resources>
+					<wxDialog wxs="wxsmith/NewDialog.wxs" src="NewDialog.cpp" hdr="NewDialog.h" fwddecl="0" i18n="1" name="NewDialog" language="CPP" />
+				</resources>
+			</wxsmith>
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
