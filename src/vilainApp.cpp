@@ -75,6 +75,7 @@ void vilainApp::draw()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->draw();
+        obj->drawUI();
     }
 
     // OnScreenDraw text information
