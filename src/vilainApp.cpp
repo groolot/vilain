@@ -54,7 +54,10 @@ void vilainApp::setup()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
+        allObjectsName.push_back(obj->getName());
     }
+
+    vilainApp::setMainUI();
 }
 
 //--------------------------------------------------------------
@@ -66,7 +69,13 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-    ofBackground(0);
+    vilainApp::drawProjector();
+}
+
+//--------------------------------------------------------------
+void vilainApp::drawProjector()
+{
+    ofBackground(100);
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
     ofEnableDepthTest();
 
@@ -75,7 +84,7 @@ void vilainApp::draw()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->draw();
-        obj->drawUI();
+        obj->drawObjectUI();
     }
 
     // OnScreenDraw text information
@@ -92,10 +101,81 @@ void vilainApp::draw()
             ss << "Selected object: " << (* selectedObject) << endl;
             ss << "z-Index: " << (* selectedObject)->getZ();
         }
+
         glDepthFunc(GL_ALWAYS);
-        ofDrawBitmapString(ss.str(), 20, 20);
+        ofDrawBitmapString(ss.str(), 20, ofGetHeight() - 60);
         glDepthFunc(GL_LESS);
     }
+}
+
+//--------------------------------------------------------------
+void vilainApp::setMainUI()
+{
+    tabBar = new ofxUITabBar; /** Tab bar initialization */
+
+    projectSettingsTab->setName("Project settings"); /** Set tab name */
+    projectSettingsTab->addLabel("Project settings"); /** Set title */
+    projectSettingsTab->addSpacer();
+    projectSettingsTab->addLabelButton("Save settings", false); /** Button to save settings */
+    projectSettingsTab->addLabelButton("Load settings", false); /** Button to load saved settings */
+
+    ofAddListener(projectSettingsTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
+    projectSettingsTab->autoSizeToFitWidgets(); /** Auto height size */
+    tabBar->addCanvas(projectSettingsTab);
+    mainUI.push_back(projectSettingsTab); /** Add the tab to the main canvas */
+
+    objectManagementTab->setName("Object management"); /** Set tab name */
+    objectManagementTab->addLabel("Object management"); /** Set title */
+    objectManagementTab->addSpacer();
+    objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
+    objectList->activateToggle((* selectedObject)->getName());
+    objectManagementTab->addSpacer();
+    objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
+    objectManagementTab->addSpacer();
+    objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delte selected object */
+    objectManagementTab->addSpacer();
+    objectManagementTab->addLabelButton("list", false);
+
+    ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
+    objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
+    tabBar->addCanvas(objectManagementTab);
+    mainUI.push_back(objectManagementTab); /** Add the tab to the main canvas */
+}
+
+//--------------------------------------------------------------
+void vilainApp::mainUI_Event(ofxUIEventArgs &e)
+{
+    string eventName = e.getName();
+
+    cout << eventName << endl;
+
+    if(eventName == "Object list")
+    {
+        bool activateEdition = (* selectedObject)->isEditing();
+
+        (* selectedObject)->leaveMe();
+        ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
+        selectedObject = (allObjects.begin() + ObjectList->getValue());
+        (* selectedObject)->catchMe(activateEdition);
+    }
+
+    if(eventName == "New object name")
+    {
+        ofxUITextInput *newObject = (ofxUITextInput *) e.widget;
+
+        if(newObject->getTextString() != "Add a new object")
+        {
+            allObjectsName.push_back(newObject->getTextString());
+        }
+    }
+
+    if(eventName == "New object name")
+    {
+        ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
+        allObjectsName.erase(allObjectsName.begin() + ObjectList->getValue());
+    }
+
+    if(eventName == "list") {}
 }
 
 //--------------------------------------------------------------
@@ -106,6 +186,7 @@ void vilainApp::keyPressed(int key)
     {
         (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
         std::sort(allObjects.begin(), allObjects.end(), vilainObject());
+
         if(key == OF_KEY_DEL)
         {
             if(selectedObject != allObjects.end())
@@ -142,6 +223,7 @@ void vilainApp::keyPressed(int key)
     // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
     ofLogVerbose(PROG_NAME) << (* selectedObject)->getZ();
+
     if(key == 't') // Show the textual information box
     {
         bInfoText = !bInfoText;
@@ -228,6 +310,7 @@ void vilainApp::SelectNextObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
+        objectList->activateToggle((* selectedObject)->getName());
     }
 }
 
@@ -251,6 +334,7 @@ void vilainApp::SelectPreviousObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
+        objectList->activateToggle((* selectedObject)->getName());
     }
 }
 

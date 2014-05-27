@@ -146,6 +146,7 @@ void vilainObject::drawEditing()
                 nearestMeshVertexIndex = i;
             }
         }
+
         glDepthFunc(GL_ALWAYS);
         getMesh().drawWireframe();
         ofSetColor(ofColor::red);
@@ -163,7 +164,7 @@ void vilainObject::drawEditing()
     }
 }
 
-void vilainObject::drawUI()
+void vilainObject::drawObjectUI()
 {
 
 }
