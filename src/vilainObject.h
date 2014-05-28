@@ -20,7 +20,7 @@
 
 #include <ofMain.h>
 #include <ofxOsc.h>
-
+#include "ofxUI.h"
 #include "vilain.h"
 
 namespace vilain
@@ -65,8 +65,11 @@ public:
     void sendOneStepToBackground();
     void sendOneStepToForeground();
 
+    ofxUIScrollableCanvas* objectUI;
+    bool bIsVisible;
+
 protected:
-    string sName;
+        string sName;
     ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
     ofxOscMessage oscOutMessage;/**< \brief The OSC output message container */
     ofxOscReceiver oscReceiver;/**< \brief Used to create an OSC server listening for UDP messages */

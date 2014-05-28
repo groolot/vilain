@@ -16,6 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "vilainObject.h"
+#include "vilainApp.h"
 
 using namespace vilain;
 
@@ -166,7 +167,16 @@ void vilainObject::drawEditing()
 
 void vilainObject::drawObjectUI()
 {
+    string str = "/home/ronan/Documents/Developpement/vilain/bin/data/";
 
+    objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
+
+    objectUI->setName(sName.substr(str.size()));
+    objectUI->addLabel(sName.substr(str.size()));
+    objectUI->addSpacer();
+    objectUI->addToggle("Show object", &bIsVisible);
+    objectUI->addSpacer();
+    objectUI->addLabel("Geometry", OFX_UI_FONT_SMALL);
 }
 
 /** \brief Control what to do when the mouse is dragged

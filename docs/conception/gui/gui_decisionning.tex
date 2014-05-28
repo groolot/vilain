@@ -139,9 +139,24 @@ within the constraints listed above.
 
 \newpage
 \section{Implementation example}
-The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project.  \image{data/GUIVilain.jpg}{width=12cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}
+\subsection{Example}
+The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project.  \image{data/GUIVilain.jpg}{width=12cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}\newpage
 
-\newpage
+
+\subsection{Implementation with \texttt{ofxUI}}
+\begin{itemize}
+	\item Global: have to draw canvas before widgets
+	\item Canvas: have to push back canvas in a vector of it
+	\item Widgets: have to implemente widgets in order that they must be draw
+
+	\item Draw a canvas: have to declare in the header file a object type \texttt{ofxUICanvas} and implemente it in the source file with the default constructor or with his height, width and position.
+	
+	\item Associate widgets to a canvas: widgets are added on a canvas by a pointer on it and with a implemented function of \texttt{ofxUI} like \texttt{addwidgetName(parameters);}
+\end{itemize}
+
+\lstinline[language=C++]{objectUI->addLabel("Geometry", OFX_UI_FONT_SMALL);}
+
+
 % References
 %\newpage
 \printbibheading
