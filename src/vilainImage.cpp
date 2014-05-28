@@ -74,13 +74,10 @@ void vilainImage::LoadImage(string path)
  */
 void vilainImage::draw()
 {
-    if(bIsVisible == true)
-    {
-        image.getTextureReference().bind();
-        of3dPrimitive::draw();
-        image.getTextureReference().unbind();
-        drawEditing();
-    }
+    image.getTextureReference().bind();
+    of3dPrimitive::draw();
+    image.getTextureReference().unbind();
+    drawEditing();
 }
 
 

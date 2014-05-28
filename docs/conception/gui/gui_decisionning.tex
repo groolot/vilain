@@ -145,16 +145,59 @@ The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project
 
 \subsection{Implementation with \texttt{ofxUI}}
 \begin{itemize}
-	\item Global: have to draw canvas before widgets
-	\item Canvas: have to push back canvas in a vector of it
-	\item Widgets: have to implemente widgets in order that they must be draw
+	\item \textbf{Global:} canvas have to be set up on top of everything else 
+	\item \textbf{Canvas:} canvas are stored in a vector, the order they are stored the order they are shown
+	\item \textbf{Widgets:} widgets are stored in a per canvas vector, the order they are stored the order they are shown
 
-	\item Draw a canvas: have to declare in the header file a object type \texttt{ofxUICanvas} and implemente it in the source file with the default constructor or with his height, width and position.
+	\item \textbf{Instanciate a canvas:} \lstinline[language=C++]{ofxUICanvas* myCanvas = new ofxUICanvas(float _xPosition, float _yPosition, float _width, float _height);}
 	
-	\item Associate widgets to a canvas: widgets are added on a canvas by a pointer on it and with a implemented function of \texttt{ofxUI} like \texttt{addwidgetName(parameters);}
+	\item \textbf{Associate widgets to a canvas:}
+		\subitem \lstlistingname{} \vref{lst:widgetExample_1} shows an example of how to add a label widget to a canvas, directly through the already instanciate canvas
+		\subitem \lstlistingname{} \vref{lst:widgetExample_2} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then adding it to the canvas.
+		\subitem \lstlistingname{} \vref{lst:widgetExample_3} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then set the canvas as parent of it
+
+	\item \textbf{Event management:}
+		\subitem Events are catched by a listener, that call a function at each event in a canvas - See \lstlistingname{} \vref{lst:eventListener}
+		\subitem At each event in a canvas, the listener call a function with as parameter the name of the clicked widget - See \lstlistingname{} \ref{lst:eventManagement}
 \end{itemize}
 
-\lstinline[language=C++]{objectUI->addLabel("Geometry", OFX_UI_FONT_SMALL);}
+	\subsection*{Examples}
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} first way implementation}, label={lst:widgetExample_1}]
+ofxUICanvas* myCanvas = new ofxUICanvas();
+
+myCanvas->addLabel("My label");
+
+		\end{lstlisting}
+			
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} second way implementation}, label={lst:widgetExample_2}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myCanvas->addWidget(myLabel);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} third way implementation}, label={lst:widgetExample_3}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myLabel->setParent(myCanvas);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventListener}]
+ofAddListener(myCanvas->newGUIEvent, this, &vilainApp::mainUI_Event);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventManagement}]
+void vilainApp::mainUI_Event(ofxUIEventArgs &e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "My label")
+    {
+        //...
+    }
+}
+		\end{lstlisting}
 
 
 % References

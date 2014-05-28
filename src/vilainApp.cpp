@@ -130,6 +130,7 @@ void vilainApp::setMainUI()
     objectManagementTab->addLabel("Object management"); /** Set title */
     objectManagementTab->addSpacer();
     objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
+    objectList->activateToggle((* selectedObject)->getName());
     objectManagementTab->addSpacer();
     objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
     objectManagementTab->addSpacer();
