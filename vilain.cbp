@@ -71,6 +71,9 @@
 		<Unit filename="config.make">
 			<Option virtualFolder="build config" />
 		</Unit>
+		<Unit filename="install_prerequisites">
+			<Option virtualFolder="build config/" />
+		</Unit>
 		<Unit filename="prebuild.make">
 			<Option virtualFolder="build config/" />
 		</Unit>
@@ -84,8 +87,12 @@
 		<Unit filename="src/vilainFlux.h" />
 		<Unit filename="src/vilainImage.cpp" />
 		<Unit filename="src/vilainImage.h" />
+		<Unit filename="src/vilainImageSequence.cpp" />
+		<Unit filename="src/vilainImageSequence.h" />
 		<Unit filename="src/vilainObject.cpp" />
 		<Unit filename="src/vilainObject.h" />
+		<Unit filename="src/vilainVideo.cpp" />
+		<Unit filename="src/vilainVideo.h" />
 		<Extensions>
 			<code_completion>
 				<search_path add="/home/groolot/openframeworks/addons/ofx3DModelLoader/src" />
