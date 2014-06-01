@@ -92,6 +92,7 @@ void vilainApp::draw()
             ss << "Selected object: " << (* selectedObject) << endl;
             ss << "z-Index: " << (* selectedObject)->getZ();
         }
+
         glDepthFunc(GL_ALWAYS);
         ofDrawBitmapString(ss.str(), 20, 20);
         glDepthFunc(GL_LESS);
@@ -106,6 +107,7 @@ void vilainApp::keyPressed(int key)
     {
         (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
         std::sort(allObjects.begin(), allObjects.end(), vilainObject());
+
         if(key == OF_KEY_DEL)
         {
             if(selectedObject != allObjects.end())
@@ -135,13 +137,20 @@ void vilainApp::keyPressed(int key)
     {
         if(key == ' ')
         {
-            addNewImageFromFile("groolot.jpg");
+            ofFileDialogResult path = ofSystemLoadDialog("open File");
+
+            if(path.bSuccess)
+            {
+                addNewImageFromFile(ofToDataPath(path.getPath()));
+            }
+
         }
     }
 
     // Always
     ofLogVerbose(PROG_NAME) << _("Keypressed: ") << key;
     ofLogVerbose(PROG_NAME) << (* selectedObject)->getZ();
+
     if(key == 't') // Show the textual information box
     {
         bInfoText = !bInfoText;
