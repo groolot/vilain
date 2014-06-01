@@ -1,7 +1,50 @@
 #!/bin/bash
 
+tput bold; echo -e "\n\tINFORMATION: your user must have 'sudo' power to install some requirements!\n\n"; tput sgr0
+while getopts ":f:d:a" options;
+do
+    case "${options}" in
+        f)
+	    f=${OPTARG}
+	    if [ $f = "linux" ] || [ $f = "linux32" ];
+	    then
+		flavour="linux"
+	    elif [ $f = "linux64" ];
+	    then
+		flavour="linux64"
+	    elif [ $f = "armRPI" ] || [ $f = "armV6" ];
+	    then
+		flavour="linuxarmv6l"
+	    elif [ $f = "armPANDA" ] || [ $f = "armV7" ];
+	    then
+		flavour="linuxarmv7l"
+	    else
+		usage
+	    fi
+	    ;;
+	    a)
+	    get_addons
+	    exit 0
+	    ;;
+        *)
+	    usage
+	    ;;
+    esac
+done
+shift $((OPTIND-1))
+
+if [ -z "${flavour}" ];
+then
+    usage
+fi
+
+OF_VERSION=0.8.1
+OF_FLAVOUR=${flavour}_release
+OF_FILE=of_v${OF_VERSION}_${OF_FLAVOUR}.tar.gz
+OF_DIRNAME=openframeworks
+
 function usage {
-    echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7>" 1>&2;
+    echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7> -a" 1>&2;
     exit 1;
 }
 
@@ -38,52 +81,14 @@ function successed_message {
     echo "]"
 }
 
-tput bold; echo -e "\n\tINFORMATION: your user must have 'sudo' power to install some requirements!\n\n"; tput sgr0
-while getopts ":f:d:" options;
-do
-    case "${options}" in
-        f)
-	    f=${OPTARG}
-	    if [ $f = "linux" ] || [ $f = "linux32" ];
-	    then
-		flavour="linux"
-	    elif [ $f = "linux64" ];
-	    then
-		flavour="linux64"
-	    elif [ $f = "armRPI" ] || [ $f = "armV6" ];
-	    then
-		flavour="linuxarmv6l"
-	    elif [ $f = "armPANDA" ] || [ $f = "armV7" ];
-	    then
-		flavour="linuxarmv7l"
-	    else
-		usage
-	    fi
-	    ;;
-        *)
-	    usage
-	    ;;
-    esac
-done
-shift $((OPTIND-1))
-
-if [ -z "${flavour}" ];
-then
-    usage
-fi
-
-OF_VERSION=0.8.1
-OF_FLAVOUR=${flavour}_release
-OF_FILE=of_v${OF_VERSION}_${OF_FLAVOUR}.tar.gz
-OF_DIRNAME=openframeworks
-
-# Compile toolchain
+function get_toolchain {
 message "Install compilation toolchain + Git"
 sudo apt-get update -qq || failed_message
 sudo apt-get install -qq build-essential pkg-config g++-4.8 git || failed_message
 successed_message
+}
 
-# Install library dependencies
+function get_dep_libs {
 message "Install needed libraries (OF)"
 GSTREAMER_VERSION=0.10
 GSTREAMER_FFMPEG=gstreamer${GSTREAMER_VERSION}-ffmpeg
@@ -95,13 +100,15 @@ if [ $exit_code = 0 ]; then
 fi
 sudo apt-get install -qq freeglut3-dev libasound2-dev libxmu-dev libxxf86vm-dev g++ libgl1-mesa-dev libglu1-mesa-dev libraw1394-dev libudev-dev libdrm-dev libglew-dev libopenal-dev libsndfile-dev libfreeimage-dev libcairo2-dev libgtk2.0-dev python-lxml python-argparse libfreetype6-dev libssl-dev libpulse-dev libusb-1.0-0-dev libgtk2.0-dev libgstreamer${GSTREAMER_VERSION}-dev libgstreamer-plugins-base${GSTREAMER_VERSION}-dev ${GSTREAMER_FFMPEG} gstreamer${GSTREAMER_VERSION}-pulseaudio gstreamer${GSTREAMER_VERSION}-x gstreamer${GSTREAMER_VERSION}-plugins-bad gstreamer${GSTREAMER_VERSION}-alsa gstreamer${GSTREAMER_VERSION}-plugins-base gstreamer${GSTREAMER_VERSION}-plugins-good || failed_message
 successed_message
+}
 
-# Install codecs
+function get_codecs {
 message "Install several gstreamer codecs (OF)"
 sudo apt-get install -qq libmpg123-dev gstreamer${GSTREAMER_VERSION}-plugins-ugly || failed_message
 successed_message
+}
 
-# Get openFrameworks
+function get_openFrameworks {
 message "Download openFrameworks"
 wget --quiet --continue http://www.openframeworks.cc/versions/v${OF_VERSION}/${OF_FILE} -O /tmp/${OF_FILE} || failed_message
 successed_message
@@ -114,8 +121,9 @@ else
 fi
 tar xfz /tmp/${OF_FILE} -C ${HOME}/${OF_DIRNAME} --strip-components=1 || failed_message
 successed_message
+}
 
-# Install required AddOns
+function get_addons {
 message "Install required ofxAddons"
 INSTALL_DIR=${HOME}/${OF_DIRNAME}/addons
 if [ -d ${INSTALL_DIR} ]
@@ -135,5 +143,22 @@ else
     tput sgr0;
     exit 1
 fi
+}
+
+#---------- Main program ---
+# Compile toolchain
+get_toolchain
+
+# Install library dependencies
+get_dep_libs
+
+# Install codecs
+get_codecs
+
+# Get openFrameworks
+get_openFrameworks
+
+# Install required AddOns
+get_addons
 
 exit 1
