@@ -15,38 +15,33 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef VILAINIMAGE_H
-#define VILAINIMAGE_H
+#ifndef VILAINVIDEO_H
+#define VILAINVIDEO_H
 
-#include <ofMain.h>
-
-#include "vilain.h"
-#include "vilainObject.h"
+#include <vilainObject.h>
 
 namespace vilain
 {
-/** \brief Image container with mesh modifier
- * \author Gregory DAVID
- * \date 2014
- */
-class vilainImage : public vilainObject
+class vilainVideo : public vilainObject
 {
-public:
-    vilainImage();
-    vilainImage(string path);
-    virtual ~vilainImage();
-
-    void LoadImage(string path);
-    void draw(void);
-    void update(ofEventArgs &e);
-
-    /** Image container to be used as texture (via the ofImage_#tex)
-        or pixels map (via the ofImage_#pixels)
-    */
-    ofImage image;
-
-protected:
-private:
+	public:
+		/** Default constructor */
+		vilainVideo();
+		/** Default destructor */
+		virtual ~vilainVideo();
+		/** Copy constructor
+		 *  \param other Object to copy from
+		 */
+		vilainVideo(const vilainVideo& other);
+		/** Assignment operator
+		 *  \param other Object to assign from
+		 *  \return A reference to this
+		 */
+		vilainVideo& operator=(const vilainVideo& other);
+	protected:
+	private:
+		string filePath;
+		ofVideoPlayer video;
 };
 }
-#endif // VILAINIMAGE_H
+#endif // VILAINVIDEO_H

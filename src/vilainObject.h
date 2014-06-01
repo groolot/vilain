@@ -19,8 +19,6 @@
 #define VILAINOBJECT_H
 
 #include <ofMain.h>
-#include <ofxOsc.h>
-
 #include "vilain.h"
 
 namespace vilain
@@ -40,9 +38,13 @@ public:
     bool operator()(ofPtr<vilainObject> left, ofPtr<vilainObject> right);
 
     bool isEditing();
-    bool setEditMode(bool mode);
+    bool setEditingMode(bool mode);
+    bool toggleEditingMode();
+
     bool isSelected();
     bool setSelected(bool state);
+    bool toggleSelected();
+
     string getName()
     {
         return sName;
@@ -64,16 +66,22 @@ public:
     void sendOneStepToBackground();
     void sendOneStepToForeground();
 
-protected:
-    string sName;
-    ofxOscSender oscSender;/**< \brief Used to initiate an OSC client for UDP message sending */
-    ofxOscMessage oscOutMessage;/**< \brief The OSC output message container */
-    ofxOscReceiver oscReceiver;/**< \brief Used to create an OSC server listening for UDP messages */
-    string oscInputAddress;/**< \brief Specify the OSC address to listen to */
+    void setKind(vilainObjectType _kind);
+    vilainObjectType getKind();
 
+
+protected:
     float nearestMouseDistanceToMeshVertex = 0;/**< \brief Keep the distance from mouse to nearest object mesh vertex */
     ofVec2f nearestMeshVertex;/**< \brief Keep coordinates of the mouse nearest object mesh vertex */
     int nearestMeshVertexIndex = 0;/**< \brief Keep index of the mouse nearest object mesh vertex */
+
+    vilainObjectType Kind;
+
+    // Object's parameters
+    ofxOscParameterSync syncOSC;
+    string sName;
+    ofParameter<bool> bVisible;
+    ofParameter<ofColor> color;
 
 private:
     bool bEditMode = false;/**< \brief Per object edit mode flag \li \c true for editing, \li \c false (default) for performance mode */
@@ -83,6 +91,7 @@ private:
     ofVec2f objectPressedPosition;
     ofVec2f mouseReleasedPosition;
     ofVec2f mouseDistance;
+
 };
 }
 

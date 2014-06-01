@@ -66,7 +66,7 @@ bool vilainObject::isEditing()
  * \return bool The new editing mode
  *
  */
-bool vilainObject::setEditMode(bool mode)
+bool vilainObject::setEditingMode(bool mode)
 {
     bEditMode = mode;
     return bEditMode;
@@ -103,7 +103,7 @@ bool vilainObject::setSelected(bool state)
 void vilainObject::catchMe(bool _bEditMode)
 {
     setSelected(true);
-    setEditMode(_bEditMode);
+    setEditingMode(_bEditMode);
 }
 
 /** \brief Set the object state as it is not selected nor in edit mode
@@ -115,7 +115,7 @@ void vilainObject::catchMe(bool _bEditMode)
 void vilainObject::leaveMe()
 {
     setSelected(false);
-    setEditMode(false);
+    setEditingMode(false);
 }
 
 /** \brief Perform the drawing of all things inside the editing mode
@@ -146,6 +146,7 @@ void vilainObject::drawEditing()
                 nearestMeshVertexIndex = i;
             }
         }
+
         glDepthFunc(GL_ALWAYS);
         getMesh().drawWireframe();
         ofSetColor(ofColor::red);
@@ -289,4 +290,25 @@ void vilainObject::sendOneStepToForeground()
     {
         move(0, 0, 1);
     }
+}
+
+/** \brief Set Kind variable
+ *
+ * \param _kind vilainObjectType
+ * \return void
+ *
+ */
+void vilainObject::setKind(vilainObjectType _kind)
+{
+    Kind = _kind;
+}
+
+/** \brief Get kind of object
+ *
+ * \return vilainObjectType
+ *
+ */
+vilainObjectType vilainObject::getKind()
+{
+    return Kind;
 }

@@ -31,9 +31,6 @@ vilainFlux::vilainFlux()
 vilainFlux::vilainFlux(int deviceID, int w, int h) : vilainObject(w, h, 2, 2),
     videoGrabberDeviceID(deviceID)
 {
-    /**< TODO: implement it correctly and globally, if needed */
-    oscSender.setup("localhost", 12345);
-
     flux.initGrabber(w, h);
     resizeToTexture(flux.getTextureReference());
     ofAddListener(ofEvents().update, this, &vilainFlux::update);
@@ -83,9 +80,5 @@ void vilainFlux::draw(void)
  */
 void vilainFlux::onPositionChanged(void)
 {
-    oscOutMessage.setAddress("/path/to/the/remote/parameter/to/control");
-    oscOutMessage.addIntArg(getPosition().x);
-    oscOutMessage.addIntArg(getPosition().y);
-    oscSender.sendMessage(oscOutMessage);
-    oscOutMessage.clear();
+
 }

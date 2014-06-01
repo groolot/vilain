@@ -19,14 +19,22 @@
 
 using namespace vilain;
 
+/** \brief Simple constructor
+ */
+vilainImage::vilainImage()
+{
+    setKind(VILAIN_OBJECT_TYPE_IMAGE);
+    setName("Image XXX");
+}
+
 /** \brief Constructor with a path to an image file
- * \author Gregory DAVID
- * \date 2014
  * \param path string Path to an existing image file
  *
  */
 vilainImage::vilainImage(string path)
 {
+	setKind(VILAIN_OBJECT_TYPE_IMAGE);
+    setName(path);
     ofLogVerbose(PROG_NAME) << _("Construct a vilainImage object with this file: ") << path << endl;
     LoadImage(path);
     ofAddListener(ofEvents().update, this, &vilainImage::update);
@@ -39,8 +47,6 @@ vilainImage::~vilainImage()
 
 /** \brief Update callback
  * \details This is called by the main program
- * \author Gregory DAVID
- * \date 2014
  *
  * \param e ofEventArgs& The events are transmitted to help catching them here
  * \return void
@@ -52,8 +58,6 @@ void vilainImage::update(ofEventArgs &e)
 }
 
 /** \brief Load an image file into VImage#image attribute
- * \author Gregory DAVID
- * \date 2014
  *
  * \param path string Path to an existing image file
  * \return void
@@ -68,9 +72,7 @@ void vilainImage::LoadImage(string path)
 
 /** \brief Callback to perform the drawing
  *
- * This is called by the main program
- * \author Gregory DAVID
- * \date 2014
+ * This has to be called to draw the current object
  */
 void vilainImage::draw()
 {
