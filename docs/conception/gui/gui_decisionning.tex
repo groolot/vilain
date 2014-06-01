@@ -55,7 +55,7 @@
 \newpage
 
 \section{Context}
-\vilain{} project. Graphic library selection to GUI development.
+\input{../vilain_context}
 
 \section{Needs, goal}
 \vilain{} GUI require graphics elements like grouping, value selectors, toggles, tabs, lists, sortable lists, 2D pads, text input area, radios button, checkboxes, undraggable panels and a monitoring space like \figurename
@@ -139,9 +139,67 @@ within the constraints listed above.
 
 \newpage
 \section{Implementation example}
-The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project.  \image{data/GUIVilain.jpg}{width=12cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}
+\subsection{Example}
+The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project.  \image{data/GUIVilain.jpg}{width=12cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}\newpage
 
-\newpage
+
+\subsection{Implementation with \texttt{ofxUI}}
+\begin{itemize}
+	\item \textbf{Global:} canvas have to be set up on top of everything else 
+	\item \textbf{Canvas:} canvas are stored in a vector, the order they are stored the order they are shown
+	\item \textbf{Widgets:} widgets are stored in a per canvas vector, the order they are stored the order they are shown
+
+	\item \textbf{Instanciate a canvas:} \lstinline[language=C++]{ofxUICanvas* myCanvas = new ofxUICanvas(float _xPosition, float _yPosition, float _width, float _height);}
+	
+	\item \textbf{Associate widgets to a canvas:}
+		\subitem \lstlistingname{} \vref{lst:widgetExample_1} shows an example of how to add a label widget to a canvas, directly through the already instanciate canvas
+		\subitem \lstlistingname{} \vref{lst:widgetExample_2} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then adding it to the canvas.
+		\subitem \lstlistingname{} \vref{lst:widgetExample_3} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then set the canvas as parent of it
+
+	\item \textbf{Event management:}
+		\subitem Events are catched by a listener, that call a function at each event in a canvas - See \lstlistingname{} \vref{lst:eventListener}
+		\subitem At each event in a canvas, the listener call a function with as parameter the name of the clicked widget - See \lstlistingname{} \ref{lst:eventManagement}
+\end{itemize}
+
+	\subsection*{Examples}
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} first way implementation}, label={lst:widgetExample_1}]
+ofxUICanvas* myCanvas = new ofxUICanvas();
+
+myCanvas->addLabel("My label");
+
+		\end{lstlisting}
+			
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} second way implementation}, label={lst:widgetExample_2}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myCanvas->addWidget(myLabel);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} third way implementation}, label={lst:widgetExample_3}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myLabel->setParent(myCanvas);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventListener}]
+ofAddListener(myCanvas->newGUIEvent, this, &vilainApp::mainUI_Event);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventManagement}]
+void vilainApp::mainUI_Event(ofxUIEventArgs &e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "My label")
+    {
+        //...
+    }
+}
+		\end{lstlisting}
+
+
 % References
 %\newpage
 \printbibheading

@@ -53,7 +53,7 @@
 	</File>
 	<File name="src/main.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="386" topLine="0" />
+			<Cursor1 position="265" topLine="0" />
 		</Cursor>
 	</File>
 	<File name="src/vilainControlUI.h" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
@@ -86,19 +86,19 @@
 			<Cursor1 position="1411" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="src/vilainFlux.h" open="0" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/vilainObject.cpp" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1146" topLine="24" />
+			<Cursor1 position="4746" topLine="162" />
 		</Cursor>
 	</File>
-	<File name="config.make" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/vilainApp.h" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="586" topLine="0" />
+			<Cursor1 position="2546" topLine="49" />
 		</Cursor>
 	</File>
-	<File name="src/vilainImage.cpp" open="1" top="0" tabpos="12" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="src/vilainConstants.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="918" topLine="18" />
+			<Cursor1 position="115" topLine="0" />
 		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

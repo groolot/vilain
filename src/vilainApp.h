@@ -21,7 +21,7 @@
 #include <ofMain.h>
 #include <ofxFensterManager.h>
 #include <ofxXmlSettings.h>
-
+#include "ofxUI.h"
 #include "vilain.h"
 #include "vilainControlUI.h"
 #include "vilainObject.h"
@@ -58,17 +58,32 @@ public:
     void addNewImageFromFiles(vector<ofFile> list_of_files);
     void addNewFlux(int deviceID, int w, int h);
 
+    void drawProjector();
+
     ofxXmlSettings xmlFileSerialize;
 
     bool bEditMode = False; /**< Application edit mode flag \li \c true for editing, \li \c false (default) for performing */
+
+    //** GUI **//
+    void setMainUI();
+    void mainUI_Event(ofxUIEventArgs &e);
+
+    bool bObjectUIVisible;
+
+    vector<ofxUICanvas *> mainUI;
+    vector<string> allObjectsName;
+
+    ofxUITabBar* tabBar;
+    ofxUICanvas* projectSettingsTab = new ofxUICanvas();
+    ofxUICanvas* objectManagementTab = new ofxUICanvas();
+    ofxUIRadio* objectList;
+    //** GUI **//
 
 protected:
     deque<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
     deque<ofPtr<vilainObject>>::iterator selectedObject;/**< Iterator on allObjects container, point to the selected object pointer */
 
     bool bInfoText = True;
-
-    vilainControlUI ControlWindow;
 private:
     ofVideoGrabber grabber;
 };
