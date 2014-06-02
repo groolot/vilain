@@ -24,24 +24,24 @@ namespace vilain
 {
 class vilainVideo : public vilainObject
 {
-	public:
-		/** Default constructor */
-		vilainVideo();
-		/** Default destructor */
-		virtual ~vilainVideo();
-		/** Copy constructor
-		 *  \param other Object to copy from
-		 */
-		vilainVideo(const vilainVideo& other);
-		/** Assignment operator
-		 *  \param other Object to assign from
-		 *  \return A reference to this
-		 */
-		vilainVideo& operator=(const vilainVideo& other);
-	protected:
-	private:
-		string filePath;
-		ofVideoPlayer video;
+public:
+    /** Default constructor */
+    vilainVideo();
+    /** Default destructor */
+    virtual ~vilainVideo();
+    /** Copy constructor
+     *  \param other Object to copy from
+     */
+    vilainVideo(const vilainVideo& other);
+    /** Assignment operator
+     *  \param other Object to assign from
+     *  \return A reference to this
+     */
+    vilainVideo& operator=(const vilainVideo& other);
+protected:
+private:
+    string filePath;
+    ofVideoPlayer video;
 };
 }
 #endif // VILAINVIDEO_H

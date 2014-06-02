@@ -167,16 +167,46 @@ void vilainObject::drawEditing()
 
 void vilainObject::drawObjectUI()
 {
-    string str = "/home/ronan/Documents/Developpement/vilain/bin/data/";
-
     objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
 
-    objectUI->setName(sName.substr(str.size()));
-    objectUI->addLabel(sName.substr(str.size()));
+    ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event);
+
+    bObjectUI_Visible = true;
+
+    objectUI->setName(objectName);
+    objectUI->addLabel(objectName);
     objectUI->addSpacer();
-    objectUI->addToggle("Show object", &bVisible);
+    objectUI->addToggle("Show object", bDrawObject);
     objectUI->addSpacer();
-    objectUI->addLabel("Geometry", OFX_UI_FONT_SMALL);
+    objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getPosition().x);
+    objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getPosition().y);
+    objectUI->addSpacer();
+    objectUI->addSlider("Red", 0., 255., 0.);
+    objectUI->addSlider("Green", 0., 255., 0.);
+    objectUI->addSlider("Blue", 0., 255., 0.);
+    objectUI->addSlider("Intensity", 0., 255., 0.);
+}
+
+void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "Show object")
+    {
+        ofxUIToggle *showObject = (ofxUIToggle *) e.widget;
+        bDrawObject = showObject->getValue();
+    }
+
+    if(eventName == "Position x")
+    {
+        ofxUISlider *xPosition = (ofxUISlider *) e.widget;
+        setPosition(xPosition->getValue(), getPosition().y, getPosition().z);
+    }
+    if(eventName == "Position y")
+    {
+        ofxUISlider *xPosition = (ofxUISlider *) e.widget;
+        setPosition(getPosition().x, xPosition->getValue(), getPosition().z);
+    }
 }
 
 /** \brief Control what to do when the mouse is dragged

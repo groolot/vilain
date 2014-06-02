@@ -54,9 +54,8 @@ void vilainApp::setup()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
-
-        string str = "/home/ronan/Documents/Developpement/vilain/bin/data/";
-        allObjectsName.push_back(obj->getName().substr(str.size()));
+        obj->objectName = obj->getName().substr(obj->getName().find_last_of("/") + 1);
+        allObjectsName.push_back(obj->objectName);
     }
 
     vilainApp::setMainUI();
@@ -130,7 +129,7 @@ void vilainApp::setMainUI()
     objectManagementTab->addLabel("Object management"); /** Set title */
     objectManagementTab->addSpacer();
     objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
-    objectList->activateToggle((* selectedObject)->getName());
+    objectList->activateToggle((* selectedObject)->objectName);
     objectManagementTab->addSpacer();
     objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
     objectManagementTab->addSpacer();
@@ -149,16 +148,22 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
 
     if(eventName == "Project settings" || eventName == "Object management")
     {
-
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
+        else
+        {
+            (* selectedObject)->setUIVisible(false);
+        }
     }
 
     if(eventName == "Object list")
     {
-        // ** TODO ** //
-        // Hide objectUI before drawing a new one
-        // when it was already drawed
-        // TRICK : ofUITabBar has already implemented this system
-        // ** TODO ** //
+        if((* selectedObject)->getUIVisible() == true)
+        {
+            (* selectedObject)->setUIVisible(false);
+        }
 
         bool activateEdition = (* selectedObject)->isEditing();
 
@@ -187,8 +192,7 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
     if(eventName == "Delete selected object")
     {
         ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
-
-        cout << "Delete : " << objectList->getValue() << endl;
+        ofLogVerbose(PROG_NAME) << _("Deleted object: ") << ObjectList->getValue();
     }
 }
 
@@ -330,7 +334,7 @@ void vilainApp::SelectNextObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
-        objectList->activateToggle((* selectedObject)->getName());
+        objectList->activateToggle((* selectedObject)->objectName);
     }
 }
 
@@ -354,7 +358,7 @@ void vilainApp::SelectPreviousObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
-        objectList->activateToggle((* selectedObject)->getName());
+        objectList->activateToggle((* selectedObject)->objectName);
     }
 }
 

@@ -33,7 +33,7 @@ vilainImage::vilainImage()
  */
 vilainImage::vilainImage(string path)
 {
-	setKind(VILAIN_OBJECT_TYPE_IMAGE);
+    setKind(VILAIN_OBJECT_TYPE_IMAGE);
     setName(path);
     ofLogVerbose(PROG_NAME) << _("Construct a vilainImage object with this file: ") << path << endl;
     LoadImage(path);
@@ -76,10 +76,13 @@ void vilainImage::LoadImage(string path)
  */
 void vilainImage::draw()
 {
-    image.getTextureReference().bind();
-    of3dPrimitive::draw();
-    image.getTextureReference().unbind();
-    drawEditing();
+    if(bDrawObject == true)
+    {
+        image.getTextureReference().bind();
+        of3dPrimitive::draw();
+        image.getTextureReference().unbind();
+        drawEditing();
+    }
 }
 
 

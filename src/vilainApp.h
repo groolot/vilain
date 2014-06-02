@@ -66,7 +66,7 @@ public:
 
     //** GUI **//
     void setMainUI();
-    void mainUI_Event(ofxUIEventArgs &e);
+    void mainUI_Event(ofxUIEventArgs & e);
 
     bool bObjectUIVisible;
 
