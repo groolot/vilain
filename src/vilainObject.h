@@ -65,6 +65,16 @@ public:
         objectUI->setVisible(bObjectUI_Visible);
     };
 
+    bool getObjectVisible()
+    {
+        return bDrawObject;
+    };
+    void setObjectVisible(bool _ObjectVisible)
+    {
+        bDrawObject = _ObjectVisible;
+    };
+
+
     void catchMe(bool _bEditMode);
     void leaveMe();
     virtual void draw() {};
@@ -82,8 +92,12 @@ public:
     vilainObjectType getKind();
 
     ofxUIScrollableCanvas* objectUI;
+    ofxUISlider* xPositionSlider;
+    ofxUISlider* yPositionSlider;
+
     void UIisVisible();
-    void ObjectUI_Event(ofxUIEventArgs &e);
+    void ObjectUI_Event(ofxUIEventArgs & e);
+
     string objectName;
 
 protected:

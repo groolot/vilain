@@ -178,13 +178,13 @@ void vilainObject::drawObjectUI()
     objectUI->addSpacer();
     objectUI->addToggle("Show object", bDrawObject);
     objectUI->addSpacer();
-    objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getPosition().x);
-    objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getPosition().y);
+    xPositionSlider = objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getX());
+    yPositionSlider = objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getY());
     objectUI->addSpacer();
-    objectUI->addSlider("Red", 0., 255., 0.);
-    objectUI->addSlider("Green", 0., 255., 0.);
-    objectUI->addSlider("Blue", 0., 255., 0.);
-    objectUI->addSlider("Intensity", 0., 255., 0.);
+    objectUI->addSlider("Red", 0, 255, 0.);
+    objectUI->addSlider("Green", 0, 255, 0.);
+    objectUI->addSlider("Blue", 0, 255, 0.);
+    objectUI->addSlider("Alpha", 0, 255, 0.);
 }
 
 void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
@@ -193,19 +193,20 @@ void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
 
     if(eventName == "Show object")
     {
-        ofxUIToggle *showObject = (ofxUIToggle *) e.widget;
-        bDrawObject = showObject->getValue();
+        ofxUIToggle *toggleShowObject = (ofxUIToggle *) e.widget;
+        bDrawObject = toggleShowObject->getValue();
     }
 
     if(eventName == "Position x")
     {
-        ofxUISlider *xPosition = (ofxUISlider *) e.widget;
-        setPosition(xPosition->getValue(), getPosition().y, getPosition().z);
+        ofxUISlider *xSliderPosition = (ofxUISlider *) e.widget;
+        setPosition(xSliderPosition->getValue(), getY(), getZ());
     }
+
     if(eventName == "Position y")
     {
-        ofxUISlider *xPosition = (ofxUISlider *) e.widget;
-        setPosition(getPosition().x, xPosition->getValue(), getPosition().z);
+        ofxUISlider *ySliderPosition = (ofxUISlider *) e.widget;
+        setPosition(getX(), ySliderPosition->getValue(), getZ());
     }
 }
 
@@ -229,6 +230,8 @@ void vilainObject::mouseDragged(int x, int y, int button)
             mouseDistance = ofVec2f(x, y) - mousePressedPosition;
             ofVec2f futurPosition = objectPressedPosition + mouseDistance;
             setPosition(futurPosition.x, futurPosition.y, getZ());
+            xPositionSlider->setValue(futurPosition.x);
+            yPositionSlider->setValue(futurPosition.y);
         }
     }
 

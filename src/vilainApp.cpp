@@ -58,7 +58,7 @@ void vilainApp::setup()
         allObjectsName.push_back(obj->objectName);
     }
 
-    vilainApp::setMainUI();
+    setMainUI();
 }
 
 //--------------------------------------------------------------
@@ -70,7 +70,7 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-    vilainApp::drawProjector();
+    drawProjector();
 }
 
 //--------------------------------------------------------------
@@ -115,6 +115,18 @@ void vilainApp::setMainUI()
     ofAddListener(tabBar->newGUIEvent, this, &vilainApp::mainUI_Event);
 
     projectSettingsTab->setName("Project settings"); /** Set tab name */
+    tabBar->addCanvas(projectSettingsTab);
+
+    objectManagementTab->setName("Object management"); /** Set tab name */
+    tabBar->addCanvas(objectManagementTab);
+
+    setProjectSettings();
+    setObjectManagement();
+}
+
+//--------------------------------------------------------------
+void vilainApp::setProjectSettings()
+{
     projectSettingsTab->addLabel("Project settings"); /** Set title */
     projectSettingsTab->addSpacer();
     projectSettingsTab->addLabelButton("Save settings", false); /** Button to save settings */
@@ -122,10 +134,11 @@ void vilainApp::setMainUI()
 
     ofAddListener(projectSettingsTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
     projectSettingsTab->autoSizeToFitWidgets(); /** Auto height size */
-    tabBar->addCanvas(projectSettingsTab);
-    mainUI.push_back(projectSettingsTab); /** Add the tab to the main canvas */
+}
 
-    objectManagementTab->setName("Object management"); /** Set tab name */
+//--------------------------------------------------------------
+void vilainApp::setObjectManagement()
+{
     objectManagementTab->addLabel("Object management"); /** Set title */
     objectManagementTab->addSpacer();
     objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
@@ -137,8 +150,6 @@ void vilainApp::setMainUI()
 
     ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
     objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
-    tabBar->addCanvas(objectManagementTab);
-    mainUI.push_back(objectManagementTab); /** Add the tab to the main canvas */
 }
 
 //--------------------------------------------------------------
@@ -151,8 +162,9 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         if(objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->drawObjectUI();
+            bObjectUIDrawed = true;
         }
-        else
+        else if(bObjectUIDrawed == true)
         {
             (* selectedObject)->setUIVisible(false);
         }
@@ -176,6 +188,7 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         if(objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->drawObjectUI();
+            bObjectUIDrawed = true;
         }
     }
 
@@ -183,10 +196,9 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
     {
         ofxUITextInput *newObject = (ofxUITextInput *) e.widget;
 
-        if(newObject->getTextString() != "Add a new object")
-        {
-            cout << "Add : " << newObject->getTextString() << endl;
-        }
+        objectManagementTab->removeWidgets();
+        allObjectsName.push_back("NewObjectAdded");
+        setObjectManagement();
     }
 
     if(eventName == "Delete selected object")
@@ -222,10 +234,19 @@ void vilainApp::keyPressed(int key)
         }
         else if(key == OF_KEY_RIGHT)
         {
+            if((* selectedObject)->getUIVisible() == true)
+            {
+                (* selectedObject)->setUIVisible(false);
+            }
+
             SelectNextObject();
         }
         else if(key == OF_KEY_LEFT)
         {
+            if((* selectedObject)->getUIVisible() == true)
+            {
+                (* selectedObject)->setUIVisible(false);
+            }
             SelectPreviousObject();
         }
     }
@@ -335,6 +356,10 @@ void vilainApp::SelectNextObject()
 
         (* selectedObject)->catchMe(bEditMode);
         objectList->activateToggle((* selectedObject)->objectName);
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 }
 
@@ -359,6 +384,10 @@ void vilainApp::SelectPreviousObject()
 
         (* selectedObject)->catchMe(bEditMode);
         objectList->activateToggle((* selectedObject)->objectName);
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 }
 

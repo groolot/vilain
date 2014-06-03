@@ -67,8 +67,11 @@ public:
     //** GUI **//
     void setMainUI();
     void mainUI_Event(ofxUIEventArgs & e);
+    void setProjectSettings();
+    void setObjectManagement();
 
     bool bObjectUIVisible;
+    bool bObjectUIDrawed = false;
 
     vector<ofxUICanvas *> mainUI;
     vector<string> allObjectsName;
