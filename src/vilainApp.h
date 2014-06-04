@@ -67,8 +67,9 @@ public:
     //** GUI **//
     void setMainUI();
     void mainUI_Event(ofxUIEventArgs & e);
-    void setProjectSettings();
-    void setObjectManagement();
+    void setProjectSettingsTab();
+    void setObjectManagementTab();
+    void updateObjectList();
 
     bool bObjectUIVisible;
     bool bObjectUIDrawed = false;

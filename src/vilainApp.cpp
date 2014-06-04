@@ -120,12 +120,12 @@ void vilainApp::setMainUI()
     objectManagementTab->setName("Object management"); /** Set tab name */
     tabBar->addCanvas(objectManagementTab);
 
-    setProjectSettings();
-    setObjectManagement();
+    setProjectSettingsTab();
+    setObjectManagementTab();
 }
 
 //--------------------------------------------------------------
-void vilainApp::setProjectSettings()
+void vilainApp::setProjectSettingsTab()
 {
     projectSettingsTab->addLabel("Project settings"); /** Set title */
     projectSettingsTab->addSpacer();
@@ -137,7 +137,7 @@ void vilainApp::setProjectSettings()
 }
 
 //--------------------------------------------------------------
-void vilainApp::setObjectManagement()
+void vilainApp::setObjectManagementTab()
 {
     objectManagementTab->addLabel("Object management"); /** Set title */
     objectManagementTab->addSpacer();
@@ -195,17 +195,25 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
     if(eventName == "New object name")
     {
         ofxUITextInput *newObject = (ofxUITextInput *) e.widget;
+        ofLogVerbose(PROG_NAME) << _("Add : ") << newObject->getTextString();
 
-        objectManagementTab->removeWidgets();
-        allObjectsName.push_back("NewObjectAdded");
-        setObjectManagement();
+        //updateObjectList();
     }
 
     if(eventName == "Delete selected object")
     {
         ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
         ofLogVerbose(PROG_NAME) << _("Deleted object: ") << ObjectList->getValue();
+
+        //updateObjectList();
     }
+}
+
+//--------------------------------------------------------------
+void vilainApp::updateObjectList()
+{
+    objectManagementTab->removeWidgets();
+    setObjectManagementTab();
 }
 
 //--------------------------------------------------------------
