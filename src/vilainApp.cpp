@@ -78,7 +78,6 @@ void vilainApp::drawProjector()
 {
     ofBackground(100);
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
-    ofEnableDepthTest();
 
     ofSetColor(ofColor::white);
 
