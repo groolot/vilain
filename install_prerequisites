@@ -1,6 +1,76 @@
 #!/bin/bash
 
 tput bold; echo -e "\n\tINFORMATION: your user must have 'sudo' power to install some requirements!\n\n"; tput sgr0
+
+OF_DIRNAME=openframeworks
+
+function usage {
+    echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7> -a" 1>&2;
+    exit 1;
+}
+
+function message {
+    tput bold
+    case $2 in
+	warning)
+	    tput setaf 3
+	    ;;
+	error)
+	    tput setaf 1
+	    ;;
+	cool)
+	    tput setaf 2
+	    ;;
+	*)
+	    tput setaf 2
+	    ;;
+    esac
+    echo -n -e $1
+    tput sgr0
+}
+
+function failed_message {
+    echo -e -n "\t["
+    message "KO" error
+    echo "]"
+    exit 1
+}
+
+function successed_message {
+    echo -e -n "\t["
+    message "OK"
+    echo "]"
+}
+
+function get_addons {
+message "Install required ofxAddons"
+INSTALL_DIR=${HOME}/${OF_DIRNAME}/addons
+if [ -d ${INSTALL_DIR} ]
+then
+    VILAIN_DEPENDENCIES=($(cat addons.make))
+    pushd ${INSTALL_DIR} >/dev/null
+    for i in $(seq 0 $((${#VILAIN_DEPENDENCIES[@]} - 1)) )
+    do
+	if [ -d ${VILAIN_DEPENDENCIES[i]} ]
+	then
+	    pushd ${VILAIN_DEPENDENCIES[i]} >/dev/null
+	    git pull >/dev/null 2>&1
+	    popd >/dev/null
+	else
+	    git clone https://github.com/groolot/${VILAIN_DEPENDENCIES[i]}.git >/dev/null 2>&1
+	fi
+    done
+    successed_message
+    popd >/dev/null
+    exit 0
+else
+    tput setaf 1;
+    echo -e "\n\tNo AddOns have been installed due to absence of ${INSTALL_DIR}, required directory\n\tPlease re-run this script or file an issue on https://github.com/groolot/vilain/issues" >&2
+    tput sgr0;
+    exit 1
+fi
+}
+
 while getopts ":f:d:a" options;
 do
     case "${options}" in
@@ -41,45 +111,6 @@ fi
 OF_VERSION=0.8.1
 OF_FLAVOUR=${flavour}_release
 OF_FILE=of_v${OF_VERSION}_${OF_FLAVOUR}.tar.gz
-OF_DIRNAME=openframeworks
-
-function usage {
-    echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7> -a" 1>&2;
-    exit 1;
-}
-
-function message {
-    tput bold
-    case $2 in
-	warning)
-	    tput setaf 3
-	    ;;
-	error)
-	    tput setaf 1
-	    ;;
-	cool)
-	    tput setaf 2
-	    ;;
-	*)
-	    tput setaf 2
-	    ;;
-    esac
-    echo -n -e $1
-    tput sgr0
-}
-
-function failed_message {
-    echo -e -n "\t["
-    message "KO" error
-    echo "]"
-    exit 1
-}
-
-function successed_message {
-    echo -e -n "\t["
-    message "OK"
-    echo "]"
-}
 
 function get_toolchain {
 message "Install compilation toolchain + Git"
@@ -121,28 +152,6 @@ else
 fi
 tar xfz /tmp/${OF_FILE} -C ${HOME}/${OF_DIRNAME} --strip-components=1 || failed_message
 successed_message
-}
-
-function get_addons {
-message "Install required ofxAddons"
-INSTALL_DIR=${HOME}/${OF_DIRNAME}/addons
-if [ -d ${INSTALL_DIR} ]
-then
-    VILAIN_DEPENDENCIES=($(cat addons.make))
-    pushd ${INSTALL_DIR} >/dev/null
-    for i in $(seq 0 $((${#VILAIN_DEPENDENCIES[@]} - 1)) )
-    do
-	git clone https://github.com/groolot/${VILAIN_DEPENDENCIES[i]}.git >/dev/null 2>&1
-    done
-    successed_message
-    popd >/dev/null
-    exit 0
-else
-    tput setaf 1;
-    echo -e "\n\tNo AddOns have been installed due to absence of ${INSTALL_DIR}, required directory\n\tPlease re-run this script or file an issue on https://github.com/groolot/vilain/issues" >&2
-    tput sgr0;
-    exit 1
-fi
 }
 
 #---------- Main program ---
