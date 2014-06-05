@@ -145,7 +145,7 @@ void vilainApp::setObjectManagementTab()
     objectManagementTab->addSpacer();
     objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
     objectManagementTab->addSpacer();
-    objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delte selected object */
+    objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delete selected object */
 
     ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
     objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
@@ -199,7 +199,7 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         //updateObjectList();
     }
 
-    if(eventName == "Delete selected object")
+    if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
         ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
         ofLogVerbose(PROG_NAME) << _("Deleted object: ") << ObjectList->getValue();
