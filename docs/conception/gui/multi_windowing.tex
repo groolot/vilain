@@ -1,0 +1,108 @@
+\documentclass[a4paper,titlepage,oneside]{article}
+
+\usepackage{../../vilain}
+
+\addbibresource{../../vilain.bib}
+\usepackage[%
+	pdftex,%
+	bookmarks=false,%
+	bookmarksopen=false,%
+	bookmarksnumbered=false,%
+	pdfborder=0,%
+	pdfmenubar=true,%
+	pdftoolbar=true,%
+	pdfpagelabels=true,%
+	pdftitle={Multi-Windowing},%
+	pdfauthor={Gr\'egory DAVID},%
+	pdfsubject={vilain, gui, multi-windowing},%
+	pdfpagelayout={OneColumn},%
+	plainpages=true,%
+	pdfstartview=FitH%
+]{hyperref}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include image w/wo box around
+% usage:
+%     \image{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%     \imageBoxed{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%
+% after what you can reference the image by:
+%     \ref{fig:ThiIsTheReferenceLabel}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include numbered tabular
+% usage:
+%     \tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+%     \hline
+%     A & B & C \\ \hline
+%     etc.
+%     }
+%
+% after what you can reference the tabular by:
+%     \ref{tab:Label}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Grégory \bsc{David}}
+\title{\vilain{} -- Multi-Windowing}
+\date{\today{}}
+
+\newcommand{\ofxFenster}{\texttt{ofxFenster}}
+
+\begin{document}
+\maketitle{}
+\tableofcontents{}
+\newpage
+
+\section{Context}
+\input{../vilain_context}
+
+\section{Needs, goal}
+As the projector could not be orthogonal to projection plane, and even
+the surface could not be planar, the goal is to have a dual screen
+setup with two independent images (see \figurename{}
+\vref{fig:multiScreenSchema}):
+\begin{enumerate}
+    \item [User side:] Object control, object layering, application
+    settings.
+    \item [Projector side:] Rendered image (in performance mode), same
+    objects modification image as the user side (in editing mode).
+\end{enumerate}
+
+\image{data/multi_windowing_schema.png}{width=13cm}{Multi screen
+  schema}{fig:multiScreenSchema}
+
+\section{Constraints}
+\begin{itemize}
+    \item Two separate windows,
+    \item Duplicate rendered surface on both,
+    \item Control elements do not have to be drawn on the projector
+    side,
+    \item Events are managed in the user side window,
+    \item
+\end{itemize}
+
+\section{Possible solutions}
+Due to GLFW usage inside \OF{}, we do have only one solution:
+\texttt{ofxFenster} addon.
+
+\section{Implementation}
+\ofxFenster{} is an addon developped by Philip \bsc{Whitfield}: see
+\url{https://github.com/underdoeg}.
+
+The easiest way is to render the shared content into a Frame Buffer Object (FBO) and then draw it where it has to be.
+
+FBO is supllied with ease of use by \OF{} through \lstinline[basicstyle=\footnotesize\ttfamily]{ofFbo} class.
+
+TODO: explain how to :)
+
+\newpage
+% References \newpage
+\printbibheading
+\printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
+\printbibliography[check=online,heading=subbibliography,title={Webography}]
+\nocite{openframeworks,ofxUI,REZAALI,OF_TUTORIALS_ofauckland}
+
+\end{document}

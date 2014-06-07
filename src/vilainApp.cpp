@@ -54,7 +54,11 @@ void vilainApp::setup()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
+        obj->objectName = obj->getName().substr(obj->getName().find_last_of("/") + 1);
+        allObjectsName.push_back(obj->objectName);
     }
+
+    setMainUI();
 }
 
 //--------------------------------------------------------------
@@ -66,9 +70,14 @@ void vilainApp::update()
 //--------------------------------------------------------------
 void vilainApp::draw()
 {
-    ofBackground(0);
+    drawProjector();
+}
+
+//--------------------------------------------------------------
+void vilainApp::drawProjector()
+{
+    ofBackground(100);
     ofSetupScreenOrtho(ofGetViewportWidth(), ofGetViewportHeight(), -1., std::numeric_limits<float>::max());
-    ofEnableDepthTest();
 
     ofSetColor(ofColor::white);
 
@@ -93,9 +102,117 @@ void vilainApp::draw()
         }
 
         glDepthFunc(GL_ALWAYS);
-        ofDrawBitmapString(ss.str(), 20, 20);
+        ofDrawBitmapString(ss.str(), 20, ofGetHeight() - 60);
         glDepthFunc(GL_LESS);
     }
+}
+
+//--------------------------------------------------------------
+void vilainApp::setMainUI()
+{
+    tabBar = new ofxUITabBar; /** Tab bar initialization */
+    ofAddListener(tabBar->newGUIEvent, this, &vilainApp::mainUI_Event);
+
+    projectSettingsTab->setName("Project settings"); /** Set tab name */
+    tabBar->addCanvas(projectSettingsTab);
+
+    objectManagementTab->setName("Object management"); /** Set tab name */
+    tabBar->addCanvas(objectManagementTab);
+
+    setProjectSettingsTab();
+    setObjectManagementTab();
+}
+
+//--------------------------------------------------------------
+void vilainApp::setProjectSettingsTab()
+{
+    projectSettingsTab->addLabel("Project settings"); /** Set title */
+    projectSettingsTab->addSpacer();
+    projectSettingsTab->addLabelButton("Save settings", false); /** Button to save settings */
+    projectSettingsTab->addLabelButton("Load settings", false); /** Button to load saved settings */
+
+    ofAddListener(projectSettingsTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
+    projectSettingsTab->autoSizeToFitWidgets(); /** Auto height size */
+}
+
+//--------------------------------------------------------------
+void vilainApp::setObjectManagementTab()
+{
+    objectManagementTab->addLabel("Object management"); /** Set title */
+    objectManagementTab->addSpacer();
+    objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
+    objectList->activateToggle((* selectedObject)->objectName);
+    objectManagementTab->addSpacer();
+    objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
+    objectManagementTab->addSpacer();
+    objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delete selected object */
+
+    ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
+    objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
+}
+
+//--------------------------------------------------------------
+void vilainApp::mainUI_Event(ofxUIEventArgs &e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "Project settings" || eventName == "Object management")
+    {
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+            bObjectUIDrawed = true;
+        }
+        else if(bObjectUIDrawed == true)
+        {
+            (* selectedObject)->setUIVisible(false);
+        }
+    }
+
+    if(eventName == "Object list")
+    {
+        if((* selectedObject)->getUIVisible() == true)
+        {
+            (* selectedObject)->setUIVisible(false);
+        }
+
+        bool activateEdition = (* selectedObject)->isEditing();
+
+        (* selectedObject)->leaveMe();
+        ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
+
+        selectedObject = (allObjects.begin() + ObjectList->getValue());
+        (* selectedObject)->catchMe(activateEdition);
+
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+            bObjectUIDrawed = true;
+        }
+    }
+
+    if(eventName == "New object name")
+    {
+        ofxUITextInput *newObject = (ofxUITextInput *) e.widget;
+        ofLogVerbose(PROG_NAME) << _("Add : ") << newObject->getTextString();
+
+        //updateObjectList();
+    }
+
+    if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
+    {
+        ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
+        ofLogVerbose(PROG_NAME) << _("Deleted object: ") << ObjectList->getValue();
+
+        //updateObjectList();
+    }
+}
+
+//--------------------------------------------------------------
+void vilainApp::updateObjectList()
+{
+    objectManagementTab->removeWidgets();
+    setObjectManagementTab();
 }
 
 //--------------------------------------------------------------
@@ -124,10 +241,19 @@ void vilainApp::keyPressed(int key)
         }
         else if(key == OF_KEY_RIGHT)
         {
+            if((* selectedObject)->getUIVisible() == true)
+            {
+                (* selectedObject)->setUIVisible(false);
+            }
+
             SelectNextObject();
         }
         else if(key == OF_KEY_LEFT)
         {
+            if((* selectedObject)->getUIVisible() == true)
+            {
+                (* selectedObject)->setUIVisible(false);
+            }
             SelectPreviousObject();
         }
     }
@@ -236,6 +362,11 @@ void vilainApp::SelectNextObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
+        objectList->activateToggle((* selectedObject)->objectName);
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 }
 
@@ -259,6 +390,11 @@ void vilainApp::SelectPreviousObject()
         }
 
         (* selectedObject)->catchMe(bEditMode);
+        objectList->activateToggle((* selectedObject)->objectName);
+        if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 }
 

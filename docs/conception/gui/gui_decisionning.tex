@@ -55,16 +55,13 @@
 \newpage
 
 \section{Context}
-\vilain{} project. Graphic library selection to GUI development.
+\input{../vilain_context}
 
 \section{Needs, goal}
-\vilain{} GUI require graphics elements like grouping, value selectors, toggles,
-tabs, lists, sortable lists, 2D pads, text input area, radios button,
-checkboxes, undraggable panels and a monitoring space like \figurename
-\vref{fig:GuiDesign}.
+\vilain{} GUI require graphics elements like grouping, value selectors, toggles, tabs, lists, sortable lists, 2D pads, text input area, radios button, checkboxes, undraggable panels and a monitoring space like \figurename
+\ref{fig:GuiDesign}.
 
-\image{data/GUIDesign.jpg}{width=13cm}{\vilain{} Gui
-  design}{fig:GuiDesign}
+\image{data/GUIDesign.jpg}{width=13cm}{\vilain{} Gui design}{fig:GuiDesign}
 
 \newpage
 \section{Constraints}
@@ -84,22 +81,17 @@ checkboxes, undraggable panels and a monitoring space like \figurename
     \item Checkboxes.
 \end{itemize}
 
+\newpage
 \section{Possible solutions}
-After several tests with some \OF{} Graphical User Interface addons
-libraries: \texttt{ofxControlPanel}, \texttt{ofxTweakBar},
-\texttt{ofxUI} (Cf. \figurename \vref{fig:ofxUIexample}) and
-\texttt{ofxGui} (shipped with \OF{}, Cf. \figurename
-\ref{fig:ofxGuiexample}), we have made a multi criterions comparison.
+After several tests with some \OF{} Graphical User Interface addons libraries: \texttt{ofxControlPanel}, \texttt{ofxTweakBar}, \texttt{ofxUI} (Cf. \figurename \ref{fig:ofxUIexample}) and \texttt{ofxGui} (shipped with \OF{}, Cf. \figurename \ref{fig:ofxGuiexample}), we have made a multi criterions comparison.
 
-\image{data/ofxGui.jpg}{width=13cm}{\texttt{ofxGUI} basic example,
-  from the \OF{} shipped addons
-  (\texttt{openframeworks/examples/gui/guiExample})}{fig:ofxGuiexample}
+\image{data/ofxGui.jpg}{width=10cm}{\texttt{ofxGUI} basic example, from the \OF{} shipped addons (\texttt{openframeworks/examples/gui/guiExample})}{fig:ofxGuiexample}
 
-\image{data/ofxUI.jpg}{width=12cm}{\texttt{ofxUI} example, from the
-  \texttt{ofxUI/example-AllWidgets}}{fig:ofxUIexample}
+\image{data/ofxUI.jpg}{width=11cm}{\texttt{ofxUI} example, from the \texttt{ofxUI/example-AllWidgets}}{fig:ofxUIexample}
 
+\newpage
 \section{Comparison \& Selection}
-The \tablename \vref{tab:Comparison} is a comparison of two libraries
+The \tablename \ref{tab:Comparison} is a comparison of two libraries
 within the constraints listed above.
 
 \tableau{|p{3.5cm}|c|c|c|c|c|}{\OF{} GUI addons libraries comparison}{tab:Comparison} { \hline
@@ -142,17 +134,71 @@ within the constraints listed above.
   \textbf{Total} (1)+(2)+(3) & 54 & 27 & \textbf{45} & 27 & 27 \\
   \hline }
 
-\texttt{ofxUI} seems to be better than \texttt{ofxGui} due to the
-number of graphics elements it offers, particularly those needed for
-the project.
+\texttt{ofxUI} seems to be better than \texttt{ofxGui} due to the number of graphics elements it offers, particularly those needed for the project.\\\texttt{ofxUI} offers really a lot of user-friendly and operational, reliable and well-developed elements.
+\texttt{ofxUI} allows the possibility to pass by reference the variables of object in graphical elements, allowing an easier development of \texttt{OSC} interface.
 
+\newpage
 \section{Implementation example}
-The \figurename \vref{fig:TabBarExample} has been token from the
-\texttt{ofxUI/example-TabBar}.
-\image{data/TabBar.jpg}{width=5cm}{\texttt{ofxUI} tabs bar example}{fig:TabBarExample}
+\subsection{Example}
+The \figurename \ref{fig:GUIVilainExample} has been token from \vilain{} project.  \image{data/GUIVilain.jpg}{width=12cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}\newpage
 
-The \figurename \vref{fig:GUIVilainExample} has been token from
-\vilain{} project.  \image{data/GUIVilain.jpg}{width=13cm}{\texttt{ofxUI} example according to \vilain{} design}{fig:GUIVilainExample}
+
+\subsection{Implementation with \texttt{ofxUI}}
+\begin{itemize}
+	\item \textbf{Global:} canvas have to be set up on top of everything else 
+	\item \textbf{Canvas:} canvas are stored in a vector, the order they are stored the order they are shown
+	\item \textbf{Widgets:} widgets are stored in a per canvas vector, the order they are stored the order they are shown
+
+	\item \textbf{Instanciate a canvas:} \lstinline[language=C++]{ofxUICanvas* myCanvas = new ofxUICanvas(float _xPosition, float _yPosition, float _width, float _height);}
+	
+	\item \textbf{Associate widgets to a canvas:}
+		\subitem \lstlistingname{} \vref{lst:widgetExample_1} shows an example of how to add a label widget to a canvas, directly through the already instanciate canvas
+		\subitem \lstlistingname{} \vref{lst:widgetExample_2} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then adding it to the canvas.
+		\subitem \lstlistingname{} \vref{lst:widgetExample_3} shows an example of how to add a label widget to a canvas, first of instantiating the widget and then set the canvas as parent of it
+
+	\item \textbf{Event management:}
+		\subitem Events are catched by a listener, that call a function at each event in a canvas - See \lstlistingname{} \vref{lst:eventListener}
+		\subitem At each event in a canvas, the listener call a function with as parameter the name of the clicked widget - See \lstlistingname{} \ref{lst:eventManagement}
+\end{itemize}
+
+	\subsection*{Examples}
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} first way implementation}, label={lst:widgetExample_1}]
+ofxUICanvas* myCanvas = new ofxUICanvas();
+
+myCanvas->addLabel("My label");
+
+		\end{lstlisting}
+			
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} second way implementation}, label={lst:widgetExample_2}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myCanvas->addWidget(myLabel);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUIWidget} third way implementation}, label={lst:widgetExample_3}]
+ofxUICanvas * myCanvas = new ofxUICanvas();
+
+ofxUILabel * myLabel = new ofxUILabel("My label", OFX_UI_FONT_MEDIUM);
+myLabel->setParent(myCanvas);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventListener}]
+ofAddListener(myCanvas->newGUIEvent, this, &vilainApp::mainUI_Event);
+		\end{lstlisting}
+		
+		\begin{lstlisting}[language=C++, caption={\texttt{ofxUI} event listener}, label={lst:eventManagement}]
+void vilainApp::mainUI_Event(ofxUIEventArgs &e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "My label")
+    {
+        //...
+    }
+}
+		\end{lstlisting}
+
 
 % References
 %\newpage
