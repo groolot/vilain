@@ -21,22 +21,26 @@ using namespace vilain;
 
 vilainVideo::vilainVideo()
 {
-	//ctor
+    //ctor
 }
 
 vilainVideo::~vilainVideo()
 {
-	//dtor
+    //dtor
 }
 
 vilainVideo::vilainVideo(const vilainVideo& other)
 {
-	//copy ctor
+    //copy ctor
 }
 
 vilainVideo& vilainVideo::operator=(const vilainVideo& rhs)
 {
-	if (this == &rhs) return *this; // handle self assignment
-	//assignment operator
-	return *this;
+    if(this == &rhs)
+    {
+        return *this;    // handle self assignment
+    }
+
+    //assignment operator
+    return *this;
 }

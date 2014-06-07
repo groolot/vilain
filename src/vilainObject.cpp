@@ -16,6 +16,7 @@
  *     along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include "vilainObject.h"
+#include "vilainApp.h"
 
 using namespace vilain;
 
@@ -164,6 +165,51 @@ void vilainObject::drawEditing()
     }
 }
 
+void vilainObject::drawObjectUI()
+{
+    objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
+
+    ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event);
+
+    bObjectUI_Visible = true;
+
+    objectUI->setName(objectName);
+    objectUI->addLabel(objectName);
+    objectUI->addSpacer();
+    objectUI->addToggle("Show object", bDrawObject);
+    objectUI->addSpacer();
+    xPositionSlider = objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getX());
+    yPositionSlider = objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getY());
+    objectUI->addSpacer();
+    objectUI->addSlider("Red", 0, 255, 0.);
+    objectUI->addSlider("Green", 0, 255, 0.);
+    objectUI->addSlider("Blue", 0, 255, 0.);
+    objectUI->addSlider("Alpha", 0, 255, 0.);
+}
+
+void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
+{
+    string eventName = e.getName();
+
+    if(eventName == "Show object")
+    {
+        ofxUIToggle *toggleShowObject = (ofxUIToggle *) e.widget;
+        bDrawObject = toggleShowObject->getValue();
+    }
+
+    if(eventName == "Position x")
+    {
+        ofxUISlider *xSliderPosition = (ofxUISlider *) e.widget;
+        setPosition(xSliderPosition->getValue(), getY(), getZ());
+    }
+
+    if(eventName == "Position y")
+    {
+        ofxUISlider *ySliderPosition = (ofxUISlider *) e.widget;
+        setPosition(getX(), ySliderPosition->getValue(), getZ());
+    }
+}
+
 /** \brief Control what to do when the mouse is dragged
  *
  * \param[in] x,y int Mouse 2D position in screen coordinates
@@ -184,6 +230,8 @@ void vilainObject::mouseDragged(int x, int y, int button)
             mouseDistance = ofVec2f(x, y) - mousePressedPosition;
             ofVec2f futurPosition = objectPressedPosition + mouseDistance;
             setPosition(futurPosition.x, futurPosition.y, getZ());
+            xPositionSlider->setValue(futurPosition.x);
+            yPositionSlider->setValue(futurPosition.y);
         }
     }
 
