@@ -30,8 +30,8 @@ void vilainApp::setup()
     const char* name = glfwGetMonitorName(glfwGetPrimaryMonitor());
     ofLogNotice(PROG_NAME) << _("Primary monitor: ") << name << endl;
     vector <ofFile> files;
-    files.push_back(ofFile("groolot.png"));
     files.push_back(ofFile("groolot.jpg"));
+    files.push_back(ofFile("groolot.png"));
 
     vector<ofVideoDevice> devicesID = grabber.listDevices();
 
@@ -111,16 +111,15 @@ void vilainApp::drawProjector()
 void vilainApp::setMainUI()
 {
     tabBar = new ofxUITabBar; /** Tab bar initialization */
-    ofAddListener(tabBar->newGUIEvent, this, &vilainApp::mainUI_Event);
+    ofAddListener(tabBar->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
 
     projectSettingsTab->setName("Project settings"); /** Set tab name */
     tabBar->addCanvas(projectSettingsTab);
+    setProjectSettingsTab(); /** Set widgets of 'Project setings' tab */
 
     objectManagementTab->setName("Object management"); /** Set tab name */
     tabBar->addCanvas(objectManagementTab);
-
-    setProjectSettingsTab();
-    setObjectManagementTab();
+    setObjectManagementTab();/** Set widgets of 'Object management' tab */
 }
 
 //--------------------------------------------------------------
@@ -142,8 +141,6 @@ void vilainApp::setObjectManagementTab()
     objectManagementTab->addSpacer();
     objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
     objectList->activateToggle((* selectedObject)->objectName);
-    objectManagementTab->addSpacer();
-    objectManagementTab->addTextInput("New object name", "Add a new object"); /** Text input box to add new object */
     objectManagementTab->addSpacer();
     objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delete selected object */
 
@@ -191,20 +188,12 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         }
     }
 
-    if(eventName == "New object name")
-    {
-        ofxUITextInput *newObject = (ofxUITextInput *) e.widget;
-        ofLogVerbose(PROG_NAME) << _("Add : ") << newObject->getTextString();
-
-        //updateObjectList();
-    }
-
     if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
-        ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
-        ofLogVerbose(PROG_NAME) << _("Deleted object: ") << ObjectList->getValue();
-
-        //updateObjectList();
+        allObjects.erase(selectedObject);
+        SelectNextObject();
+        allObjectsName.erase(allObjectsName.begin() + objectList->getValue());
+        updateObjectList();
     }
 }
 
@@ -221,7 +210,7 @@ void vilainApp::keyPressed(int key)
     // Edit/Design Mode
     if(bEditMode)
     {
-        (* selectedObject)->keyPressed(key);/**< Send keyPressed event to selected object */
+        (* selectedObject)->keyPressed(key); /**< Send keyPressed event to selected object */
         std::sort(allObjects.begin(), allObjects.end(), vilainObject());
 
         if(key == OF_KEY_DEL)
@@ -238,6 +227,9 @@ void vilainApp::keyPressed(int key)
 
                 (* selectedObject)->catchMe(bEditMode);
             }
+
+            allObjectsName.erase(allObjectsName.begin() + objectList->getValue());
+            updateObjectList();
         }
         else if(key == OF_KEY_RIGHT)
         {
@@ -254,6 +246,7 @@ void vilainApp::keyPressed(int key)
             {
                 (* selectedObject)->setUIVisible(false);
             }
+
             SelectPreviousObject();
         }
     }
@@ -267,6 +260,8 @@ void vilainApp::keyPressed(int key)
             if(path.bSuccess)
             {
                 addNewImageFromFile(ofToDataPath(path.getPath()));
+                allObjectsName.push_back(path.getPath().substr(path.getPath().find_last_of("/") + 1));
+                updateObjectList();
             }
 
         }
@@ -363,6 +358,7 @@ void vilainApp::SelectNextObject()
 
         (* selectedObject)->catchMe(bEditMode);
         objectList->activateToggle((* selectedObject)->objectName);
+
         if(objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->drawObjectUI();
@@ -391,6 +387,7 @@ void vilainApp::SelectPreviousObject()
 
         (* selectedObject)->catchMe(bEditMode);
         objectList->activateToggle((* selectedObject)->objectName);
+
         if(objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->drawObjectUI();

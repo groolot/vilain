@@ -230,8 +230,12 @@ void vilainObject::mouseDragged(int x, int y, int button)
             mouseDistance = ofVec2f(x, y) - mousePressedPosition;
             ofVec2f futurPosition = objectPressedPosition + mouseDistance;
             setPosition(futurPosition.x, futurPosition.y, getZ());
-            xPositionSlider->setValue(futurPosition.x);
-            yPositionSlider->setValue(futurPosition.y);
+
+            if(bObjectUI_Visible == true)
+            {
+                xPositionSlider->setValue(futurPosition.x);
+                yPositionSlider->setValue(futurPosition.y);
+            }
         }
     }
 
