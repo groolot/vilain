@@ -172,6 +172,7 @@ void vilainObject::drawObjectUI()
     ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event);
 
     bObjectUI_Visible = true;
+    bObjectUI_Drawed = true;
 
     objectUI->setName(objectName);
     objectUI->addLabel(objectName);

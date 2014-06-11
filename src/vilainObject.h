@@ -74,6 +74,10 @@ public:
         bDrawObject = _ObjectVisible;
     };
 
+    bool getUIDrawed()
+    {
+        return bObjectUI_Drawed;
+    };
 
     void catchMe(bool _bEditMode);
     void leaveMe();
@@ -106,6 +110,7 @@ protected:
     int nearestMeshVertexIndex = 0;/**< \brief Keep index of the mouse nearest object mesh vertex */
 
     bool bObjectUI_Visible = false;
+    bool bObjectUI_Drawed = false;
 
     vilainObjectType Kind;
 

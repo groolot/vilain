@@ -70,6 +70,9 @@ public:
     void setProjectSettingsTab();
     void setObjectManagementTab();
     void updateObjectList();
+    void addNewObject();
+    void delSelectedObject();
+    void setObjectName();
 
     bool bObjectUIVisible;
     bool bObjectUIDrawed = false;

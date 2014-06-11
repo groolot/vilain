@@ -54,10 +54,9 @@ void vilainApp::setup()
     for(ofPtr<vilainObject> obj : allObjects)
     {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
-        obj->objectName = obj->getName().substr(obj->getName().find_last_of("/") + 1);
-        allObjectsName.push_back(obj->objectName);
     }
 
+    setObjectName();
     setMainUI();
 }
 
@@ -140,9 +139,20 @@ void vilainApp::setObjectManagementTab()
     objectManagementTab->addLabel("Object management"); /** Set title */
     objectManagementTab->addSpacer();
     objectList = objectManagementTab->addRadio("Object list", allObjectsName); /** Object listing */
-    objectList->activateToggle((* selectedObject)->objectName);
+
+    if(allObjects.size() != 0)
+    {
+        objectList->activateToggle((* selectedObject)->objectName);
+    }
+
+    objectManagementTab->addSpacer();
+    objectManagementTab->addLabelButton("Add new object", false); /** Button to add a new object */
     objectManagementTab->addSpacer();
     objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delete selected object */
+
+    objectManagementTab->addSpacer();
+    objectManagementTab->addSpacer();
+    objectManagementTab->addLabelButton("list", false); /** Button to delete selected object */
 
     ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
     objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
@@ -157,8 +167,11 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
     {
         if(objectManagementTab->isVisible() == true)
         {
-            (* selectedObject)->drawObjectUI();
-            bObjectUIDrawed = true;
+            if(allObjects.size() != 0)
+            {
+                (* selectedObject)->drawObjectUI();
+                bObjectUIDrawed = true;
+            }
         }
         else if(bObjectUIDrawed == true)
         {
@@ -176,24 +189,38 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         bool activateEdition = (* selectedObject)->isEditing();
 
         (* selectedObject)->leaveMe();
+
         ofxUIRadio *ObjectList = (ofxUIRadio *) e.widget;
 
         selectedObject = (allObjects.begin() + ObjectList->getValue());
         (* selectedObject)->catchMe(activateEdition);
 
-        if(objectManagementTab->isVisible() == true)
-        {
-            (* selectedObject)->drawObjectUI();
-            bObjectUIDrawed = true;
-        }
+        (* selectedObject)->drawObjectUI();
+        bObjectUIDrawed = true;
+    }
+
+    if(eventName == "Add new object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
+    {
+        addNewObject();
     }
 
     if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
-        allObjects.erase(selectedObject);
-        SelectNextObject();
-        allObjectsName.erase(allObjectsName.begin() + objectList->getValue());
-        updateObjectList();
+        delSelectedObject();
+    }
+
+    if(eventName == "list" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
+    {
+        for(ofPtr<vilainObject> obj : allObjects)
+        {
+            ofLogVerbose(PROG_NAME) << _("Object: ") << obj;
+            ofLogVerbose(PROG_NAME) << _("Object name : ") << obj->objectName;
+        }
+
+        for(int i = 0; i < allObjectsName.size(); i++)
+        {
+            ofLogVerbose(PROG_NAME) << _("--Object name: ") << allObjectsName[i];
+        }
     }
 }
 
@@ -202,6 +229,60 @@ void vilainApp::updateObjectList()
 {
     objectManagementTab->removeWidgets();
     setObjectManagementTab();
+}
+
+void vilainApp::setObjectName()
+{
+    allObjectsName.clear();
+
+    for(ofPtr<vilainObject> obj : allObjects)
+    {
+        obj->objectName = obj->getName().substr(obj->getName().find_last_of("/") + 1);
+        allObjectsName.push_back(obj->objectName);
+    }
+}
+
+//--------------------------------------------------------------
+void vilainApp::addNewObject()
+{
+    ofFileDialogResult path = ofSystemLoadDialog("open File");
+
+    if(path.bSuccess)
+    {
+        addNewImageFromFile(ofToDataPath(path.getPath()));
+        setObjectName();
+        updateObjectList();
+    }
+}
+
+//--------------------------------------------------------------
+void vilainApp::delSelectedObject()
+{
+    if(allObjects.size() != 0)
+    {
+        if((* selectedObject)->getUIVisible() == true)
+        {
+            (* selectedObject)->setUIVisible(false);
+        }
+
+        (* selectedObject)->leaveMe();
+        selectedObject = allObjects.erase(selectedObject);
+
+        if(selectedObject == allObjects.end())
+        {
+            selectedObject = allObjects.begin();
+        }
+
+        (* selectedObject)->catchMe(bEditMode);
+
+        if(allObjects.size() != 0 && (* selectedObject)->getUIDrawed() == true)
+        {
+            (* selectedObject)->setUIVisible(true);
+        }
+
+        setObjectName();
+        updateObjectList();
+    }
 }
 
 //--------------------------------------------------------------
@@ -215,21 +296,7 @@ void vilainApp::keyPressed(int key)
 
         if(key == OF_KEY_DEL)
         {
-            if(selectedObject != allObjects.end())
-            {
-                (* selectedObject)->leaveMe();
-                selectedObject = allObjects.erase(selectedObject);
-
-                if(selectedObject == allObjects.end())
-                {
-                    selectedObject = allObjects.begin();
-                }
-
-                (* selectedObject)->catchMe(bEditMode);
-            }
-
-            allObjectsName.erase(allObjectsName.begin() + objectList->getValue());
-            updateObjectList();
+            delSelectedObject();
         }
         else if(key == OF_KEY_RIGHT)
         {
@@ -255,15 +322,7 @@ void vilainApp::keyPressed(int key)
     {
         if(key == ' ')
         {
-            ofFileDialogResult path = ofSystemLoadDialog("open File");
-
-            if(path.bSuccess)
-            {
-                addNewImageFromFile(ofToDataPath(path.getPath()));
-                allObjectsName.push_back(path.getPath().substr(path.getPath().find_last_of("/") + 1));
-                updateObjectList();
-            }
-
+            addNewObject();
         }
     }
 
