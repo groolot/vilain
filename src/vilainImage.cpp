@@ -85,4 +85,7 @@ void vilainImage::draw()
     }
 }
 
+void vilainImage::drawTypeObjectUI()
+{
 
+}

@@ -19,6 +19,8 @@
 
 using namespace vilain;
 
+deque<ofPtr<vilainObject>> vilainApp::allObjects;
+
 /** \brief Setup the application. Similar to constructor.
  *
  * \return void
@@ -55,6 +57,8 @@ void vilainApp::setup()
     {
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
     }
+
+    vector<string> allObjectsName;
 
     setObjectName();
     setMainUI();
@@ -150,10 +154,6 @@ void vilainApp::setObjectManagementTab()
     objectManagementTab->addSpacer();
     objectManagementTab->addLabelButton("Delete selected object", false); /** Button to delete selected object */
 
-    objectManagementTab->addSpacer();
-    objectManagementTab->addSpacer();
-    objectManagementTab->addLabelButton("list", false); /** Button to delete selected object */
-
     ofAddListener(objectManagementTab->newGUIEvent, this, &vilainApp::mainUI_Event); /** Listener to wait new events */
     objectManagementTab->autoSizeToFitWidgets(); /** Auto height size */
 }
@@ -170,10 +170,9 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
             if(allObjects.size() != 0)
             {
                 (* selectedObject)->drawObjectUI();
-                bObjectUIDrawed = true;
             }
         }
-        else if(bObjectUIDrawed == true)
+        else if((* selectedObject)->getUIDrawed() == true)
         {
             (* selectedObject)->setUIVisible(false);
         }
@@ -195,32 +194,24 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         selectedObject = (allObjects.begin() + ObjectList->getValue());
         (* selectedObject)->catchMe(activateEdition);
 
-        (* selectedObject)->drawObjectUI();
-        bObjectUIDrawed = true;
+        if((* selectedObject)->getUIDrawed() == true && objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->setUIVisible(true);
+        }
+        else if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 
     if(eventName == "Add new object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
-        addNewObject();
+        keyPressed(' ');
     }
 
     if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
-        delSelectedObject();
-    }
-
-    if(eventName == "list" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
-    {
-        for(ofPtr<vilainObject> obj : allObjects)
-        {
-            ofLogVerbose(PROG_NAME) << _("Object: ") << obj;
-            ofLogVerbose(PROG_NAME) << _("Object name : ") << obj->objectName;
-        }
-
-        for(int i = 0; i < allObjectsName.size(); i++)
-        {
-            ofLogVerbose(PROG_NAME) << _("--Object name: ") << allObjectsName[i];
-        }
+        keyPressed(OF_KEY_DEL);
     }
 }
 
@@ -267,6 +258,7 @@ void vilainApp::delSelectedObject()
 
         (* selectedObject)->leaveMe();
         selectedObject = allObjects.erase(selectedObject);
+        (* selectedObject)->~vilainObject();
 
         if(selectedObject == allObjects.end())
         {
@@ -275,9 +267,13 @@ void vilainApp::delSelectedObject()
 
         (* selectedObject)->catchMe(bEditMode);
 
-        if(allObjects.size() != 0 && (* selectedObject)->getUIDrawed() == true)
+        if(allObjects.size() != 0 && (* selectedObject)->getUIDrawed() == true && objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->setUIVisible(true);
+        }
+        else if(allObjects.size() != 0 && objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
         }
 
         setObjectName();

@@ -45,7 +45,9 @@ public:
     */
     ofImage image;
 
+    void drawTypeObjectUI();
 protected:
+
 private:
 };
 }

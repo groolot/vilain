@@ -75,7 +75,6 @@ public:
     void setObjectName();
 
     bool bObjectUIVisible;
-    bool bObjectUIDrawed = false;
 
     vector<ofxUICanvas *> mainUI;
     vector<string> allObjectsName;
@@ -86,8 +85,8 @@ public:
     ofxUIRadio* objectList;
     //** GUI **//
 
+    static deque<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
 protected:
-    deque<ofPtr<vilainObject>> allObjects;/**< Pointer to the container of all objects */
     deque<ofPtr<vilainObject>>::iterator selectedObject;/**< Iterator on allObjects container, point to the selected object pointer */
 
     bool bInfoText = True;

@@ -101,8 +101,13 @@ public:
 
     void UIisVisible();
     void ObjectUI_Event(ofxUIEventArgs & e);
+    virtual void drawTypeObjectUI() {};
 
     string objectName;
+    vector<string> allParentName;
+    vector<string> allChildName;
+    ofxUIDropDownList* ddl;
+    string parentName;
 
 protected:
     float nearestMouseDistanceToMeshVertex = 0;/**< \brief Keep the distance from mouse to nearest object mesh vertex */
@@ -118,7 +123,8 @@ protected:
     ofxOscParameterSync syncOSC;
     string sName;
     ofParameter<bool> bDrawObject = true;
-    ofParameter<ofColor> color;
+    //ofParameter<ofColor> color;
+    ofColor color;
     ofParameter<ofPoint> objectPosition;
 
 private:

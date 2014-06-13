@@ -167,6 +167,22 @@ void vilainObject::drawEditing()
 
 void vilainObject::drawObjectUI()
 {
+    for(ofPtr<vilainObject> child : vilainApp::allObjects)
+    {
+        if(child->parentName == objectName)
+        {
+            allChildName.push_back(child->objectName);
+        }
+    }
+
+    for(ofPtr<vilainObject> parent : vilainApp::allObjects)
+    {
+        if(parent->parentName != objectName && parent->objectName != objectName)
+        {
+            allParentName.push_back(parent->objectName);
+        }
+    }
+
     objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
 
     ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event);
@@ -182,10 +198,25 @@ void vilainObject::drawObjectUI()
     xPositionSlider = objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getX());
     yPositionSlider = objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getY());
     objectUI->addSpacer();
-    objectUI->addSlider("Red", 0, 255, 0.);
-    objectUI->addSlider("Green", 0, 255, 0.);
-    objectUI->addSlider("Blue", 0, 255, 0.);
-    objectUI->addSlider("Alpha", 0, 255, 0.);
+
+    ofColor color(255, 255, 255, 255);
+
+    objectUI->addSlider("Red", 0, 255, color.r);
+    objectUI->addSlider("Green", 0, 255, color.g);
+    objectUI->addSlider("Blue", 0, 255, color.b);
+    objectUI->addSlider("Alpha", 0, 255, color.a);
+    objectUI->addSpacer();
+    drawTypeObjectUI();
+    objectUI->addSpacer();
+    ddl = objectUI->addDropDownList("Parent list", allParentName);
+    ddl->setAllowMultiple(false);
+    ddl->setAutoClose(true);
+    objectUI->addSpacer();
+
+    for(string child : allChildName)
+    {
+        objectUI->addLabel(child, OFX_UI_FONT_SMALL);
+    }
 }
 
 void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
@@ -208,6 +239,34 @@ void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
     {
         ofxUISlider *ySliderPosition = (ofxUISlider *) e.widget;
         setPosition(getX(), ySliderPosition->getValue(), getZ());
+    }
+
+    if(eventName == "Parent list")
+    {
+        if(ddl->getSelectedNames().size() != 0)
+        {
+            parentName = ddl->getSelectedNames()[0];
+        }
+    }
+
+    if(eventName == "Red")
+    {
+
+    }
+
+    if(eventName == "Green")
+    {
+
+    }
+
+    if(eventName == "Blue")
+    {
+
+    }
+
+    if(eventName == "Alpha")
+    {
+
     }
 }
 
