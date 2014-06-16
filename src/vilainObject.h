@@ -102,10 +102,12 @@ public:
     void UIisVisible();
     void ObjectUI_Event(ofxUIEventArgs & e);
     virtual void drawTypeObjectUI() {};
+    void setParentName();
+    void setChildrenNames();
 
     string objectName;
     vector<string> allParentName;
-    vector<string> allChildName;
+    vector<string> allChildrenNames;
     ofxUIDropDownList* ddl;
     string parentName;
 

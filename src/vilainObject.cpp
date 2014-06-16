@@ -165,15 +165,9 @@ void vilainObject::drawEditing()
     }
 }
 
-void vilainObject::drawObjectUI()
+void vilainObject::setParentName()
 {
-    for(ofPtr<vilainObject> child : vilainApp::allObjects)
-    {
-        if(child->parentName == objectName)
-        {
-            allChildName.push_back(child->objectName);
-        }
-    }
+    allParentName.clear();
 
     for(ofPtr<vilainObject> parent : vilainApp::allObjects)
     {
@@ -182,6 +176,25 @@ void vilainObject::drawObjectUI()
             allParentName.push_back(parent->objectName);
         }
     }
+}
+
+void vilainObject::setChildrenNames()
+{
+    allChildrenNames.clear();
+
+    for(ofPtr<vilainObject> child : vilainApp::allObjects)
+    {
+        if(child->parentName == objectName)
+        {
+            allChildrenNames.push_back(child->objectName);
+        }
+    }
+}
+
+void vilainObject::drawObjectUI()
+{
+    setParentName();
+    setChildrenNames();
 
     objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
 
@@ -213,7 +226,7 @@ void vilainObject::drawObjectUI()
     ddl->setAutoClose(true);
     objectUI->addSpacer();
 
-    for(string child : allChildName)
+    for(string child : allChildrenNames)
     {
         objectUI->addLabel(child, OFX_UI_FONT_SMALL);
     }
@@ -260,26 +273,6 @@ void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
                 }
             }
         }
-    }
-
-    if(eventName == "Red")
-    {
-
-    }
-
-    if(eventName == "Green")
-    {
-
-    }
-
-    if(eventName == "Blue")
-    {
-
-    }
-
-    if(eventName == "Alpha")
-    {
-
     }
 }
 

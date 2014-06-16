@@ -187,7 +187,14 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
         {
             if(allObjects.size() != 0)
             {
-                (* selectedObject)->drawObjectUI(); /** Draw the object UI */
+                if((* selectedObject)->getUIDrawed() == false)
+                {
+                    (* selectedObject)->drawObjectUI(); /** Draw the object UI */
+                }
+                else
+                {
+                    (* selectedObject)->setUIVisible(true); /** Show the object UI */
+                }
             }
         }
         else if((* selectedObject)->getUIDrawed() == true)
@@ -261,6 +268,7 @@ void vilainApp::addNewObject()
         addNewImageFromFile(ofToDataPath(path.getPath()));
         setObjectName();
         updateObjectList();
+
         if((* selectedObject)->getUIDrawed() == true && objectManagementTab->isVisible() == true)
         {
             (* selectedObject)->setUIVisible(true);
