@@ -199,12 +199,12 @@ void vilainObject::drawObjectUI()
     yPositionSlider = objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getY());
     objectUI->addSpacer();
 
-    ofColor color(255, 255, 255, 255);
 
-    objectUI->addSlider("Red", 0, 255, color.r);
-    objectUI->addSlider("Green", 0, 255, color.g);
-    objectUI->addSlider("Blue", 0, 255, color.b);
-    objectUI->addSlider("Alpha", 0, 255, color.a);
+
+    objectUI->addSlider("Red", 0, 1, &color.r);
+    objectUI->addSlider("Green", 0, 1, &color.g);
+    objectUI->addSlider("Blue", 0, 1, &color.b);
+    objectUI->addSlider("Alpha", 0, 1, &color.a);
     objectUI->addSpacer();
     drawTypeObjectUI();
     objectUI->addSpacer();
@@ -226,19 +226,19 @@ void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
     if(eventName == "Show object")
     {
         ofxUIToggle *toggleShowObject = (ofxUIToggle *) e.widget;
-        bDrawObject = toggleShowObject->getValue();
+        bDrawObject = toggleShowObject->getValue(); /** Draw/Hide object */
     }
 
     if(eventName == "Position x")
     {
         ofxUISlider *xSliderPosition = (ofxUISlider *) e.widget;
-        setPosition(xSliderPosition->getValue(), getY(), getZ());
+        setPosition(xSliderPosition->getValue(), getY(), getZ()); /** Positioning */
     }
 
     if(eventName == "Position y")
     {
         ofxUISlider *ySliderPosition = (ofxUISlider *) e.widget;
-        setPosition(getX(), ySliderPosition->getValue(), getZ());
+        setPosition(getX(), ySliderPosition->getValue(), getZ()); /** Positioning */
     }
 
     if(eventName == "Parent list")
@@ -246,6 +246,19 @@ void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
         if(ddl->getSelectedNames().size() != 0)
         {
             parentName = ddl->getSelectedNames()[0];
+
+            for(ofPtr<vilainObject> parentObject : vilainApp::allObjects)
+            {
+                if(parentObject->objectName == parentName)
+                {
+                    setParent(*parentObject); /** Set parent */
+
+                    /** Redefine position */
+                    xPositionSlider->setMaxAndMin(parentObject->getWidth() / 2 + getWidth() / 2, -parentObject->getWidth() / 2 - getWidth() / 2);
+                    yPositionSlider->setMaxAndMin(parentObject->getHeight() / 2 + getHeight() / 2, -parentObject->getHeight() / 2 - getHeight() / 2);
+                    setPosition(0, 0, 0);
+                }
+            }
         }
     }
 

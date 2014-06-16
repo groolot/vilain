@@ -123,8 +123,7 @@ protected:
     ofxOscParameterSync syncOSC;
     string sName;
     ofParameter<bool> bDrawObject = true;
-    //ofParameter<ofColor> color;
-    ofColor color;
+    ofFloatColor color;
     ofParameter<ofPoint> objectPosition;
 
 private:

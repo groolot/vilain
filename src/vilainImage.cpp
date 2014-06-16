@@ -78,6 +78,9 @@ void vilainImage::draw()
 {
     if(bDrawObject == true)
     {
+        // TODO: color multiplication
+        ofSetColor(color);
+        //ofSetColor(255, 0, 0, 128);
         image.getTextureReference().bind();
         of3dPrimitive::draw();
         image.getTextureReference().unbind();

@@ -58,8 +58,6 @@ void vilainApp::setup()
         obj->setPosition(ofGetWindowWidth() / 2. , ofGetWindowHeight() / 2. , 0);
     }
 
-    vector<string> allObjectsName;
-
     setObjectName();
     setMainUI();
 }
@@ -111,6 +109,11 @@ void vilainApp::drawProjector()
 }
 
 //--------------------------------------------------------------
+/** \brief Setup the graphical interface.
+ *
+ * \return void
+ *
+ */
 void vilainApp::setMainUI()
 {
     tabBar = new ofxUITabBar; /** Tab bar initialization */
@@ -118,7 +121,7 @@ void vilainApp::setMainUI()
 
     projectSettingsTab->setName("Project settings"); /** Set tab name */
     tabBar->addCanvas(projectSettingsTab);
-    setProjectSettingsTab(); /** Set widgets of 'Project setings' tab */
+    setProjectSettingsTab(); /** vector<string> allObjectsName;Set widgets of 'Project setings' tab */
 
     objectManagementTab->setName("Object management"); /** Set tab name */
     tabBar->addCanvas(objectManagementTab);
@@ -126,6 +129,11 @@ void vilainApp::setMainUI()
 }
 
 //--------------------------------------------------------------
+/** \brief Setup the "Project settings" tab.
+ *
+ * \return void
+ *
+ */
 void vilainApp::setProjectSettingsTab()
 {
     projectSettingsTab->addLabel("Project settings"); /** Set title */
@@ -138,6 +146,11 @@ void vilainApp::setProjectSettingsTab()
 }
 
 //--------------------------------------------------------------
+/** \brief Setup the "Object management" tab.
+ *
+ * \return void
+ *
+ */
 void vilainApp::setObjectManagementTab()
 {
     objectManagementTab->addLabel("Object management"); /** Set title */
@@ -159,30 +172,35 @@ void vilainApp::setObjectManagementTab()
 }
 
 //--------------------------------------------------------------
+/** \brief Wait event of GUI
+ *
+ * \return void
+ *
+ */
 void vilainApp::mainUI_Event(ofxUIEventArgs &e)
 {
     string eventName = e.getName();
 
-    if(eventName == "Project settings" || eventName == "Object management")
+    if(eventName == "Project settings" || eventName == "Object management") /** If event is a click on tabs */
     {
         if(objectManagementTab->isVisible() == true)
         {
             if(allObjects.size() != 0)
             {
-                (* selectedObject)->drawObjectUI();
+                (* selectedObject)->drawObjectUI(); /** Draw the object UI */
             }
         }
         else if((* selectedObject)->getUIDrawed() == true)
         {
-            (* selectedObject)->setUIVisible(false);
+            (* selectedObject)->setUIVisible(false); /** Hide the object UI */
         }
     }
 
-    if(eventName == "Object list")
+    else if(eventName == "Object list")
     {
         if((* selectedObject)->getUIVisible() == true)
         {
-            (* selectedObject)->setUIVisible(false);
+            (* selectedObject)->setUIVisible(false); /** Hide the object UI */
         }
 
         bool activateEdition = (* selectedObject)->isEditing();
@@ -196,20 +214,20 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
 
         if((* selectedObject)->getUIDrawed() == true && objectManagementTab->isVisible() == true)
         {
-            (* selectedObject)->setUIVisible(true);
+            (* selectedObject)->setUIVisible(true); /** Show the object UI */
         }
         else if(objectManagementTab->isVisible() == true)
         {
-            (* selectedObject)->drawObjectUI();
+            (* selectedObject)->drawObjectUI(); /** Draw the object UI */
         }
     }
 
-    if(eventName == "Add new object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
+    else if(eventName == "Add new object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
         keyPressed(' ');
     }
 
-    if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
+    else if(eventName == "Delete selected object" && ofGetMousePressed(OF_MOUSE_BUTTON_1))
     {
         keyPressed(OF_KEY_DEL);
     }
@@ -218,15 +236,15 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
 //--------------------------------------------------------------
 void vilainApp::updateObjectList()
 {
-    objectManagementTab->removeWidgets();
-    setObjectManagementTab();
+    objectManagementTab->removeWidgets(); /** Remove widgets of "Object Management" tab */
+    setObjectManagementTab(); /** And reset widgets */
 }
 
 void vilainApp::setObjectName()
 {
     allObjectsName.clear();
 
-    for(ofPtr<vilainObject> obj : allObjects)
+    for(ofPtr<vilainObject> obj : allObjects) /** For each object in deque, get the name of */
     {
         obj->objectName = obj->getName().substr(obj->getName().find_last_of("/") + 1);
         allObjectsName.push_back(obj->objectName);
@@ -243,6 +261,14 @@ void vilainApp::addNewObject()
         addNewImageFromFile(ofToDataPath(path.getPath()));
         setObjectName();
         updateObjectList();
+        if((* selectedObject)->getUIDrawed() == true && objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->setUIVisible(true);
+        }
+        else if(objectManagementTab->isVisible() == true)
+        {
+            (* selectedObject)->drawObjectUI();
+        }
     }
 }
 
@@ -258,7 +284,6 @@ void vilainApp::delSelectedObject()
 
         (* selectedObject)->leaveMe();
         selectedObject = allObjects.erase(selectedObject);
-        (* selectedObject)->~vilainObject();
 
         if(selectedObject == allObjects.end())
         {
