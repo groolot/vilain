@@ -15,6 +15,7 @@
     \defbibcheck{notonline}{\iffieldundef{url}{}{\skipentry}}
 \usepackage{varioref} % Marvelous crossrefs
 \usepackage{listings}
+\usepackage{array}
 
 % Personal colors
 \definecolor{DarkGreen}{rgb}{0,0.75,0}%
@@ -103,16 +104,19 @@
 %     \ref{tab:Label}
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newcommand{\tableau}[4]{
+\newcommand{\tableau}[5]{
 % #1 = structure string
 % #2 = caption
 % #3 = label
 % #4 = content
+% #5 = global container box size
 	\begin{table}[h]
         \centering
-        \begin{tabular}{#1}
-            #4
-        \end{tabular}
+        \resizebox{#5}{!} {
+          \begin{tabular}{#1}
+              #4
+          \end{tabular}
+        }
         \caption{#2}
         \label{#3}
     \end{table}
