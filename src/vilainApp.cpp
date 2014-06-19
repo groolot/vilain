@@ -241,12 +241,23 @@ void vilainApp::mainUI_Event(ofxUIEventArgs &e)
 }
 
 //--------------------------------------------------------------
+/** \brief Update object list of "Object Management" tab
+ *
+ * \return void
+ *
+ */
 void vilainApp::updateObjectList()
 {
     objectManagementTab->removeWidgets(); /** Remove widgets of "Object Management" tab */
     setObjectManagementTab(); /** And reset widgets */
 }
 
+//--------------------------------------------------------------
+/** \brief Setup objects name
+ *
+ * \return void
+ *
+ */
 void vilainApp::setObjectName()
 {
     allObjectsName.clear();
@@ -259,6 +270,11 @@ void vilainApp::setObjectName()
 }
 
 //--------------------------------------------------------------
+/** \brief Add a new object
+ *
+ * \return void
+ *
+ */
 void vilainApp::addNewObject()
 {
     ofFileDialogResult path = ofSystemLoadDialog("open File");
@@ -281,17 +297,22 @@ void vilainApp::addNewObject()
 }
 
 //--------------------------------------------------------------
+/** \brief Delete selected object
+ *
+ * \return void
+ *
+ */
 void vilainApp::delSelectedObject()
 {
-    if(allObjects.size() != 0)
+    if(allObjects.size() != 0) /** If there is object in the list */
     {
-        if((* selectedObject)->getUIVisible() == true)
+        if((* selectedObject)->getUIVisible() == true) /** If object UI is visible */
         {
-            (* selectedObject)->setUIVisible(false);
+            (* selectedObject)->setUIVisible(false); /** Hide object UI */
         }
 
         (* selectedObject)->leaveMe();
-        selectedObject = allObjects.erase(selectedObject);
+        selectedObject = allObjects.erase(selectedObject); /** Deleting object */
 
         if(selectedObject == allObjects.end())
         {
@@ -310,7 +331,7 @@ void vilainApp::delSelectedObject()
         }
 
         setObjectName();
-        updateObjectList();
+        updateObjectList(); /** Udate object list */
     }
 }
 

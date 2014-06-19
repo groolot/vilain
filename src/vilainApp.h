@@ -76,7 +76,6 @@ public:
 
     bool bObjectUIVisible;
 
-    vector<ofxUICanvas *> mainUI;
     vector<string> allObjectsName;
 
     ofxUITabBar* tabBar;

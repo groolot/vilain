@@ -165,6 +165,12 @@ void vilainObject::drawEditing()
     }
 }
 
+//--------------------------------------------------------------
+/** \brief Setup the parent name of objects
+ *
+ * \return void
+ *
+ */
 void vilainObject::setParentName()
 {
     allParentName.clear();
@@ -178,6 +184,12 @@ void vilainObject::setParentName()
     }
 }
 
+//--------------------------------------------------------------
+/** \brief Setup the children name of objects
+ *
+ * \return void
+ *
+ */
 void vilainObject::setChildrenNames()
 {
     allChildrenNames.clear();
@@ -191,6 +203,12 @@ void vilainObject::setChildrenNames()
     }
 }
 
+//--------------------------------------------------------------
+/** \brief Draw per object UI
+ *
+ * \return void
+ *
+ */
 void vilainObject::drawObjectUI()
 {
     setParentName();
@@ -198,7 +216,7 @@ void vilainObject::drawObjectUI()
 
     objectUI = new ofxUIScrollableCanvas(373, 0, 300, ofGetHeight() - 10);
 
-    ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event);
+    ofAddListener(objectUI->newGUIEvent, this, &vilainObject::ObjectUI_Event); /** Listener for wait event */
 
     bObjectUI_Visible = true;
     bObjectUI_Drawed = true;
@@ -206,24 +224,27 @@ void vilainObject::drawObjectUI()
     objectUI->setName(objectName);
     objectUI->addLabel(objectName);
     objectUI->addSpacer();
-    objectUI->addToggle("Show object", bDrawObject);
+    objectUI->addToggle("Show object", bDrawObject); /** Hide/Show toggle */
     objectUI->addSpacer();
+
+    /** Position sliders */
     xPositionSlider = objectUI->addSlider("Position x", 0 - getWidth() / 2, ofGetWindowWidth() + getWidth() / 2, getX());
     yPositionSlider = objectUI->addSlider("Position y", 0 - getHeight() / 2, ofGetWindowHeight() + getHeight() / 2, getY());
     objectUI->addSpacer();
 
 
-
+    /** Color sliders */
     objectUI->addSlider("Red", 0, 1, &color.r);
     objectUI->addSlider("Green", 0, 1, &color.g);
     objectUI->addSlider("Blue", 0, 1, &color.b);
     objectUI->addSlider("Alpha", 0, 1, &color.a);
+
     objectUI->addSpacer();
     drawTypeObjectUI();
     objectUI->addSpacer();
-    ddl = objectUI->addDropDownList("Parent list", allParentName);
-    ddl->setAllowMultiple(false);
-    ddl->setAutoClose(true);
+    ddl = objectUI->addDropDownList("Parent list", allParentName); /** List of parent */
+    ddl->setAllowMultiple(false); /** Disable multiple select */
+    ddl->setAutoClose(true); /** enable auto close */
     objectUI->addSpacer();
 
     for(string child : allChildrenNames)
@@ -232,29 +253,35 @@ void vilainObject::drawObjectUI()
     }
 }
 
+//--------------------------------------------------------------
+/** \brief Wait per object UI event
+ *
+ * \return void
+ *
+ */
 void vilainObject::ObjectUI_Event(ofxUIEventArgs& e)
 {
     string eventName = e.getName();
 
-    if(eventName == "Show object")
+    if(eventName == "Show object") /** Hide/Show oject */
     {
         ofxUIToggle *toggleShowObject = (ofxUIToggle *) e.widget;
         bDrawObject = toggleShowObject->getValue(); /** Draw/Hide object */
     }
 
-    if(eventName == "Position x")
+    if(eventName == "Position x") /** Position x changed */
     {
         ofxUISlider *xSliderPosition = (ofxUISlider *) e.widget;
         setPosition(xSliderPosition->getValue(), getY(), getZ()); /** Positioning */
     }
 
-    if(eventName == "Position y")
+    if(eventName == "Position y") /** Position y changed */
     {
         ofxUISlider *ySliderPosition = (ofxUISlider *) e.widget;
         setPosition(getX(), ySliderPosition->getValue(), getZ()); /** Positioning */
     }
 
-    if(eventName == "Parent list")
+    if(eventName == "Parent list") /** Parent change */
     {
         if(ddl->getSelectedNames().size() != 0)
         {
