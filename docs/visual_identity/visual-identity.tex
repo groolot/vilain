@@ -4,6 +4,7 @@
 \usepackage{pdflscape}
 \usepackage{mathtools}
 \usepackage{amssymb}
+\usepackage{array}
 
 \addbibresource{../vilain.bib}
 \usepackage[%
@@ -21,9 +22,6 @@
 	pdfstartview=FitH%
 ]{hyperref}
 
-\definecolor{darkRed}{RGB}{128,0,0}
-\definecolor{darkGreen}{RGB}{0,128,0}
-\definecolor{darkBlue}{RGB}{0,0,128}
 \definecolor{vilainRed}{cmyk}{0,0.78,0.78,0.4}
 
 \newcommand{\proposition}[4][\textwidth]{%
@@ -113,7 +111,7 @@ white (see \figurename{} \vref{fig:logoBlackWhite}) ones.
 
 \cleardoublepage{}
 \section{Usages}
-\tableau{l*{6}{>{$}c<{$}}}{Baseline and Logotype usages}{tab:Usages} {
+\tableauSized{l*{6}{>{$}c<{$}}}{Baseline and Logotype usages}{tab:Usages}{
   \firsthline
   Context & \text{\figurename{} \ref{fig:baselineColor}} & \text{\figurename{} \ref{fig:baselineGrayscale}} & \text{\figurename{} \ref{fig:baselineBlackWhite}} & \text{\figurename{} \ref{fig:logoColor}} & \text{\figurename{} \ref{fig:logoGrayscale}} & \text{\figurename{} \ref{fig:logoBlackWhite}} \\
   \hline \hline

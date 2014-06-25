@@ -98,7 +98,7 @@
 %     \hline
 %     A & B & C \\ \hline
 %     etc.
-%     }{15cm}
+%     }
 %
 % after what you can reference the tabular by:
 %     \ref{tab:Label}
@@ -109,14 +109,31 @@
 % #2 = caption
 % #3 = label
 % #4 = content
-	\begin{table}[h]
-        \centering
+  \begin{table}[h]
+      \centering
+      \begin{tabular}{#1}
+          #4
+      \end{tabular}
+      \caption{#2}
+      \label{#3}
+  \end{table}
+}
+\newcommand{\tableauSized}[5]{%
+% #1 = structure string
+% #2 = caption
+% #3 = label
+% #4 = content
+% #5 = final width
+  \begin{table}
+      \centering
+      \resizebox{#5}{!} {
         \begin{tabular}{#1}
             #4
         \end{tabular}
-        \caption{#2}
-        \label{#3}
-    \end{table}
+      }
+      \caption{#2}
+      \label{#3}
+  \end{table}
 }
 
 \newcommand{\vilain}{\textbf{vilain::}}
