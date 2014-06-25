@@ -1,0 +1,134 @@
+\documentclass[a4paper,oneside]{article}
+
+\usepackage{../vilain}
+\usepackage{pdflscape}
+\usepackage{mathtools}
+\usepackage{amssymb}
+
+\addbibresource{../vilain.bib}
+\usepackage[%
+	pdftex,%
+	bookmarks=false,%
+	bookmarksopen=false,%
+	bookmarksnumbered=false,%
+	pdfmenubar=true,%
+	pdftoolbar=true,%
+	pdfpagelabels=true,%
+	pdftitle={Visual identity},%
+	pdfauthor={Gr\'egory DAVID},%
+	pdfsubject={vilain, visual identity},%
+	pdfpagelayout={OneColumn},%
+	pdfstartview=FitH%
+]{hyperref}
+
+\definecolor{darkRed}{RGB}{128,0,0}
+\definecolor{darkGreen}{RGB}{0,128,0}
+\definecolor{darkBlue}{RGB}{0,0,128}
+\definecolor{vilainRed}{cmyk}{0,0.78,0.78,0.4}
+
+\newcommand{\proposition}[4][\textwidth]{%
+% #1 = minipage width
+% #2 = file path
+% #3 = caption text
+% #4 = reference label
+    \begin{figure}[h]
+        \centering
+            \begin{minipage}[c]{#1}
+                \centering
+                \includegraphics[height=0.3cm]{#2}
+                \vline{}
+                \includegraphics[height=0.5cm]{#2}
+                \vline{}
+                \includegraphics[height=1cm]{#2}
+                \vline{}
+                \includegraphics[height=2cm]{#2}
+                \caption{#3}
+                \label{#4}
+            \end{minipage}
+    \end{figure}
+}
+
+\author{Grégory \bsc{David}}
+\title{\vilain{} -- Visual identity}
+\date{\today{}}
+
+\begin{document}
+\maketitle{}
+\tableofcontents{}
+
+\section{Text}
+\subsection{Font}
+\subsubsection{In baseline and logotype}
+\paragraph{Name} eurosteal
+\paragraph{Provider}
+\url{http://fontstruct.com/fontstructions/show/986192}
+\paragraph{License} The FontStruction “Eurosteal” by Michał “Neoqueto”
+Nowak is licensed under a Creative Commons Attribution Share Alike
+license (\url{http://creativecommons.org/licenses/by-sa/3.0/}).
+
+\subsection{Colors}
+\paragraph{Black}
+\subparagraph{CMYK} 35, 35, 35, 100
+
+\subparagraph{Example} \textcolor{black}{This is a simple text in
+  black, \textbf{and this one is bold}}
+
+\paragraph{Dark purple on logo and text}
+\subparagraph{CMYK} 0, 78, 78, 40
+
+\subparagraph{Example} \textcolor{vilainRed}{This is a simple text in
+  purple, \textbf{and this one is bold}}
+
+\subsubsection{In plain text}
+References to the project name have to follow this simples constraints.
+
+\paragraph{Syntax} \texttt{\vilain{}}
+\paragraph{Style} \vilain{} In bold case when possible, else as is.
+
+\section{Baseline}
+The \tablename{} \vref{tab:Usages} summarizes how to use the
+baselines: colored (see \figurename{} \vref{fig:baselineColor}),
+grayscale (see \figurename{} \vref{fig:baselineGrayscale}) or black \&
+white (see \figurename{} \vref{fig:baselineBlackWhite}) ones.
+
+\proposition{baseline_color_cmyk.pdf}{Colored
+  baseline}{fig:baselineColor}
+\proposition{baseline_grayscale_cmyk.pdf}{Grayscale
+  baseline}{fig:baselineGrayscale}
+\proposition{baseline_black-and-white_cmyk.pdf}{Black\&White
+  baseline}{fig:baselineBlackWhite}
+
+\cleardoublepage{}
+\section{Logotype}
+The \tablename{} \vref{tab:Usages} summarizes how to use the
+logotypes: colored (see \figurename{} \vref{fig:logoColor}),
+grayscale (see \figurename{} \vref{fig:logoGrayscale}) or black \&
+white (see \figurename{} \vref{fig:logoBlackWhite}) ones.
+
+\proposition{logo_color_cmyk.pdf}{Colored logotype}{fig:logoColor}
+\proposition{logo_grayscale_cmyk.pdf}{Grayscale
+  logotype}{fig:logoGrayscale}
+\proposition{logo_black-and-white_cmyk.pdf}{Black\&White
+  logotype}{fig:logoBlackWhite}
+
+\cleardoublepage{}
+\section{Usages}
+\tableau{l*{6}{>{$}c<{$}}}{Baseline and Logotype usages}{tab:Usages} {
+  \firsthline
+  Context & \text{\figurename{} \ref{fig:baselineColor}} & \text{\figurename{} \ref{fig:baselineGrayscale}} & \text{\figurename{} \ref{fig:baselineBlackWhite}} & \text{\figurename{} \ref{fig:logoColor}} & \text{\figurename{} \ref{fig:logoGrayscale}} & \text{\figurename{} \ref{fig:logoBlackWhite}} \\
+  \hline \hline
+  Paper color print & \checkmark \\
+  
+  \lasthline
+}{\textwidth}
+
+\cleardoublepage{}
+\section{Forbidens}
+\proposition{baseline_black-and-white_negative_cmyk.pdf}{Negative Black\&White
+  baseline is \textbf{FORBIDEN}}{fig:baselineNegativeBlackWhite}
+\proposition{logo_black-and-white_negative_cmyk.pdf}{Negative Black\&White
+  logotype is \textbf{FORBIDEN}}{fig:logoNegativeBlackWhite}
+
+
+
+\end{document}
