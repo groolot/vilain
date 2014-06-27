@@ -2,7 +2,7 @@ language: cpp
 compiler: gcc
 before_install:
  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
- - apt-get install -qq g++-4.8
+ - sudo apt-get install -qq g++-4.8
  - alias g++="g++-4.8"
  - ./install_prerequisites -f linux64 -i
 script: make Release
