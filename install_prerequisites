@@ -6,6 +6,10 @@ OF_DIRNAME=openframeworks
 
 function usage {
     echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7> -a" 1>&2;
+    echo "" 1>&2;
+    echo -e "\t-f flavour\tSets the flavour of your system to download the correct" 1>&2;
+    echo -e "\t\t\tversion and install everything needed (openFrameworks+Addons) [optional]\n" 1>&2;
+    echo -e "\t-a\t\tOnly download the openFrameworks Addons [optional]\n" 1>&2;
     exit 1;
 }
 
