@@ -5,7 +5,7 @@ POTFILE = $(PODIR)/$(PROJECT_NAME).pot
 
 .INTERMEDIAT: $(POTFILE)
 
-PrePost: prebuild Release postbuild
+PrePost: Release postbuild
 
 lang: lang-ext lang-push lang-pull lang-conv
 
