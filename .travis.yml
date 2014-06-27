@@ -2,7 +2,7 @@ language: cpp
 compiler: gcc
 before_install:
  - sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
- - ./install_prerequisites -f linux64
+ - ./install_prerequisites -f linux64 -i
 script: make Release
 branches:
   only:
