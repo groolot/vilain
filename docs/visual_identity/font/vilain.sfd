@@ -1,0 +1,324 @@
+SplineFontDB: 3.0
+FontName: vilain
+FullName: vilain::
+FamilyName: vilain
+Weight: Book
+Copyright: Copyright (c) 2014 Gre'gory "groolot" David
+Version: 1.0
+ItalicAngle: 0
+UnderlinePosition: 190
+UnderlineWidth: 76
+Ascent: 3072
+Descent: 1024
+sfntRevision: 0x00010000
+LayerCount: 2
+Layer: 0 1 "Arri+AOgA-re"  1
+Layer: 1 1 "Avant"  0
+XUID: [1021 959 1529580503 7339085]
+FSType: 4
+OS2Version: 2
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1399629249
+ModificationTime: 1404123657
+PfmFamily: 81
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 0
+VLineGap: 0
+Panose: 0 0 4 0 0 0 0 0 0 0
+OS2TypoAscent: 1152
+OS2TypoAOffset: 0
+OS2TypoDescent: -384
+OS2TypoDOffset: 0
+OS2TypoLinegap: 0
+OS2WinAscent: 1152
+OS2WinAOffset: 0
+OS2WinDescent: 384
+OS2WinDOffset: 0
+HheadAscent: 1152
+HheadAOffset: 0
+HheadDescent: -384
+HheadDOffset: 0
+OS2SubXSize: 768
+OS2SubYSize: 768
+OS2SubXOff: 0
+OS2SubYOff: -192
+OS2SupXSize: 768
+OS2SupYSize: 768
+OS2SupXOff: 0
+OS2SupYOff: 768
+OS2StrikeYSize: 76
+OS2StrikeYPos: 306
+OS2Vendor: 'FSTR'
+OS2CodePages: 00000001.00000000
+OS2UnicodeRanges: 00000001.00000000.00000000.00000000
+MarkAttachClasses: 1
+DEI: 91125
+ShortTable: maxp 16
+  1
+  0
+  11
+  22
+  5
+  0
+  0
+  2
+  0
+  0
+  0
+  0
+  0
+  0
+  0
+  0
+EndShort
+LangName: 1033 "Copyright (c) 2014 Gr+AOkA-gory +ACIA-groolot+ACIA David" "" "Regular" "vilain" "" "Version 1.0" "" "vilain" "http://vilain.groolot.net" "Gr+AOkA-gory +ACIA-groolot+ACIA David" "vilain" "http://vilain.groolot.net" "http://vilain.groolot.net" "Copyright (c) 2014, Gregory DAVID,,, (<URL|email>),+AAoA-with Reserved Font Name Eurosteal.+AAoACgAA-This Font Software is licensed under the SIL Open Font License, Version 1.1.+AAoA-This license is copied below, and is also available with a FAQ at:+AAoA-http://scripts.sil.org/OFL+AAoACgAK------------------------------------------------------------+AAoA-SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007+AAoA------------------------------------------------------------+AAoACgAA-PREAMBLE+AAoA-The goals of the Open Font License (OFL) are to stimulate worldwide+AAoA-development of collaborative font projects, to support the font creation+AAoA-efforts of academic and linguistic communities, and to provide a free and+AAoA-open framework in which fonts may be shared and improved in partnership+AAoA-with others.+AAoACgAA-The OFL allows the licensed fonts to be used, studied, modified and+AAoA-redistributed freely as long as they are not sold by themselves. The+AAoA-fonts, including any derivative works, can be bundled, embedded, +AAoA-redistributed and/or sold with any software provided that any reserved+AAoA-names are not used by derivative works. The fonts and derivatives,+AAoA-however, cannot be released under any other type of license. The+AAoA-requirement for fonts to remain under this license does not apply+AAoA-to any document created using the fonts or their derivatives.+AAoACgAA-DEFINITIONS+AAoAIgAA-Font Software+ACIA refers to the set of files released by the Copyright+AAoA-Holder(s) under this license and clearly marked as such. This may+AAoA-include source files, build scripts and documentation.+AAoACgAi-Reserved Font Name+ACIA refers to any names specified as such after the+AAoA-copyright statement(s).+AAoACgAi-Original Version+ACIA refers to the collection of Font Software components as+AAoA-distributed by the Copyright Holder(s).+AAoACgAi-Modified Version+ACIA refers to any derivative made by adding to, deleting,+AAoA-or substituting -- in part or in whole -- any of the components of the+AAoA-Original Version, by changing formats or by porting the Font Software to a+AAoA-new environment.+AAoACgAi-Author+ACIA refers to any designer, engineer, programmer, technical+AAoA-writer or other person who contributed to the Font Software.+AAoACgAA-PERMISSION & CONDITIONS+AAoA-Permission is hereby granted, free of charge, to any person obtaining+AAoA-a copy of the Font Software, to use, study, copy, merge, embed, modify,+AAoA-redistribute, and sell modified and unmodified copies of the Font+AAoA-Software, subject to the following conditions:+AAoACgAA-1) Neither the Font Software nor any of its individual components,+AAoA-in Original or Modified Versions, may be sold by itself.+AAoACgAA-2) Original or Modified Versions of the Font Software may be bundled,+AAoA-redistributed and/or sold with any software, provided that each copy+AAoA-contains the above copyright notice and this license. These can be+AAoA-included either as stand-alone text files, human-readable headers or+AAoA-in the appropriate machine-readable metadata fields within text or+AAoA-binary files as long as those fields can be easily viewed by the user.+AAoACgAA-3) No Modified Version of the Font Software may use the Reserved Font+AAoA-Name(s) unless explicit written permission is granted by the corresponding+AAoA-Copyright Holder. This restriction only applies to the primary font name as+AAoA-presented to the users.+AAoACgAA-4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font+AAoA-Software shall not be used to promote, endorse or advertise any+AAoA-Modified Version, except to acknowledge the contribution(s) of the+AAoA-Copyright Holder(s) and the Author(s) or with their explicit written+AAoA-permission.+AAoACgAA-5) The Font Software, modified or unmodified, in part or in whole,+AAoA-must be distributed entirely under this license, and must not be+AAoA-distributed under any other license. The requirement for fonts to+AAoA-remain under this license does not apply to any document created+AAoA-using the Font Software.+AAoACgAA-TERMINATION+AAoA-This license becomes null and void if any of the above conditions are+AAoA-not met.+AAoACgAA-DISCLAIMER+AAoA-THE FONT SOFTWARE IS PROVIDED +ACIA-AS IS+ACIA, WITHOUT WARRANTY OF ANY KIND,+AAoA-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF+AAoA-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT+AAoA-OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE+AAoA-COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,+AAoA-INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL+AAoA-DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING+AAoA-FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE OR FROM+AAoA-OTHER DEALINGS IN THE FONT SOFTWARE." "http://scripts.sil.org/OFL" "" "" "" "" "vilain" 
+GaspTable: 1 65535 2 0
+Encoding: UnicodeBmp
+UnicodeInterp: none
+NameList: Adobe Glyph List
+DisplaySize: -24
+AntiAlias: 1
+FitToEm: 1
+WinInfo: 0 76 26
+BeginPrivate: 0
+EndPrivate
+Grid
+-4096 729.58 m 0
+ 8192 729.58 l 4
+-4096 1152 m 0
+ 8192 1152 l 0
+EndSplineSet
+BeginChars: 65539 12
+
+StartChar: .notdef
+Encoding: 65536 -1 0
+Width: 1024
+VWidth: 1536
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: glyph1
+Encoding: 65537 -1 1
+Width: 0
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: glyph2
+Encoding: 65538 -1 2
+Width: 1024
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: one
+Encoding: 49 49 3
+Width: 1548
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+1476 1823.75 m 5,0,-1
+ 774 244.25 l 5,1,-1
+ 72 1823.75 l 5,2,-1
+ 212 1823.75 l 5,3,-1
+ 774 570 l 5,4,-1
+ 1333 1823.75 l 5,5,-1
+ 1476 1823.75 l 5,0,-1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: colon
+Encoding: 58 58 4
+Width: 0
+VWidth: 1536
+GlyphClass: 2
+Flags: WO
+LayerCount: 2
+Fore
+SplineSet
+-188 612 m 1,0,-1
+ -262 612 l 1,1,-1
+ -262 503 l 1,2,-1
+ -188 503 l 1,3,-1
+ -188 612 l 1,0,-1
+-188 957 m 1,4,-1
+ -262 957 l 1,5,-1
+ -262 843 l 1,6,-1
+ -188 843 l 1,7,-1
+ -188 957 l 1,4,-1
+-72 612 m 1,8,-1
+ -147 612 l 1,9,-1
+ -147 503 l 1,10,-1
+ -72 503 l 1,11,-1
+ -72 612 l 1,8,-1
+-72 957 m 1,12,-1
+ -147 957 l 1,13,-1
+ -147 843 l 1,14,-1
+ -72 843 l 1,15,-1
+ -72 957 l 1,12,-1
+EndSplineSet
+Validated: 9
+EndChar
+
+StartChar: a
+Encoding: 97 97 5
+Width: 0
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+-1476 0 m 5,0,-1
+ -774 1053 l 5,1,-1
+ -72 0 l 5,2,-1
+ -222 0 l 5,3,-1
+ -774 818 l 5,4,-1
+ -1323 0 l 5,5,-1
+ -1476 0 l 5,0,-1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: i
+Encoding: 105 105 6
+Width: 240
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+72 0 m 1,0,-1
+ 72 768 l 1,1,-1
+ 168 768 l 1,2,-1
+ 168 0 l 1,3,-1
+ 72 0 l 1,0,-1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: l
+Encoding: 108 108 7
+Width: 240
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+72 0 m 1,0,-1
+ 72 1152 l 1,1,-1
+ 168 1152 l 1,2,-1
+ 168 0 l 1,3,-1
+ 72 0 l 1,0,-1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: n
+Encoding: 110 110 8
+Width: 1440
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+1252 423 m 5,0,-1
+ 1178 423 l 5,1,-1
+ 1178 314 l 5,2,-1
+ 1252 314 l 5,3,-1
+ 1252 423 l 5,0,-1
+1252 768 m 5,4,-1
+ 1178 768 l 5,5,-1
+ 1178 654 l 5,6,-1
+ 1252 654 l 5,7,-1
+ 1252 768 l 5,4,-1
+1368 423 m 5,8,-1
+ 1293 423 l 5,9,-1
+ 1293 314 l 5,10,-1
+ 1368 314 l 5,11,-1
+ 1368 423 l 5,8,-1
+1368 768 m 5,12,-1
+ 1293 768 l 5,13,-1
+ 1293 654 l 5,14,-1
+ 1368 654 l 5,15,-1
+ 1368 768 l 5,12,-1
+72 0 m 1,16,-1
+ 72 768 l 1,17,-1
+ 1368 0 l 1,18,-1
+ 1178 0 l 1,19,-1
+ 168 578 l 1,20,-1
+ 168 0 l 1,21,-1
+ 72 0 l 1,16,-1
+EndSplineSet
+Validated: 9
+EndChar
+
+StartChar: v
+Encoding: 118 118 9
+Width: 1368
+VWidth: 1536
+GlyphClass: 2
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+1296 0 m 1,0,-1
+ 0 768 l 1,1,-1
+ 190 768 l 1,2,-1
+ 1200 190 l 1,3,-1
+ 1200 768 l 1,4,-1
+ 1296 768 l 1,5,-1
+ 1296 0 l 1,0,-1
+EndSplineSet
+Validated: 1
+EndChar
+
+StartChar: space
+Encoding: 32 32 10
+Width: 1548
+VWidth: 1536
+Flags: W
+LayerCount: 2
+EndChar
+
+StartChar: two
+Encoding: 50 50 11
+Width: 1548
+VWidth: 1536
+Flags: W
+LayerCount: 2
+Fore
+SplineSet
+1476 1823.75 m 1,0,-1
+ 774 244.25 l 1,1,-1
+ 72 1823.75 l 1,2,-1
+ 212 1823.75 l 1,3,-1
+ 774 570 l 1,4,-1
+ 1333 1823.75 l 1,5,-1
+ 1476 1823.75 l 1,0,-1
+1429.84 1793.75 m 1,6,-1
+ 1352.47 1793.75 l 1,7,-1
+ 774.073 496.494 l 1,8,-1
+ 192.572 1793.75 l 1,9,-1
+ 118.163 1793.75 l 1,10,-1
+ 774 318.116 l 1,11,-1
+ 1429.84 1793.75 l 1,6,-1
+EndSplineSet
+Validated: 1
+EndChar
+EndChars
+EndSplineFont
