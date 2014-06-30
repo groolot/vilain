@@ -54,34 +54,41 @@
 \maketitle{}
 \tableofcontents{}
 
+\newpage
 \section{Text}
 \subsection{Font}
 \subsubsection{In baseline and logotype}
-\paragraph{Name} eurosteal
+\paragraph{Name} vilain
 \paragraph{Provider}
-\url{http://fontstruct.com/fontstructions/show/986192}
-\paragraph{License} The FontStruction “Eurosteal” by Michał “Neoqueto”
-Nowak is licensed under a Creative Commons Attribution Share Alike
-license (\url{http://creativecommons.org/licenses/by-sa/3.0/}).
+\url{http://openfontlibrary.org/en/font/vilain}
+\paragraph{License} The font “vilain” by Grégory ``groolot''
+\bsc{David} is licensed under a SIL Open Font License
+(\url{http://scripts.sil.org/OFL}).
 
 \subsection{Colors}
 \paragraph{Black}
-\subparagraph{CMYK} 35, 35, 35, 100
-
-\subparagraph{Example} \textcolor{black}{This is a simple text in
+\begin{description}
+    \item[CMYK] 35, 35, 35, 100
+    \item[Example] \textcolor{black}{This is a simple text in
   black, \textbf{and this one is bold}}
+\end{description}
 
 \paragraph{Dark purple on logo and text}
-\subparagraph{CMYK} 0, 78, 78, 40
-
-\subparagraph{Example} \textcolor{vilainRed}{This is a simple text in
+\begin{description}
+    \item[CMYK] 0, 78, 78, 40
+    \item[Example] \textcolor{vilainRed}{This is a simple text in
   purple, \textbf{and this one is bold}}
+\end{description}
 
-\subsubsection{In plain text}
-References to the project name have to follow this simples constraints.
-
-\paragraph{Syntax} \texttt{\vilain{}}
-\paragraph{Style} \vilain{} In bold case when possible, else as is.
+\subsubsection{Textual usages}
+When not done with logotype, references to the project's name have to follow this constraints:
+\begin{description}
+    \item[Syntax in plain text] \texttt{\vilain{}}
+    \item[Font] Use a monospace font to print \texttt{\vilain{}} as
+    this.
+    \item[Style] \texttt{\vilain{}} In bold case when possible, else
+    as is.
+\end{description}
 
 \section{Baseline}
 The \tablename{} \vref{tab:Usages} summarizes how to use the
