@@ -135,6 +135,24 @@
       \label{#3}
   \end{table}
 }
+\newcommand{\tableauSizedColored}[7]{%
+% #1 = structure string
+% #2 = caption
+% #3 = label
+% #4 = content
+% #5 = final width
+  \begin{table}
+      \centering
+      \resizebox{#5}{!} {
+        \rowcolors{1}{#6}{#7}
+        \begin{tabular}{#1}
+            #4
+        \end{tabular}
+      }
+      \caption{#2}
+      \label{#3}
+  \end{table}
+}
 
 \newcommand{\vilain}{\textbf{vilain::}}
 \newcommand{\OF}{openFrameworks}

@@ -1,10 +1,11 @@
-\documentclass[a4paper,oneside]{article}
+\documentclass[a4paper,oneside,table]{article}
 
 \usepackage{../vilain}
 \usepackage{pdflscape}
 \usepackage{mathtools}
 \usepackage{amssymb}
 \usepackage{array}
+\usepackage{tikz}
 
 \addbibresource{../vilain.bib}
 \usepackage[%
@@ -23,6 +24,7 @@
 ]{hyperref}
 
 \definecolor{vilainRed}{cmyk}{0,0.78,0.78,0.4}
+\definecolor{vilainGray}{cmyk}{0,0,0,0.4}
 
 \newcommand{\proposition}[4][\textwidth]{%
 % #1 = minipage width
@@ -33,18 +35,17 @@
         \centering
             \begin{minipage}[c]{#1}
                 \centering
-                \includegraphics[height=0.3cm]{#2}
-                \vline{}
                 \includegraphics[height=0.5cm]{#2}
                 \vline{}
                 \includegraphics[height=1cm]{#2}
                 \vline{}
                 \includegraphics[height=2cm]{#2}
-                \caption{#3}
+                \caption{#3 (0.5cm, 1cm and 2cm height)}
                 \label{#4}
             \end{minipage}
     \end{figure}
 }
+\newcommand{\vignette}[2][height=1.5cm]{\includegraphics[#1]{#2}}
 
 \author{Grégory \bsc{David}}
 \title{\vilain{} -- Visual identity}
@@ -67,13 +68,29 @@
 
 \subsection{Colors}
 \paragraph{Black}
+\begin{tikzpicture}[fill=black]
+    \fill (0,0) rectangle +(1,1);
+\end{tikzpicture}
 \begin{description}
     \item[CMYK] 35, 35, 35, 100
     \item[Example] \textcolor{black}{This is a simple text in
   black, \textbf{and this one is bold}}
 \end{description}
 
+\paragraph{Gray}
+\begin{tikzpicture}[fill=vilainGray]
+    \fill (0,0) rectangle +(1,1);
+\end{tikzpicture}
+\begin{description}
+    \item[CMYK] 0, 0, 0, 40
+    \item[Example] \textcolor{vilainGray}{This is a simple text in
+  gray 40\%, \textbf{and this one is bold}}
+\end{description}
+
 \paragraph{Dark purple on logo and text}
+\begin{tikzpicture}[fill=vilainRed]
+    \fill (0,0) rectangle +(1,1);
+\end{tikzpicture}
 \begin{description}
     \item[CMYK] 0, 78, 78, 40
     \item[Example] \textcolor{vilainRed}{This is a simple text in
@@ -90,11 +107,17 @@ When not done with logotype, references to the project's name have to follow thi
     as is.
 \end{description}
 
+\cleardoublepage{}
 \section{Baseline}
 The \tablename{} \vref{tab:Usages} summarizes how to use the
 baselines: colored (see \figurename{} \vref{fig:baselineColor}),
 grayscale (see \figurename{} \vref{fig:baselineGrayscale}) or black \&
 white (see \figurename{} \vref{fig:baselineBlackWhite}) ones.
+
+The baseline cartouche protection spaces are described in
+\figurename{} \vref{fig:baselineCartouche}.
+\image{baseline_protection_cmyk.pdf}{width=8cm}{Baseline's cartouche
+  specification}{fig:baselineCartouche}
 
 \proposition{baseline_color_cmyk.pdf}{Colored
   baseline}{fig:baselineColor}
@@ -110,6 +133,11 @@ logotypes: colored (see \figurename{} \vref{fig:logoColor}),
 grayscale (see \figurename{} \vref{fig:logoGrayscale}) or black \&
 white (see \figurename{} \vref{fig:logoBlackWhite}) ones.
 
+The logotype cartouche protection spaces are described in
+\figurename{} \vref{fig:logoCartouche}.
+\image{logo_protection_cmyk.pdf}{width=6cm}{Logotype's cartouche
+  specification}{fig:logoCartouche}
+
 \proposition{logo_color_cmyk.pdf}{Colored logotype}{fig:logoColor}
 \proposition{logo_grayscale_cmyk.pdf}{Grayscale
   logotype}{fig:logoGrayscale}
@@ -118,22 +146,39 @@ white (see \figurename{} \vref{fig:logoBlackWhite}) ones.
 
 \cleardoublepage{}
 \section{Usages}
-\tableauSized{l*{6}{>{$}c<{$}}}{Baseline and Logotype usages}{tab:Usages}{
-  \firsthline
-  Context & \text{\figurename{} \ref{fig:baselineColor}} & \text{\figurename{} \ref{fig:baselineGrayscale}} & \text{\figurename{} \ref{fig:baselineBlackWhite}} & \text{\figurename{} \ref{fig:logoColor}} & \text{\figurename{} \ref{fig:logoGrayscale}} & \text{\figurename{} \ref{fig:logoBlackWhite}} \\
-  \hline \hline
-  Paper color print & \checkmark \\
-  
-  \lasthline
-}{\textwidth}
+\begin{landscape}
+    \renewcommand{\arraystretch}{1.5}
 
-\cleardoublepage{}
-\section{Forbidens}
-\proposition{baseline_black-and-white_negative_cmyk.pdf}{Negative Black\&White
-  baseline is \textbf{FORBIDEN}}{fig:baselineNegativeBlackWhite}
-\proposition{logo_black-and-white_negative_cmyk.pdf}{Negative Black\&White
-  logotype is \textbf{FORBIDEN}}{fig:logoNegativeBlackWhite}
+    \tableauSizedColored{l*{7}{c}}{Baseline and Logotype usages}{tab:Usages}{
+      \hiderowcolors
+      \textbf{Context} & \textbf{Cartouche} & \vignette{logo_color_cmyk.pdf} & \vignette{logo_grayscale_cmyk.pdf} & \vignette{logo_black-and-white_cmyk.pdf} & \vignette{baseline_color_cmyk.pdf} & \vignette{baseline_grayscale_cmyk.pdf} & \vignette{baseline_black-and-white_cmyk.pdf} \\
+      \hline \hline
+      \showrowcolors
+      Paper color print & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & \\
+      Paper color print header & $\checkmark$ & & & & $\checkmark$ & & \\
+      Paper B\&W print & $\checkmark$ & & $\checkmark$ & & & $\checkmark$ & \\
+      Paper B\&W print header & $\checkmark$ & & $\checkmark$ & & & $\checkmark$ & \\
+      Press & $\checkmark$ & & & & $\checkmark$ & & $\checkmark$ \\
+      Fax & $\checkmark$ & & & $\checkmark$ & & & $\checkmark$ \\
+      Business card & & $\checkmark$ & & & $\checkmark$ & & \\
+      Poster & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & \\
+      Poster B\&W & $\checkmark$ & & $\checkmark$ & & & $\checkmark$ & \\
+      Flyer & $\checkmark$ & $\checkmark$ & & & $\checkmark$ & & \\
+      Envelope & $\checkmark$ & & & & $\checkmark$ & & \\
+      Web site & $\checkmark$ & & & & $\checkmark$ & & \\
+      e-mail signature & $\checkmark$ & & & & $\checkmark$ & & \\
+      Icon & $\checkmark$ & $\checkmark$ & $\checkmark$ & $\checkmark$ & & & \\
+      In multimedia content (except video) & $\checkmark$ & & & & $\checkmark$ & & \\
+      Video watermark & & & & $\checkmark$ & & & $\checkmark$  \\
+      \hline
+      }{23.5cm}{}{black!20}
+\end{landscape}
 
-
+% \cleardoublepage{}
+% \section{Forbidens}
+% \proposition{baseline_black-and-white_negative_cmyk.pdf}{Negative Black\&White
+%   baseline is \textbf{FORBIDEN}}{fig:baselineNegativeBlackWhite}
+% \proposition{logo_black-and-white_negative_cmyk.pdf}{Negative Black\&White
+%   logotype is \textbf{FORBIDEN}}{fig:logoNegativeBlackWhite}
 
 \end{document}
