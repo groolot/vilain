@@ -6,7 +6,8 @@ before_install:
  - sudo apt-get install -qq g++-4.8
  - sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.8 0
  - ./install_prerequisites -f linux64 -i
- - g++ --version
+ - echo "PROJECT_CXX=g++-4.8" >> config.make
+ - echo "PROJECT_CC=gcc-4.8" >> config.make
 script: make Release
 branches:
   only:
