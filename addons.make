@@ -2,3 +2,4 @@ ofxOsc
 ofxXmlSettings
 ofxFenster
 ofxUI
+ofxImageSequence
