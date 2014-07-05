@@ -3,6 +3,7 @@
 tput bold; echo -e "\n\tINFORMATION: your user must have 'sudo' power to install some requirements!\n\n"; tput sgr0
 
 OF_DIRNAME=openframeworks
+TRAVIS_CI="no"
 
 function usage {
     echo "Usage: $0 -f <linux|linux32|linux64|armRPI|armV6|armPANDA|armV7> -a" 1>&2;
@@ -75,7 +76,7 @@ else
 fi
 }
 
-while getopts ":f:d:a" options;
+while getopts "f:ai" options;
 do
     case "${options}" in
         f)
@@ -99,6 +100,9 @@ do
 	a)
 	    get_addons
 	    exit 0
+	    ;;
+	i)
+	    TRAVIS_CI="yes"
 	    ;;
         *)
 	    usage
@@ -221,7 +225,10 @@ function get_openFrameworks {
 
 #---------- Main program ---
 # Verifications
-verify_prerequisites
+if [ ${TRAVIS_CI} = "no" ];
+then
+    verify_prerequisites
+fi
 
 # Compile toolchain
 get_toolchain
