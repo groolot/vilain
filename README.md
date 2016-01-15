@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/groolot/vilain.png?label=ready&title=Ready)](https://waffle.io/groolot/vilain)
 vilain::
 ========
 [![Build Status](https://travis-ci.org/groolot/vilain.svg?branch=master)](https://travis-ci.org/groolot/vilain)
