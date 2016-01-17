@@ -1,0 +1,209 @@
+% WARNING: to compile this file you have to enable the shell escape
+% while invoking the pdflatex compiler: pdflatex --shell-escape
+\documentclass[a4paper,titlepage,oneside]{article}
+
+\usepackage{../../vilain}
+
+\addbibresource{../../vilain.bib}
+\usepackage[%
+	pdftex,%
+	bookmarks=false,%
+	bookmarksopen=false,%
+	bookmarksnumbered=false,%
+	pdfmenubar=true,%
+	pdftoolbar=true,%
+	pdfpagelabels=true,%
+	pdftitle={Keyboard shortcuts},%
+	pdfauthor={Gr\'egory DAVID},%
+	pdfsubject={vilain, keyboard shortcuts},%
+	pdfpagelayout={OneColumn},%
+	pdfstartview=FitH%
+]{hyperref}
+
+\newcommand{\GraphvizIT}[7][scale=1]{
+  \newwrite\dotfile
+  \immediate\openout\dotfile=#4.dot
+  \immediate\write\dotfile{#3 #4 {\string#5}}
+  \immediate\closeout\dotfile
+  \immediate\write18{bash -c "#2 -Tpdf -o#4.pdf #4.dot"}
+  \IfFileExists{#4.pdf}
+  % the pdf exists: include it
+  { \begin{figure}[htbp]
+        %\fbox{
+          %\centering
+          %\begin{minipage}[c]{\linewidth}
+          %    \centering
+              \includegraphics[#1]{#4.pdf}
+              \caption{#6}
+              \label{#7}
+          %\end{minipage}
+        %}
+    \end{figure}
+  }
+  % the pdf was not created - show a hint
+  { \fbox{ \begin{tabular}{l}
+        The file \texttt{#4.pdf} hasn't been created from
+        \texttt{#4.dot} yet. \\
+        We attempted to create it with:\\
+        `\texttt{#2 -Tpdf -o#4.pdf #4.dot}' \\
+        but that seems not to have worked. You need to execute `\texttt{pdflatex}' with \\
+        the `\texttt{-shell-escape}' option. You need graphviz to be compiled with \\
+        the cairo lib.
+      \end{tabular}}
+  }
+}
+
+\newcommand{\digraph}[6][scale=1]{
+    \GraphvizIT[#1]{#2}{digraph}{#3}{#4}{#5}{#6}
+}
+
+\newcommand{\nondigraph}[6][scale=1]{
+    \GraphvizIT[#1]{#2}{graph}{#3}{#4}{#5}{#6}
+}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%        EXAMPLES          %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\digraph[angle=90,height=15cm]{dot}{exo1}{
+%                            graph [label="Chemin critiques : [E, J, B, F] et [E, G, H, A, F]",
+%								rankdir=LR,
+%								splines=True
+%							];
+%							node [shape=record];
+%							A	 [label="A | { 7 | 7 }"];
+%							F	 [label="F | { 10 | 10 }"];
+%							A -> F	 [label=3];
+%							C	 [label="C | { 10 | 11 }"];
+%							Fin	 [label="Fin | { 12 | 12 }"];
+%							C -> Fin	 [label=1];
+%							B	 [label="B | { 8 | 8 }"];
+%							B -> C	 [label=2];
+%							B -> F	 [label=2];
+%							E	 [label="E | { 0 | 0 }"];
+%							D	 [label="D | { 2 | 4 }"];
+%							E -> D	 [label=2];
+%							G	 [label="G | { 2 | 2 }"];
+%							E -> G	 [label=2];
+%							J	 [label="J | { 2 | 2 }"];
+%							E -> J	 [label=2];
+%							I	 [label="I | { 6 | 8 }"];
+%							D -> I	 [label=4];
+%							G -> B	 [label=2];
+%							H	 [label="H | { 4 | 4 }"];
+%							G -> H	 [label=2];
+%							F -> Fin	 [label=2];
+%							I -> C	 [label=3];
+%							H -> A	 [label=3];
+%							J -> B	 [label=6];
+%							Debut	 [label="Debut | { 0 | 0 }"];
+%							Debut -> E	 [label=0];
+%						}{Caption}{Label}
+
+%\digraph[width=16cm]{dot}{schema}{
+%    graph [splines=yes,concentrate=yes,center=yes,fontname=Courier];
+%    edge [fontsize=14,fontname=Courier];
+%    subgraph clusterZYX {
+%        graph [label="Scop ZYX",labelloc=t,labeljust=r,fontsize=20];
+%        node [fontname=Courier,shape=component];
+%        repoNotepad [label="Depot SVN Notepad++"];
+%        repoVSL [label="Depot SVN VirtualStageLight"];
+%    };
+%    subgraph clusterXWVU {
+%        graph [label="SARL XWVU",labelloc=t,labeljust=r,fontsize=20];
+%        node [fontname=Courier,shape=component];
+%        repoKeePass [label="Depot SVN KeePass"];
+%        repoPersoUrsula [label="Depot SVN d'Ursula"];
+%        node [fontname=Courier,image="system-users.png",shape=none,labelloc=b];
+%        Ursula;
+%    };
+%    node [fontname=Courier,image="system-users.png",shape=none,labelloc=b];
+%        Zorra;
+%        Yann;
+%        Xavier;
+%        Winona;
+%        Valerie;
+%    Ursula -> repoPersoUrsula [label="personnel"];
+%    {Winona,Xavier,Ursula,Valerie} -> repoKeePass;
+%    {Yann,Xavier} -> repoVSL;
+%    {Zorra,Yann} -> repoNotepad;
+%}{Caption}{Label}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include image w/wo box around
+% usage:
+%     \image{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%     \imageBoxed{path/to/file.png}{width=13cm}{This is the caption}{fig:ThiIsTheReferenceLabel}
+%
+% after what you can reference the image by:
+%     \ref{fig:ThiIsTheReferenceLabel}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Easily include numbered tabular
+% usage:
+%     \tableau{|l|p{4cm}|c|}{Caption}{tab:Label}{
+%     \hline
+%     A & B & C \\ \hline
+%     etc.
+%     }
+%
+% after what you can reference the tabular by:
+%     \ref{tab:Label}
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\author{Grégory \bsc{David}}
+\title{\vilain{} -- OSC user guide}
+\date{\today{}}
+
+\begin{document}
+\maketitle{}
+\tableofcontents{}
+\newpage
+
+\section{Schematics}
+\figurename{} \vref{fig:ModesSwitchingShortcuts} introduces the global
+user interface shortcuts mechanism.
+
+\digraph[width=16cm]{dot}{OSC_schematics}{
+  graph [splines=polyline,concentrate=yes,center=yes];
+  edge [fontsize=14,fontname="Courier Bold"];
+  subgraph clusterMainInterface {
+    graph [label="Main interface",labelloc=b,labeljust=r,fontsize=16,fontname="Courier Bold"];
+    node [fontname=Courier,shape=component];
+    PerformanceMode [label="Performance Mode"];
+    GeometryMapping [label="Geometry Mapping"];
+    GeometryMouse [shape=record,label="Mouse controls|{Left: none|Middle: move object|Right: move mesh point|Scroll Up: up layer stack position|Scroll down: down layer stack position}"];
+    ControlUI [label="Control UI"];
+    ControlUIMouse [shape=record,label="Mouse controls|{Left: none|Middle: move object|Right: move mesh point|Scroll Up: up layer stack position|Scroll down: down layer stack position}"];
+  };
+  subgraph clusterUVMappingInterface {
+    graph [label="UV Mapping interface",labelloc=b,labeljust=r,fontsize=16,fontname="Courier Bold"];
+    node [fontname=Courier,shape=component];
+    UVMapping [label="UV Mapping"];
+    UVMouse [shape=record,label="Mouse controls|{Left: none|Middle: move mesh UV object|Right: move UV point}"];
+  };
+  node [shape=record,fontname=Courier];
+  {PerformanceMode GeometryMapping ControlUI} -> UVMapping [dir=both,color=red,label="key=u",fontcolor=red];
+  UVMapping -> UVMouse;
+  PerformanceMode -> GeometryMapping [label="key=g",dir=both];
+  GeometryMapping -> GeometryMouse;
+  PerformanceMode -> ControlUI [label="key=spacebar",dir=both];
+  ControlUI -> ControlUIMouse;
+}{\vilain{} modes switching shortcuts}{fig:ModesSwitchingShortcuts}
+
+
+\section{OSC tree}
+
+
+
+\newpage
+% References \newpage
+\printbibheading
+\printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
+\printbibliography[check=online,heading=subbibliography,title={Webography}]
+\nocite{openframeworks,ofxOscRouter}
+\end{document}
