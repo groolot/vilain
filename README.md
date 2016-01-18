@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/groolot/vilain.png?label=ready&title=Ready)](https://waffle.io/groolot/vilain)
 vilain::
 ========
 [![Build Status](https://travis-ci.org/groolot/vilain.svg?branch=master)](https://travis-ci.org/groolot/vilain)
@@ -14,6 +13,10 @@ credits
 =======
 Lead developer:
 - Gregory David
+
+Modeling:
+- Gregory David
+- Jean-Emmanuel Doucet
 
 GUI:
 - François-Xavier Lebret (design)
@@ -32,3 +35,9 @@ Documentation:
 
 Translations:
 - Jean-Emmanuel Doucet (fr)
+
+# UML
+## Pipeline
+![UML State Transition](docs/conception/vilain_UML_state_transition.png)
+## Use case
+![UML Use case](docs/conception/vilain_UML_use_case.png)
