@@ -81,12 +81,16 @@ setup with two independent images (see \figurename{}
     \item Control elements do not have to be drawn on the projector
     side,
     \item Events are managed in the user side window,
-    \item
+    \item Control can be done remotely through OSC.
 \end{itemize}
 
 \section{Possible solutions}
 Due to GLFW usage inside \OF{}, we do have only one solution:
 \texttt{ofxFenster} addon.
+
+Another solution is to use an external application, such as \emph{Open
+  Stage Control} from Jean-Emmanuel \textsc{Doucet}
+\cite{OpenStageControl}.
 
 \section{Implementation}
 \ofxFenster{} is an addon developped by Philip \bsc{Whitfield}: see
@@ -103,6 +107,6 @@ TODO: explain how to :)
 \printbibheading
 \printbibliography[nottype=online,check=notonline,heading=subbibliography,title={Bibliography}]
 \printbibliography[check=online,heading=subbibliography,title={Webography}]
-\nocite{openframeworks,ofxUI,REZAALI,OF_TUTORIALS_ofauckland}
+\nocite{openframeworks,ofxUI,REZAALI,OF_TUTORIALS_ofauckland,ofBook}
 
 \end{document}
