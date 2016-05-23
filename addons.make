@@ -1,5 +1,2 @@
 ofxOsc
-ofxXmlSettings
-ofxFenster
-ofxUI
-ofxImageSequence
+ofxOscRouter
