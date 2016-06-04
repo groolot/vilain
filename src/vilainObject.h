@@ -1,14 +1,19 @@
 #pragma once
+#ifndef VILAINOBJECT_H
+#define VILAINOBJECT_H
 
 #include <ofMain.h>
 #include <ofxOscRouterNode.h>
 #include <ofxAnimatableFloat.h>
 
-namespace vilain{
-  class vilainObject :
+#include "vilain.h"
+
+namespace vilain
+{
+class vilainObject :
     public ofxOscRouterNode
-  {
-  public:
+{
+public:
     vilainObject(string nom, char key);
     virtual ~vilainObject();
     virtual void processOscCommand(const string& command, const ofxOscMessage& m);
@@ -19,52 +24,53 @@ namespace vilain{
 
     void Alpha(float _valAlpha)
     {
-      _alpha.reset(ofClamp(_valAlpha, 0, 1));
+        _alpha.reset(ofClamp(_valAlpha, 0, 1));
     };
     float Alpha()
     {
-      return _alpha.val();
+        return _alpha.val();
     };
 
     bool Drawable()
     {
-      return bDessinable;
+        return bDrawable;
     };
-    void Dessinable(bool _val)
+    void Drawable(bool _val)
     {
-      bDessinable = _val;
+        bDrawable = _val;
     };
 
     void Toggle()
     {
-      bDessinable = !bDessinable;
+        bDrawable = !bDrawable;
     };
 
     void Animable(bool _val)
     {
-      bAnimable = _val;
+        bAnimable = _val;
     };
     bool Animable()
     {
-      return bAnimable;
+        return bAnimable;
     };
 
     const char Key()
     {
-      return _activeKey;
+        return _activeKey;
     };
     void Key(char _key)
     {
-      _activeKey = _key;
+        _activeKey = _key;
     };
 
-  protected:
+protected:
 
-  private:
-    virtual void initializeOscMethodes();
+private:
+    virtual void initializeOscMethods();
     bool bDrawable;
     bool bAnimable;
     char _activeKey;
     ofxAnimatableFloat _alpha;
-  };
 };
+};
+#endif

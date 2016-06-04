@@ -1,8 +1,10 @@
 #include "vilainObject.h"
 
-vilainObject::vilainObject(string nom, char key) :
+using namespace vilain;
+
+vilainObject::vilainObject(std::string nom, char key) :
     ofxOscRouterNode(nom),
-    bDessinable(false),
+    bDrawable(false),
     bAnimable(true),
     _activeKey(key)
 {
@@ -10,14 +12,14 @@ vilainObject::vilainObject(string nom, char key) :
     _alpha.setDuration(1);
     _alpha.setRepeatType(PLAY_ONCE);
     _alpha.setCurve(EASE_IN_EASE_OUT);
-    initialiseOscMethodes();
+    initializeOscMethods();
 }
 
 vilainObject::~vilainObject()
 {
 }
 
-void vilainObject::initialiseOscMethodes()
+void vilainObject::initializeOscMethods()
 {
     addOscMethod("drawable");
     addOscMethod("animable");
@@ -33,7 +35,7 @@ void vilainObject::processOscCommand(const string& command, const ofxOscMessage&
     {
         if(validateOscSignature("([TFif])", m))
         {
-            Dessinable(getArgAsBoolUnchecked(m, 0));
+            Drawable(getArgAsBoolUnchecked(m, 0));
         }
     }
     else if(isMatch(command, "animable"))
@@ -110,7 +112,7 @@ void vilainObject::update(float dt)
 
 void vilainObject::draw()
 {
-    if(Dessinable())
+    if(Drawable())
     {
         ofDrawBitmapString(ofxOscRouterNode::getFirstOscNodeAlias(), ofGetWidth() / 2, ofGetHeight() / 2);
     }

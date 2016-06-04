@@ -1,6 +1,6 @@
 #include "vilainCore.h"
-#include "vilainTools.h"
-#include "vilainMasque.h"
+
+using namespace vilain;
 
 //--------------------------------------------------------------
 /// \brief Callback de construction de l'application
@@ -16,9 +16,9 @@ void vilainCore::setup()
 #ifdef TARGET_OPENGLES
     ofHideCursor();
 #endif // TARGET_OPENGLES
-    /* Récupération et configuration des singleton */
+
     ofBackground(ofColor::black);
-    /* Configuration OSC */
+    /* OSC Configuration */
     oscSend.setup("localhost", 9876);
 }
 
@@ -43,7 +43,7 @@ void vilainCore::draw()
 {
     if(!bBlackOut)
     {
-      // Dessiner
+        // Dessiner
     }
 }
 
@@ -54,7 +54,7 @@ void vilainCore::draw()
 ///
 void vilainCore::exit()
 {
-    ofGetWindowPtr()->windowShouldClose();
+    ofGetWindowPtr()->setWindowShouldClose();
 }
 
 /// \brief Processeur de message OSC
@@ -89,7 +89,7 @@ void vilainCore::processOscCommand(const string& command, const ofxOscMessage& m
     {
         if(validateOscSignature("([i])", m))
         {
-	  // Switch to scene #
+            // Switch to scene #
         }
     }
     else if(isMatch(command, "blackout"))

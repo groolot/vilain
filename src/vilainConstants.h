@@ -1,10 +1,13 @@
-#ifndef VILAINCONSTANTS_H_INCLUDED
-#define VILAINCONSTANTS_H_INCLUDED
+#pragma once
+#ifndef VILAINCONSTANTS_H
+#define VILAINCONSTANTS_H
 
 #ifndef PROG_NAME
 #define PROG_NAME "vilain"
 #endif // PROG_NAME
 
+namespace vilain
+{
 enum vilainObjectType
 {
     VILAIN_OBJECT_TYPE_PLAIN_COLOR = 0,
@@ -17,5 +20,5 @@ enum vilainObjectType
     VILAIN_OBJECT_TYPE_3D_FILE_UV,
     VILAIN_OBJECT_TYPE_MASK = 1024     // Keep it last
 };
-
-#endif // VILAINCONSTANTS_H_INCLUDED
+};
+#endif // VILAINCONSTANTS_H

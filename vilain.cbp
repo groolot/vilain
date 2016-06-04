@@ -79,19 +79,11 @@
 		</Unit>
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/vilain.h" />
-		<Unit filename="src/vilainApp.cpp" />
-		<Unit filename="src/vilainApp.h" />
 		<Unit filename="src/vilainConstants.h" />
-		<Unit filename="src/vilainFlux.cpp" />
-		<Unit filename="src/vilainFlux.h" />
-		<Unit filename="src/vilainImage.cpp" />
-		<Unit filename="src/vilainImage.h" />
-		<Unit filename="src/vilainImageSequence.cpp" />
-		<Unit filename="src/vilainImageSequence.h" />
+		<Unit filename="src/vilainCore.cpp" />
+		<Unit filename="src/vilainCore.h" />
 		<Unit filename="src/vilainObject.cpp" />
 		<Unit filename="src/vilainObject.h" />
-		<Unit filename="src/vilainVideo.cpp" />
-		<Unit filename="src/vilainVideo.h" />
 		<Extensions>
 			<code_completion>
 				<search_path add="/home/groolot/openframeworks/addons/ofx3DModelLoader/src" />
