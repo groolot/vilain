@@ -1,3 +1,1 @@
-ofxAnimatable
 ofxOsc
-ofxOscRouter

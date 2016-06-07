@@ -7,12 +7,12 @@ POTFILE = $(PODIR)/$(PROJECT_NAME).pot
 
 PrePost: Release postbuild
 
-lang: lang-ext lang-push lang-pull lang-conv
+lang: lang-ext lang-conv
 
-prebuild: lang-ext lang-push
+prebuild: lang-ext
 	@tput bold; echo PREBUILD phase DONE; tput sgr0
 
-postbuild: lang-pull lang-conv
+postbuild: lang-conv
 	@tput bold; echo POSTBUILD phase DONE; tput sgr0
 
 $(POTFILE): src/*.cpp src/*.h prebuild.make config.make

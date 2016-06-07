@@ -1,0 +1,8 @@
+[submodule "addons/ofxAnimatable"]
+	path = addons/ofxAnimatable
+	url = git@github.com:groolot/ofxAnimatable.git
+	branch = submodule
+[submodule "addons/ofxOscRouter"]
+	path = addons/ofxOscRouter
+	url = git@github.com:groolot/ofxOscRouter.git
+	branch = submodule
