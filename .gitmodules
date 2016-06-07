@@ -6,3 +6,6 @@
 	path = addons/ofxOscRouter
 	url = git@github.com:groolot/ofxOscRouter.git
 	branch = submodule
+[submodule "addons/ofxOsc"]
+	path = addons/ofxOsc
+	url = git@github.com:groolot/ofxOsc.git

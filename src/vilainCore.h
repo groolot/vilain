@@ -23,7 +23,6 @@ public:
     {
         ofxOscRouterNode::addOscMethod("exit");
         ofxOscRouterNode::addOscMethod("debug");
-        ofxOscRouterNode::addOscMethod("switchToScene");
         ofxOscRouterNode::addOscMethod("blackout");
     };
     void setup();
@@ -31,7 +30,7 @@ public:
     void draw();
     void exit();
 
-    void processOscCommand(const string& command, const ofxOscMessage& m);
+    void processOscCommand(const std::string& command, const ofxOscMessage& m);
 
     void keyPressed(int key);
     void keyReleased(int key);

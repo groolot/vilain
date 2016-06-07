@@ -41,9 +41,21 @@ void vilainCore::update()
 ///
 void vilainCore::draw()
 {
-    if(!bBlackOut)
+    if(bBlackOut)
+    {
+        ofPushStyle();
+        ofSetColor(ofColor::whiteSmoke);
+        ofDrawBitmapString("BLACKOUT", 10, 10);
+        ofPopStyle();
+    }
+    else
     {
         // Dessiner
+    }
+
+    if(bDebug)
+    {
+        ofDrawBitmapString("DEBUG", 100, 100);
     }
 }
 
@@ -54,7 +66,6 @@ void vilainCore::draw()
 ///
 void vilainCore::exit()
 {
-    ofGetWindowPtr()->setWindowShouldClose();
 }
 
 /// \brief Processeur de message OSC
@@ -66,7 +77,7 @@ void vilainCore::exit()
 /// \return void
 ///
 ///
-void vilainCore::processOscCommand(const string& command, const ofxOscMessage& m)
+void vilainCore::processOscCommand(const std::string& command, const ofxOscMessage& m)
 {
     if(isMatch(command, "exit"))
     {
@@ -83,13 +94,6 @@ void vilainCore::processOscCommand(const string& command, const ofxOscMessage& m
         if(validateOscSignature("([TFif])", m))
         {
             bDebug = getArgAsBoolUnchecked(m, 0);
-        }
-    }
-    else if(isMatch(command, "switchToScene"))
-    {
-        if(validateOscSignature("([i])", m))
-        {
-            // Switch to scene #
         }
     }
     else if(isMatch(command, "blackout"))
