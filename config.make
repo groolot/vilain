@@ -5,7 +5,6 @@ PROJECT_VERSION = 0.0.1
 # PROJECT_ROOT = .
 # PROJECT_EXTERNAL_SOURCE_PATHS =
 # PROJECT_EXCLUSIONS =
-PROJECT_EXCLUSIONS = $(PROJECT_ROOT)/addons/ofxOsc/libs/oscpack/src/ip/win32
 PROJECT_EXCLUSIONS += $(PROJECT_ROOT)/addons/ofxOscRouter/example/src
 PROJECT_EXCLUSIONS += $(PROJECT_ROOT)/addons/ofxAnimatable/example
 # PROJECT_LDFLAGS=-Wl,-rpath=./libs

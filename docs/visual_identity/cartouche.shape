@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<shape xmlns="http://www.daa.com.au/~james/dia-shape-ns" xmlns:svg="http://www.w3.org/2000/svg">
+  <name>visual_identity - cartouche</name>
+  <icon>cartouche.png</icon>
+  <connections>
+    <point x="0" y="0"/>
+    <point x="40" y="6"/>
+    <point x="0" y="6"/>
+    <point x="0" y="3"/>
+    <point x="40" y="0"/>
+    <point x="40" y="3"/>
+    <point x="20" y="6"/>
+    <point x="20" y="0"/>
+    <point x="20" y="0"/>
+    <point x="40" y="2"/>
+    <point x="20" y="2"/>
+    <point x="20" y="1"/>
+    <point x="40" y="0"/>
+    <point x="40" y="1"/>
+    <point x="30" y="2"/>
+    <point x="30" y="0"/>
+    <point x="20" y="4"/>
+    <point x="40" y="6"/>
+    <point x="20" y="6"/>
+    <point x="20" y="5"/>
+    <point x="40" y="4"/>
+    <point x="40" y="5"/>
+    <point x="30" y="6"/>
+    <point x="30" y="4"/>
+    <point x="20" y="2"/>
+    <point x="20" y="4"/>
+    <point x="20" y="3"/>
+  </connections>
+  <aspectratio type="fixed"/>
+  <svg:svg>
+    <svg:rect style="fill: #ffffff" x="0" y="0" width="40" height="6"/>
+    <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x="0" y="0" width="40" height="6"/>
+    <svg:image x="3" y="0.5" width="13" height="4.73939" xlink:href="file:///home/groolot/Documents/Developpement/vilain/docs/visual_identity/baseline_color_cmyk.png"/>
+    <svg:rect style="fill: #ffffff" x="20" y="0" width="20" height="2"/>
+    <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x="20" y="0" width="20" height="2"/>
+    <svg:rect style="fill: #ffffff" x="20" y="4" width="20" height="2"/>
+    <svg:rect style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x="20" y="4" width="20" height="2"/>
+    <svg:line style="fill: none; fill-opacity:0; stroke-width: 0.1; stroke: #000000" x1="20" y1="2" x2="20" y2="4"/>
+  </svg:svg>
+</shape>
