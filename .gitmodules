@@ -6,6 +6,3 @@
 	path = addons/ofxOscRouter
 	url = git@framagit.org:groolot/ofxOscRouter.git
 	branch = submodule
-[submodule "addons/ofxOsc"]
-	path = addons/ofxOsc
-	url = git@framagit.org:groolot/ofxOsc.git
