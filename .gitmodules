@@ -1,11 +1,11 @@
 [submodule "addons/ofxAnimatable"]
 	path = addons/ofxAnimatable
-	url = git@github.com:groolot/ofxAnimatable.git
+	url = git@framagit.org:groolot/ofxAnimatable.git
 	branch = submodule
 [submodule "addons/ofxOscRouter"]
 	path = addons/ofxOscRouter
-	url = git@github.com:groolot/ofxOscRouter.git
+	url = git@framagit.org:groolot/ofxOscRouter.git
 	branch = submodule
 [submodule "addons/ofxOsc"]
 	path = addons/ofxOsc
-	url = git@github.com:groolot/ofxOsc.git
+	url = git@framagit.org:groolot/ofxOsc.git
