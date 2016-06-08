@@ -66,6 +66,7 @@ void vilainCore::draw()
 ///
 void vilainCore::exit()
 {
+    ofLogVerbose(PROG_NAME, "exiting...");
 }
 
 /// \brief Processeur de message OSC
@@ -79,13 +80,15 @@ void vilainCore::exit()
 ///
 void vilainCore::processOscCommand(const std::string& command, const ofxOscMessage& m)
 {
+    ofLogVerbose(PROG_NAME, "Received OSC command /" + command);
+
     if(isMatch(command, "exit"))
     {
         if(validateOscSignature("([TFif])", m))
         {
             if(getArgAsBoolUnchecked(m, 0))
             {
-                exit();
+                ofExit();
             }
         }
     }
